@@ -1,0 +1,480 @@
+<link rel="stylesheet" href="/template/css/print.css" />
+<style>
+  :root {
+    --print-primary: #4a3c78;
+    --print-accent: #f3f2f9;
+    --print-border: #d9d6e5;
+    --print-text: #1f1f1f;
+  }
+
+  body {
+    margin: 0;
+    font-family: 'Sarabun', Arial, sans-serif;
+    background: var(--print-accent);
+    color: var(--print-text);
+  }
+
+  @page {
+    size: A4;
+    margin: 18mm;
+  }
+
+  .print-document {
+    max-width: 210mm;
+    margin: 0 auto;
+    padding: 12mm 0;
+  }
+
+  .print-page {
+    background: #ffffff;
+    padding: 16mm;
+    border: 1px solid var(--print-border);
+    border-radius: 8px;
+    box-shadow: 0 12px 28px rgba(74, 60, 120, 0.08);
+    margin-bottom: 12mm;
+    display: flex;
+    flex-direction: column;
+    gap: 12mm;
+    min-height: calc(297mm - 36mm);
+    box-sizing: border-box;
+    position: relative;
+  }
+
+  .print-page:last-of-type {
+    page-break-after: auto;
+    margin-bottom: 0;
+  }
+
+  .print-page:not(:last-of-type) {
+    page-break-after: always;
+  }
+
+  .print-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1.5rem;
+  }
+
+  .print-brand {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+
+  .print-brand span:first-child {
+    font-size: 1.05rem;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--print-primary);
+    font-weight: 600;
+  }
+
+  .print-brand span:last-child {
+    font-size: 0.82rem;
+    color: #6b6782;
+  }
+
+  .print-title {
+    text-align: right;
+  }
+
+  .print-title h1 {
+    margin: 0;
+    font-size: 1.6rem;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--print-primary);
+  }
+
+  .print-title small {
+    display: block;
+    margin-top: 0.4rem;
+    color: #6b6782;
+  }
+
+  .section-heading {
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    font-size: 0.78rem;
+    color: #6b6782;
+    margin-bottom: 0.35rem;
+    font-weight: 600;
+  }
+
+  .summary-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.75rem;
+  }
+
+  .summary-item {
+    padding: 0.9rem 1rem;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .summary-item strong {
+    font-size: 0.92rem;
+    color: var(--print-text);
+  }
+
+  .summary-item span {
+    font-size: 0.8rem;
+    color: #6b6782;
+  }
+
+  .table-container {
+    border: 1px solid var(--print-border);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.85rem;
+  }
+
+  thead {
+    background: rgba(74, 60, 120, 0.85);
+    color: #ffffff;
+  }
+
+  th,
+  td {
+    padding: 0.7rem 0.9rem;
+    text-align: left;
+  }
+
+  tbody tr:nth-child(even) {
+    background: rgba(243, 242, 249, 0.6);
+  }
+
+  tfoot tr {
+    background: rgba(74, 60, 120, 0.05);
+    font-weight: 600;
+  }
+
+  tfoot td {
+    text-align: right;
+  }
+
+  .notes {
+    border-radius: 8px;
+    padding: 1rem 1.2rem;
+    font-size: 0.85rem;
+    line-height: 1.5;
+  }
+
+  .signature-row {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.5rem;
+    margin-top: auto;
+  }
+
+  .signature-box {
+    border-top: 1px solid var(--print-border);
+    padding-top: 0.6rem;
+    font-size: 0.8rem;
+    color: #6b6782;
+  }
+
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.2rem 0.6rem;
+    border-radius: 999px;
+    font-size: 0.72rem;
+    letter-spacing: 0.04em;
+  }
+
+  .badge.pending {
+    color: #a45c08;
+    background: rgba(255, 193, 7, 0.25);
+  }
+
+  .badge.success {
+    color: #146c43;
+    background: rgba(25, 135, 84, 0.15);
+  }
+
+  @media print {
+    body {
+      background: #ffffff;
+    }
+
+    .print-document {
+      padding: 0;
+    }
+
+    .print-page {
+      margin-bottom: 0;
+      box-shadow: none;
+      border: none;
+      border-radius: 0;
+    }
+
+    .print-page:not(:last-of-type) {
+      page-break-after: always;
+    }
+  }
+</style>
+
+<div class="print-document">
+  <div class="print-page">
+    <header class="print-header">
+      <div class="print-brand">
+        <span>MI2 SYSTEMS</span>
+        <span>Master of Information V2.0</span>
+      </div>
+      <div class="print-title">
+        <h1>Purchase Order</h1>
+        <small>เลขที่ใบสั่งซื้อ : PO-2025-104</small>
+      </div>
+    </header>
+
+    <section>
+      <div class="section-heading">ข้อมูลอ้างอิง</div>
+      <div class="summary-grid">
+        <div class="summary-item">
+          <span>วันที่ออกเอกสาร</span>
+          <strong>25 ต.ค. 2568</strong>
+        </div>
+        <div class="summary-item">
+          <span>อ้างอิงใบเสนอราคา</span>
+          <strong>QT-2025-088</strong>
+        </div>
+        <div class="summary-item">
+          <span>สถานะเอกสาร</span>
+          <strong><span class="badge pending">รอการอนุมัติ</span></strong>
+        </div>
+        <div class="summary-item">
+          <span>ผู้ขาย</span>
+          <strong>Global Tech Supplies Co., Ltd.</strong>
+        </div>
+        <div class="summary-item">
+          <span>เงื่อนไขการชำระเงิน</span>
+          <strong>Net 30 (ครบกำหนด 24 พ.ย. 2568)</strong>
+        </div>
+        <div class="summary-item">
+          <span>ผู้จัดทำ</span>
+          <strong>BAITOEY</strong>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-heading">รายละเอียดสินค้า</div>
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th style="width: 60px;">ลำดับ</th>
+              <th style="width: 120px;">รหัสสินค้า</th>
+              <th>รายละเอียด</th>
+              <th style="width: 80px; text-align: right;">จำนวน</th>
+              <th style="width: 120px; text-align: right;">ราคาต่อหน่วย</th>
+              <th style="width: 120px; text-align: right;">จำนวนเงิน</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td>IT-PRT-001</td>
+              <td>เครื่องพิมพ์ LaserJet Pro M404dn</td>
+              <td style="text-align: right;">5</td>
+              <td style="text-align: right;">9,850.00</td>
+              <td style="text-align: right;">49,250.00</td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>IT-SCN-014</td>
+              <td>สแกนเนอร์เอกสารความเร็วสูง</td>
+              <td style="text-align: right;">3</td>
+              <td style="text-align: right;">12,400.00</td>
+              <td style="text-align: right;">37,200.00</td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td>IT-ACC-223</td>
+              <td>ตลับหมึกสำรอง รุ่น M404 กล่อง 4 ชิ้น</td>
+              <td style="text-align: right;">8</td>
+              <td style="text-align: right;">2,450.00</td>
+              <td style="text-align: right;">19,600.00</td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr>
+              <td colspan="5">รวมก่อนภาษี</td>
+              <td>106,050.00</td>
+            </tr>
+            <tr>
+              <td colspan="5">ภาษีมูลค่าเพิ่ม 7%</td>
+              <td>7,423.50</td>
+            </tr>
+            <tr>
+              <td colspan="5">ยอดสุทธิ</td>
+              <td>113,473.50</td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-heading">หมายเหตุ</div>
+      <div class="notes">
+        กรุณาจัดส่งสินค้าเข้าคลังสินค้า 2 (ลาดกระบัง) ภายในวันที่ 5 พ.ย. 2568 และแจ้งหมายเลขขนส่งให้กับฝ่ายจัดซื้อเมื่อมีการจัดส่งสินค้าเรียบร้อยแล้ว
+      </div>
+    </section>
+
+    <section class="signature-row">
+      <div class="signature-box">
+        ผู้จัดทำเอกสาร<br />
+        <strong>BAITOEY</strong><br />
+        วันที่ 25 ต.ค. 2568
+      </div>
+      <div class="signature-box">
+        ผู้อนุมัติหลัก<br />
+        <strong>Supachai W.</strong><br />
+        ____________________________
+      </div>
+      <div class="signature-box">
+        ผู้รับรองฝ่ายบัญชี<br />
+        ____________________________<br />
+        ____________________________
+      </div>
+    </section>
+  </div>
+
+  <div class="print-page">
+    <header class="print-header">
+      <div class="print-brand">
+        <span>MI2 SYSTEMS</span>
+        <span>Master of Information V2.0</span>
+      </div>
+      <div class="print-title">
+        <h1>Purchase Order</h1>
+        <small>สำเนาสำหรับผู้ขาย : PO-2025-104</small>
+      </div>
+    </header>
+
+    <section>
+      <div class="section-heading">รายละเอียดการจัดส่ง</div>
+      <div class="summary-grid">
+        <div class="summary-item">
+          <span>สถานที่จัดส่ง</span>
+          <strong>คลังสินค้า 2 (ลาดกระบัง)</strong>
+        </div>
+        <div class="summary-item">
+          <span>วิธีการจัดส่ง</span>
+          <strong>จัดส่งโดยผู้ขาย</strong>
+        </div>
+        <div class="summary-item">
+          <span>กำหนดส่งสินค้า</span>
+          <strong>ภายใน 5 พ.ย. 2568</strong>
+        </div>
+        <div class="summary-item">
+          <span>ผู้ติดต่อฝ่ายจัดซื้อ</span>
+          <strong>Procurement Team (procurement@mi2.co.th)</strong>
+        </div>
+        <div class="summary-item">
+          <span>ผู้รับสินค้า</span>
+          <strong>Jirapat K.</strong>
+        </div>
+        <div class="summary-item">
+          <span>สถานะเอกสาร</span>
+          <strong><span class="badge success">สำหรับผู้ขาย</span></strong>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-heading">สรุปรายการสินค้า</div>
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th style="width: 60px;">ลำดับ</th>
+              <th style="width: 120px;">รหัสสินค้า</th>
+              <th>รายละเอียด</th>
+              <th style="width: 80px; text-align: right;">จำนวน</th>
+              <th style="width: 120px; text-align: right;">ราคาต่อหน่วย</th>
+              <th style="width: 120px; text-align: right;">จำนวนเงิน</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td>IT-PRT-001</td>
+              <td>เครื่องพิมพ์ LaserJet Pro M404dn</td>
+              <td style="text-align: right;">5</td>
+              <td style="text-align: right;">9,850.00</td>
+              <td style="text-align: right;">49,250.00</td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>IT-SCN-014</td>
+              <td>สแกนเนอร์เอกสารความเร็วสูง</td>
+              <td style="text-align: right;">3</td>
+              <td style="text-align: right;">12,400.00</td>
+              <td style="text-align: right;">37,200.00</td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td>IT-ACC-223</td>
+              <td>ตลับหมึกสำรอง รุ่น M404 กล่อง 4 ชิ้น</td>
+              <td style="text-align: right;">8</td>
+              <td style="text-align: right;">2,450.00</td>
+              <td style="text-align: right;">19,600.00</td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr>
+              <td colspan="5">รวมก่อนภาษี</td>
+              <td>106,050.00</td>
+            </tr>
+            <tr>
+              <td colspan="5">ภาษีมูลค่าเพิ่ม 7%</td>
+              <td>7,423.50</td>
+            </tr>
+            <tr>
+              <td colspan="5">ยอดสุทธิ</td>
+              <td>113,473.50</td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-heading">หมายเหตุสำหรับผู้ขาย</div>
+      <div class="notes">
+        โปรดยืนยันกำหนดส่งสินค้าและหมายเลขใบขนส่งกลับมาที่ฝ่ายจัดซื้อทันทีหลังได้รับใบสั่งซื้อฉบับนี้ คำสั่งซื้อจะมีผลสมบูรณ์หลังได้รับเอกสารยืนยันจากบริษัทของท่าน และต้องแนบใบกำกับภาษีต้นฉบับพร้อมหมายเลข PO ทุกครั้งที่มีการออกเอกสาร
+      </div>
+    </section>
+
+    <section class="signature-row">
+      <div class="signature-box">
+        ลงชื่อผู้ขาย<br />
+        ____________________________<br />
+        วันที่ ____________
+      </div>
+      <div class="signature-box">
+        ผู้ประสานงานจัดส่ง<br />
+        ____________________________<br />
+        เบอร์ติดต่อ ____________
+      </div>
+      <div class="signature-box">
+        หมายเหตุภายในบริษัท<br />
+        ____________________________<br />
+        ____________________________
+      </div>
+    </section>
+  </div>
+</div>

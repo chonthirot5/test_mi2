@@ -1,0 +1,669 @@
+<link rel="stylesheet" href="/template/css/template.css" />
+<style>
+  .po-form-page {
+    background: #f7f7fb;
+  }
+
+  .po-scroll-wrapper {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 2.5rem 0 3.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  @media (max-width: 1280px) {
+    .po-scroll-container {
+      overflow-x: auto;
+    }
+
+    .po-scroll-wrapper {
+      min-width: 1080px;
+      padding-inline: 1.5rem;
+    }
+
+    .po-scroll-container::-webkit-scrollbar {
+      height: 8px;
+    }
+
+    .po-scroll-container::-webkit-scrollbar-thumb {
+      background: rgba(120, 104, 169, 0.35);
+      border-radius: 999px;
+    }
+  }
+
+  .po-kicker {
+    text-transform: uppercase;
+    letter-spacing: 0.32em;
+    font-size: 0.72rem;
+    color: rgba(120, 104, 169, 0.75);
+    font-weight: 600;
+  }
+
+  .po-header {
+    display: flex;
+    flex-direction: column;
+    gap: 1.1rem;
+  }
+
+  .po-header-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1.5rem;
+  }
+
+  .po-header-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+
+  .po-header-actions .btn {
+    border-radius: 999px;
+    padding-inline: 1.3rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .po-status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.45rem 0.9rem;
+    border-radius: 999px;
+    background: rgba(255, 193, 7, 0.2);
+    color: #8c5800;
+    font-size: 0.82rem;
+    letter-spacing: 0.05em;
+    font-weight: 600;
+  }
+
+  .po-summary {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1rem;
+  }
+
+  .po-summary-card {
+    background: #ffffff;
+    border-radius: 1rem;
+    border: 1px solid rgba(120, 104, 169, 0.15);
+    padding: 1.25rem 1.4rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    box-shadow: 0 18px 38px rgba(16, 16, 16, 0.05);
+  }
+
+  .po-summary-card label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.09em;
+    color: var(--grey_600_color, #636363);
+    margin: 0;
+  }
+
+  .po-summary-card span {
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--primary_text_color, #101010);
+  }
+
+  .po-section {
+    background: #ffffff;
+    border-radius: 1.25rem;
+    border: 1px solid rgba(120, 104, 169, 0.15);
+    box-shadow: 0 22px 44px rgba(16, 16, 16, 0.06);
+    padding: 1.75rem 1.9rem 1.9rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.4rem;
+  }
+
+  .po-section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1.4rem;
+  }
+
+  .po-section-header h3 {
+    margin: 0;
+    font-size: 1.18rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .po-section-header h3 i {
+    font-size: 1.1rem;
+    color: var(--primary_main_color, #7868a9);
+  }
+
+  .po-section-header p {
+    margin: 0.35rem 0 0;
+    color: var(--grey_600_color, #636363);
+    font-size: 0.9rem;
+  }
+
+  .po-grid {
+    display: grid;
+    gap: 1rem;
+  }
+
+  .po-grid.columns-3 {
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  }
+
+  .po-grid.columns-2 {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  }
+
+  .po-field .form-label span {
+    text-transform: uppercase;
+    font-size: 0.78rem;
+    letter-spacing: 0.06em;
+  }
+
+  .po-field .text-input {
+    border-radius: 0.9rem;
+  }
+
+  .po-field .form-control {
+    border-radius: 0.9rem;
+    padding: 0.7rem 1rem;
+  }
+
+  .po-highlight-input {
+    font-weight: 600;
+    color: var(--primary_main_color, #7868a9);
+    background: rgba(120, 104, 169, 0.1);
+    border-color: rgba(120, 104, 169, 0.25);
+  }
+
+  .po-actions-inline {
+    display: flex;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+  }
+
+  .po-actions-inline .btn {
+    border-radius: 999px;
+    padding-inline: 1.1rem;
+  }
+
+  .po-table {
+    border-radius: 1rem;
+    border: 1px solid rgba(120, 104, 169, 0.12);
+    overflow: hidden;
+  }
+
+  .po-table table {
+    margin: 0;
+  }
+
+  .po-table thead {
+    background: rgba(120, 104, 169, 0.08);
+    text-transform: uppercase;
+    font-size: 0.72rem;
+    letter-spacing: 0.05em;
+    color: var(--grey_600_color, #636363);
+  }
+
+  .po-table tbody tr:nth-child(even) {
+    background: rgba(247, 247, 251, 0.68);
+  }
+
+  .po-table td {
+    vertical-align: middle;
+  }
+
+  .po-table td .form-control {
+    border-radius: 0.75rem;
+    height: 38px;
+  }
+
+  .po-table button.btn-link {
+    color: var(--error_main_color, #db5f5b);
+  }
+
+  .po-totals {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    align-items: flex-end;
+  }
+
+  .po-totals-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 1.5rem;
+    width: clamp(260px, 35%, 360px);
+  }
+
+  .po-totals-row span:first-child {
+    color: var(--grey_600_color, #636363);
+  }
+
+  .po-totals-row.total {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--primary_main_color, #7868a9);
+  }
+
+  .po-note {
+    background: rgba(243, 242, 249, 0.65);
+    border-radius: 1rem;
+    border: 1px dashed rgba(120, 104, 169, 0.35);
+    padding: 1.2rem;
+  }
+
+  .po-note textarea {
+    background: transparent;
+    border: none;
+    resize: vertical;
+    min-height: 120px;
+    font-size: 0.92rem;
+  }
+
+  .po-meta-card {
+    background: rgba(248, 249, 250, 1);
+    border-radius: 1rem;
+    border: 1px solid rgba(120, 104, 169, 0.12);
+    padding: 1.1rem 1.2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+  }
+
+  .po-meta-card small {
+    color: var(--grey_600_color, #636363);
+    font-size: 0.82rem;
+  }
+
+  .po-meta-card .form-control {
+    border-radius: 0.85rem;
+    background: rgba(255, 255, 255, 0.9);
+  }
+
+  @media (max-width: 992px) {
+    .po-section {
+      padding: 1.5rem;
+    }
+
+    .po-header-bar {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .po-totals {
+      align-items: stretch;
+    }
+
+    .po-totals-row {
+      width: 100%;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .po-header-actions,
+    .po-actions-inline {
+      width: 100%;
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    .po-header-actions .btn,
+    .po-actions-inline .btn {
+      width: 100%;
+      justify-content: center;
+    }
+
+    .po-section-header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.8rem;
+    }
+  }
+</style>
+
+<div class="content-body po-form-page">
+  <div class="content po-scroll-container">
+    <div class="po-scroll-wrapper">
+      <header class="po-header">
+        <div>
+          <span class="po-kicker">MI2 Systems</span>
+          <div class="po-header-bar">
+            <div>
+              <h1 class="mb-1">Purchase Order : PO-2025-104</h1>
+              <p class="text-muted mb-2">
+                สร้างโดย <strong>BAITOEY</strong> เมื่อวันที่ 25 ตุลาคม 2568 • โครงการ COLOR_LIMIT
+              </p>
+              <div class="po-status-badge">
+                <i class="fas fa-hourglass-half"></i>
+                รอการอนุมัติ
+              </div>
+            </div>
+            <div class="po-header-actions">
+              <button type="button" class="btn btn-sm btn-outline-secondary">
+                <i class="fas fa-rotate-right"></i>
+                Reset
+              </button>
+              <button type="button" class="btn btn-sm btn-outline-primary">
+                <i class="fas fa-download"></i>
+                Export PDF
+              </button>
+              <button type="button" class="btn btn-sm btn-primary">
+                <i class="fas fa-paper-plane"></i>
+                ส่งอนุมัติ
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="po-summary">
+          <div class="po-summary-card">
+            <label>วันที่ออกเอกสาร</label>
+            <span>25 ต.ค. 2568</span>
+          </div>
+          <div class="po-summary-card">
+            <label>กำหนดชำระ</label>
+            <span>24 พ.ย. 2568 (Net 30)</span>
+          </div>
+          <div class="po-summary-card">
+            <label>ยอดสุทธิ</label>
+            <span>113,473.50</span>
+          </div>
+          <div class="po-summary-card">
+            <label>ผู้ขาย</label>
+            <span>Global Tech Supplies</span>
+          </div>
+        </div>
+      </header>
+
+      <section class="po-section">
+        <div>
+          <div class="po-section-header">
+            <div>
+              <h3><i class="fas fa-circle-info"></i>ข้อมูลพื้นฐาน</h3>
+              <p>ใช้เป็นข้อมูลอ้างอิงหลักสำหรับใบสั่งซื้อฉบับนี้</p>
+            </div>
+          </div>
+          <div class="po-grid columns-3">
+            <div class="po-field form-input">
+              <label for="poNumber" class="form-label"><span>เลขที่ใบสั่งซื้อ</span></label>
+              <div class="text-input">
+                <div>
+                  <input type="text" id="poNumber" class="form-control po-highlight-input" value="PO-2025-104" readonly />
+                </div>
+              </div>
+            </div>
+            <div class="po-field form-input">
+              <label for="poDate" class="form-label"><span>วันที่ออกเอกสาร</span></label>
+              <div class="text-input">
+                <div>
+                  <input type="text" id="poDate" class="form-control po-highlight-input" value="25 ต.ค. 2568" readonly />
+                </div>
+              </div>
+            </div>
+            <div class="po-field form-input">
+              <label for="refQuotation" class="form-label"><span>อ้างอิงใบเสนอราคา</span></label>
+              <div class="text-input">
+                <div>
+                  <input type="text" id="refQuotation" class="form-control po-highlight-input" value="QT-2025-088" readonly />
+                </div>
+              </div>
+            </div>
+            <div class="po-field form-input">
+              <label for="paymentTerm" class="form-label"><span>เงื่อนไขการชำระเงิน</span></label>
+              <div class="text-input">
+                <div>
+                  <input type="text" id="paymentTerm" class="form-control" value="Net 30" readonly />
+                </div>
+              </div>
+            </div>
+            <div class="po-field form-input">
+              <label for="dueDate" class="form-label"><span>กำหนดชำระ</span></label>
+              <div class="text-input">
+                <div>
+                  <input type="text" id="dueDate" class="form-control" value="24 พ.ย. 2568" readonly />
+                </div>
+              </div>
+            </div>
+            <div class="po-field form-input">
+              <label for="owner" class="form-label"><span>ผู้ดูแล</span></label>
+              <div class="text-input">
+                <div>
+                  <input type="text" id="owner" class="form-control" value="Procurement Team" readonly />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="po-section">
+        <div class="po-section-header">
+          <div>
+            <h3><i class="fas fa-people-carry"></i>ข้อมูลผู้ขาย & การจัดส่ง</h3>
+            <p>ทบทวนข้อมูลติดต่อและรายละเอียดการนำส่งก่อนยืนยันใบสั่งซื้อ</p>
+          </div>
+        </div>
+        <div class="po-grid columns-3">
+          <div class="po-field form-input">
+            <label for="vendorName" class="form-label"><span>ชื่อผู้ขาย</span></label>
+            <div class="text-input">
+              <div>
+                <input type="text" id="vendorName" class="form-control" value="Global Tech Supplies Co., Ltd." readonly />
+              </div>
+            </div>
+          </div>
+          <div class="po-field form-input">
+            <label for="vendorEmail" class="form-label"><span>อีเมลผู้ติดต่อ</span></label>
+            <div class="text-input">
+              <div>
+                <input type="email" id="vendorEmail" class="form-control" value="procurement@globaltech.co.th" readonly />
+              </div>
+            </div>
+          </div>
+          <div class="po-field form-input">
+            <label for="vendorTel" class="form-label"><span>เบอร์ติดต่อ</span></label>
+            <div class="text-input">
+              <div>
+                <input type="text" id="vendorTel" class="form-control" value="+66 2055 8899 ต่อ 21" readonly />
+              </div>
+            </div>
+          </div>
+          <div class="po-field form-input">
+            <label for="deliveryMethod" class="form-label"><span>วิธีจัดส่ง</span></label>
+            <div class="text-input">
+              <div>
+                <input type="text" id="deliveryMethod" class="form-control" value="จัดส่งโดยผู้ขาย" readonly />
+              </div>
+            </div>
+          </div>
+          <div class="po-field form-input">
+            <label for="deliveryLocation" class="form-label"><span>สถานที่จัดส่ง</span></label>
+            <div class="text-input">
+              <div>
+                <input type="text" id="deliveryLocation" class="form-control" value="คลังสินค้า 2 (ลาดกระบัง)" readonly />
+              </div>
+            </div>
+          </div>
+          <div class="po-field form-input">
+            <label for="deliveryDue" class="form-label"><span>กำหนดส่งสินค้า</span></label>
+            <div class="text-input">
+              <div>
+                <input type="text" id="deliveryDue" class="form-control" value="ภายใน 5 พ.ย. 2568" readonly />
+              </div>
+            </div>
+          </div>
+          <div class="po-field form-input">
+            <label for="receiver" class="form-label"><span>ผู้รับสินค้า</span></label>
+            <div class="text-input">
+              <div>
+                <input type="text" id="receiver" class="form-control" value="Jirapat K." readonly />
+              </div>
+            </div>
+          </div>
+          <div class="po-field form-input">
+            <label for="supportMail" class="form-label"><span>อีเมลแจ้งเตือน</span></label>
+            <div class="text-input">
+              <div>
+                <input type="email" id="supportMail" class="form-control" value="support@mi2.co.th" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="po-section">
+        <div class="po-section-header">
+          <div>
+            <h3><i class="fas fa-table-list"></i>รายการสินค้า</h3>
+            <p>ปรับจำนวนและราคาต่อหน่วยได้จากตารางด้านล่าง</p>
+          </div>
+          <div class="po-actions-inline">
+            <button type="button" class="btn btn-sm btn-outline-secondary">
+              <i class="fas fa-upload"></i>
+              Import Excel
+            </button>
+            <button type="button" class="btn btn-sm btn-outline-primary">
+              <i class="fas fa-plus"></i>
+              เพิ่มรายการ
+            </button>
+          </div>
+        </div>
+        <div class="po-table table-responsive">
+          <table class="table align-middle mb-0">
+            <thead>
+              <tr>
+                <th style="width: 60px;">#</th>
+                <th style="width: 150px;">รหัสสินค้า</th>
+                <th>รายละเอียด</th>
+                <th class="text-end" style="width: 110px;">จำนวน</th>
+                <th class="text-end" style="width: 140px;">ราคาต่อหน่วย</th>
+                <th class="text-end" style="width: 140px;">รวม</th>
+                <th style="width: 80px;" class="text-center">ลบ</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1</td>
+                <td><input type="text" class="form-control form-control-sm" value="IT-PRT-001" /></td>
+                <td><input type="text" class="form-control form-control-sm" value="เครื่องพิมพ์ LaserJet Pro M404dn" /></td>
+                <td><input type="number" class="form-control form-control-sm text-end" value="5" /></td>
+                <td><input type="text" class="form-control form-control-sm text-end" value="9,850.00" /></td>
+                <td class="text-end fw-semibold">49,250.00</td>
+                <td class="text-center">
+                  <button type="button" class="btn btn-link p-0"><i class="fas fa-trash-alt"></i></button>
+                </td>
+              </tr>
+              <tr>
+                <td>2</td>
+                <td><input type="text" class="form-control form-control-sm" value="IT-SCN-014" /></td>
+                <td><input type="text" class="form-control form-control-sm" value="สแกนเนอร์เอกสารความเร็วสูง" /></td>
+                <td><input type="number" class="form-control form-control-sm text-end" value="3" /></td>
+                <td><input type="text" class="form-control form-control-sm text-end" value="12,400.00" /></td>
+                <td class="text-end fw-semibold">37,200.00</td>
+                <td class="text-center">
+                  <button type="button" class="btn btn-link p-0"><i class="fas fa-trash-alt"></i></button>
+                </td>
+              </tr>
+              <tr>
+                <td>3</td>
+                <td><input type="text" class="form-control form-control-sm" value="IT-ACC-223" /></td>
+                <td><input type="text" class="form-control form-control-sm" value="ตลับหมึกสำรอง รุ่น M404 กล่อง 4 ชิ้น" /></td>
+                <td><input type="number" class="form-control form-control-sm text-end" value="8" /></td>
+                <td><input type="text" class="form-control form-control-sm text-end" value="2,450.00" /></td>
+                <td class="text-end fw-semibold">19,600.00</td>
+                <td class="text-center">
+                  <button type="button" class="btn btn-link p-0"><i class="fas fa-trash-alt"></i></button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="po-totals">
+          <div class="po-totals-row">
+            <span>รวมก่อนภาษี</span>
+            <span class="fw-semibold">106,050.00</span>
+          </div>
+          <div class="po-totals-row">
+            <span>ภาษีมูลค่าเพิ่ม 7%</span>
+            <span class="fw-semibold">7,423.50</span>
+          </div>
+          <div class="po-totals-row total">
+            <span>ยอดสุทธิ</span>
+            <span>113,473.50</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="po-section">
+        <div class="po-section-header">
+          <div>
+            <h3><i class="fas fa-paperclip"></i>หมายเหตุ & เอกสารประกอบ</h3>
+            <p>แนบเงื่อนไขเพิ่มเติมหรือไฟล์อ้างอิงสำหรับผู้ขาย</p>
+          </div>
+        </div>
+        <div class="po-grid columns-2">
+          <div class="po-note">
+            <label for="poNote" class="form-label"><span>หมายเหตุ</span></label>
+            <textarea id="poNote" class="form-control editable-field">กรุณาจัดส่งสินค้าเข้าคลังสินค้า 2 (ลาดกระบัง) ภายในวันที่ 5 พ.ย. 2568 และแจ้งหมายเลขขนส่งให้กับฝ่ายจัดซื้อเมื่อมีการจัดส่งสินค้าเรียบร้อยแล้ว</textarea>
+          </div>
+          <div class="po-meta-card">
+            <strong>ไฟล์แนบ</strong>
+            <button type="button" class="btn btn-outline-secondary btn-sm">
+              <i class="fas fa-file-signature me-1"></i>
+              อัปโหลดใบเสนอราคา (PDF)
+            </button>
+            <button type="button" class="btn btn-outline-secondary btn-sm">
+              <i class="fas fa-file-invoice-dollar me-1"></i>
+              อัปโหลดเงื่อนไขการชำระเงิน
+            </button>
+            <small>รองรับไฟล์ .pdf / .docx / .xlsx ไม่เกิน 10 MB ต่อไฟล์</small>
+          </div>
+        </div>
+      </section>
+
+      <section class="po-section">
+        <div class="po-section-header">
+          <div>
+            <h3><i class="fas fa-user-check"></i>สถานะการอนุมัติ</h3>
+            <p>ตรวจสอบขั้นตอนการลงนามก่อนยืนยันใบสั่งซื้อเข้าสู่ระบบ</p>
+          </div>
+          <div class="po-actions-inline">
+            <button type="button" class="btn btn-sm btn-outline-secondary">
+              <i class="fas fa-clock"></i>
+              ตั้งเตือนการติดตาม
+            </button>
+            <button type="button" class="btn btn-sm btn-primary">
+              <i class="fas fa-envelope"></i>
+              แจ้งเตือนผู้อนุมัติ
+            </button>
+          </div>
+        </div>
+        <div class="po-grid columns-3">
+          <div class="po-meta-card">
+            <strong>ผู้จัดทำ</strong>
+            <input type="text" class="form-control editable-field" value="BAITOEY" readonly />
+            <small>บันทึกเมื่อ 25 ต.ค. 2568 • 09:20 น.</small>
+          </div>
+          <div class="po-meta-card">
+            <strong>ผู้อนุมัติหลัก</strong>
+            <input type="text" class="form-control editable-field" value="Supachai W." />
+            <small>สถานะ: รออนุมัติ • ดูครั้งล่าสุด 25 ต.ค. 2568 • 13:05 น.</small>
+          </div>
+          <div class="po-meta-card">
+            <strong>ฝ่ายบัญชี</strong>
+            <input type="text" class="form-control editable-field" placeholder="ระบุชื่อผู้รับรอง" />
+            <small>เมื่ออนุมัติแล้วกรุณาแนบสำเนาใบแจ้งหนี้ในระบบ</small>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+</div>

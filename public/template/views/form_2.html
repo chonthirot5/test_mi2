@@ -1,0 +1,193 @@
+<link rel="stylesheet" href="/template/css/template.css" />
+<script src="/template/js/form_2.js"></script>
+
+<div class="content-body form">
+  <div class="content medium">
+    <div class="form-top">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb"></ol>
+      </nav>
+      <div class="button-group SAVE_FORM">
+        <button type="button" class="btn btn-sm btn-outline-secondary CANCEL">CANCEL</button>
+        <div class="form-input" id="saveDropdownButton">
+          <div class="btn-group dropdown dropdown-button">
+            <button
+              type="button"
+              class="btn btn-sm btn-success SAVE dropdown-action-button"
+              id="saveForm"
+            >
+              SAVE
+            </button>
+            <button
+              type="button"
+              class="btn btn-sm btn-success dropdown-toggle-split"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              <i class="fa-solid fa-chevron-down"></i>
+            </button>
+            <ul class="dropdown-menu"></ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="main-content-body-container">
+      <div class="main-content-body">
+        <div class="form-input-group">
+          <div class="form-input span-2">
+            <label for="editFirstName" class="form-label"><span>First Name</span></label>
+            <input type="text" class="form-control" id="editFirstName" required />
+          </div>
+          <div class="form-input span-2">
+            <label for="editLastName" class="form-label"><span>Last Name</span></label>
+            <input type="text" class="form-control" id="editLastName" />
+          </div>
+          <div class="form-input">
+            <label for="editEmail" class="form-label"><span>Email</span></label>
+            <input
+              type="email"
+              class="form-control"
+              id="editEmail"
+              placeholder="example@email.com"
+            />
+          </div>
+          <div class="form-input">
+            <label for="editTel" class="form-label">
+              <span>Tel</span>
+              <i
+                class="fa-solid fa-circle-question tooltips-btn"
+                data-bs-toggle="tooltip"
+                data-bs-placement="top"
+                data-bs-custom-class="custom-tooltip"
+                data-bs-title="Tooltip"
+              ></i>
+            </label>
+            <input type="tel" id="telInput" class="form-control" required />
+          </div>
+          <div class="span-2"></div>
+          <div class="form-input">
+            <label for="editDate" class="form-label"><span>Order Date</span></label>
+            <input type="text" class="form-control" id="editDate" placeholder="Order Date" />
+          </div>
+          <div class="form-input">
+            <label class="form-label">
+              <span>Status</span>
+            </label>
+            <select class="form-control select-status" id="editStatusDropdown"></select>
+          </div>
+          <div class="form-input span-2">
+            <label class="form-label">
+              <span>Product Name</span>
+            </label>
+            <select class="form-control select-product-name" id="editProductName"></select>
+          </div>
+          <div class="form-input">
+            <label for="editPrice" class="form-label"><span>Price</span></label>
+            <div class="input-group">
+              <span class="input-group-text">$</span>
+              <input
+                type="text"
+                class="form-control number-input number-input-2"
+                id="editPrice"
+                placeholder="00.00"
+                step="0.1"
+              />
+            </div>
+          </div>
+          <div class="form-input">
+            <label for="editQuantity" class="form-label"><span>Quantity</span></label>
+            <input type="text" class="form-control number-input" id="qty" placeholder="0" />
+          </div>
+          <div class="form-input">
+            <label for="editTotal" class="form-label"><span>Total</span></label>
+            <input type="text" class="form-control" readonly id="editTotal" />
+          </div>
+          <div></div>
+          <div class="form-input">
+            <label for="editMargin" class="form-label"><span>Margin (%)</span></label>
+            <div class="input-group">
+              <span class="input-group-text">$</span>
+              <input
+                type="text"
+                class="form-control number-input number-input-2"
+                id="editMargin"
+                placeholder="00.00"
+                step="0.1"
+              />
+            </div>
+          </div>
+          <div class="form-input">
+            <label for="editProfit" class="form-label"><span>Profit</span></label>
+            <input type="text" class="form-control" readonly id="editProfit" />
+          </div>
+          <div class="span-2"></div>
+          <div class="form-input full-width">
+            <label for="checkbox" class="form-label"><span>Checkbox</span></label>
+            <ul class="input-list">
+              <li class="list-group-item">
+                <input class="form-check-input" type="checkbox" value="" id="firstCheckbox" />
+                <label class="form-check-label" for="firstCheckbox">First checkbox</label>
+              </li>
+              <li class="list-group-item">
+                <input class="form-check-input" type="checkbox" value="" id="secondCheckbox" />
+                <label class="form-check-label" for="secondCheckbox">Second checkbox</label>
+              </li>
+              <li class="list-group-item">
+                <input class="form-check-input" type="checkbox" value="" id="thirdCheckbox" />
+                <label class="form-check-label" for="thirdCheckbox">Third checkbox</label>
+              </li>
+            </ul>
+          </div>
+          <div class="form-input full-width">
+            <label for="radio" class="form-label"><span>Radio</span></label>
+            <ul class="input-list">
+              <li class="list-group-item">
+                <input
+                  class="form-check-input me-1"
+                  type="radio"
+                  name="listGroupRadio"
+                  value=""
+                  id="firstRadio"
+                  checked
+                />
+                <label class="form-check-label" for="firstRadio">First radio</label>
+              </li>
+              <li class="list-group-item">
+                <input
+                  class="form-check-input me-1"
+                  type="radio"
+                  name="listGroupRadio"
+                  value=""
+                  id="secondRadio"
+                />
+                <label class="form-check-label" for="secondRadio">Second radio</label>
+              </li>
+              <li class="list-group-item">
+                <input
+                  class="form-check-input me-1"
+                  type="radio"
+                  name="listGroupRadio"
+                  value=""
+                  id="thirdRadio"
+                />
+                <label class="form-check-label" for="thirdRadio">Third radio</label>
+              </li>
+            </ul>
+          </div>
+          <div class="form-input full-width">
+            <label for="textArea" class="form-label"><span>Note</span></label>
+            <div class="text-input">
+              <div>
+                <textarea
+                  id="textArea"
+                  class="form-control editable-field textarea-vertical"
+                ></textarea>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

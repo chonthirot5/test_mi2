@@ -1,0 +1,133 @@
+{
+  "moduleName": "template",
+  "moduleIcon": "fa fa-file",
+  "moduleTitle": "TEMPLATE",
+  "moduleDescription": "Frontend Template",
+  "welcomeMenuId": "1",
+  "menus": [
+    {
+      "menuIcon": "fa fa-house",
+      "menuId": "1",
+      "menuFile": "template",
+      "menuLabel": "Home"
+    },
+    {
+      "menuIcon": "fa fa-circle",
+      "menuId": "2",
+      "menuFile": "button",
+      "menuLabel": "Button"
+    },
+    {
+      "menuIcon": "fa fa-keyboard",
+      "menuId": "3",
+      "menuLabel": "Input",
+      "sections": [
+        {
+          "menuIcon": "fa fa-keyboard",
+          "menuId": "3.1",
+          "menuFile": "input",
+          "menuLabel": "Input"
+        },
+        {
+          "menuIcon": "fa-solid fa-square-caret-down",
+          "menuId": "3.2",
+          "menuFile": "dropdown",
+          "menuLabel": "Input Test"
+        }
+      ]
+    },
+    {
+      "menuIcon": "fa fa-table-list",
+      "menuId": "4",
+      "menuFile": "list",
+      "menuLabel": "ตาราง"
+    },
+    {
+      "menuIcon": "fa fa-list-check",
+      "menuId": "5",
+      "menuLabel": "Form",
+      "sections": [
+        {
+          "menuIcon": "fa fa-list-check",
+          "menuId": "5.1",
+          "menuFile": "form_1",
+          "menuLabel": "Form 1"
+        },
+        {
+          "menuIcon": "fa fa-list-check",
+          "menuId": "5.2",
+          "menuFile": "form_2",
+          "menuLabel": "ฟอร์ม"
+        },
+        {
+          "menuIcon": "fa fa-list-check",
+          "menuId": "5.3",
+          "menuLabel": "blank",
+          "subMenus": [
+            {
+              "menuId": "5.3.1",
+              "menuIcon": "fa fa-circle-info",
+              "menuLabel": "Blank",
+              "menuFile": "blank"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "menuIcon": "fa fa-file-lines",
+      "menuId": "6",
+      "menuLabel": "Report",
+      "sections": [
+        {
+          "menuIcon": "fa fa-file-signature",
+          "menuId": "6.1",
+          "menuFile": "report/document",
+          "menuLabel": "Document"
+        },
+        {
+          "menuIcon": "fa fa-file-invoice",
+          "menuId": "6.2",
+          "menuFile": "report/po",
+          "menuLabel": "PO"
+        },
+        {
+          "menuIcon": "fa fa-box-open",
+          "menuId": "6.3",
+          "menuFile": "report/goods-receipt",
+          "menuLabel": "ใบรับของจากใบสั่งซื้อ"
+        },
+        {
+          "menuIcon": "fa fa-print",
+          "menuId": "6.4",
+          "menuFile": "report/po-print",
+          "menuLabel": "Print"
+        },
+        {
+          "menuIcon": "fa fa-file-pen",
+          "menuId": "6.5",
+          "menuFile": "report/po-form",
+          "menuLabel": "Form Example"
+        }
+      ]
+    }
+  ],
+  "quickLinks": [
+    {
+      "name": "ตัวอย่าง Button",
+      "menuId": "2"
+    },
+    {
+      "name": "ตัวอย่าง Input",
+      "menuId": "3.1"
+    },
+    {
+      "name": "ตัวอย่างหน้า List",
+      "menuId": "4"
+    },
+    {
+      "name": "ตัวอย่างฟอร์ม",
+      "menuId": "5.2"
+    }
+  ]
+}

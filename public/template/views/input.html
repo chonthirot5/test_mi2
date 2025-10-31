@@ -1,0 +1,545 @@
+<link rel="stylesheet" href="/template/css/template.css" />
+<script src="/template/js/input.js"></script>
+
+<div class="content-body input">
+  <div class="main-content-body-container">
+    <div class="main-content-body form FORM">
+      <button type="button" class="btn btn-sm btn-success SAVE" id="saveForm" data-submit>
+        SAVE
+      </button>
+      <span class="status-badge success"> success </span>
+      <span class="status-badge pending"> pending </span>
+      <span class="status-badge error"> error </span>
+      <div class="form-input">
+        <label for="readonly" class="form-label">
+          <span>Readonly</span>
+          <i
+            class="fa-solid fa-circle-question tooltips-btn"
+            data-bs-toggle="tooltip"
+            data-bs-placement="top"
+            data-bs-custom-class="custom-tooltip"
+            data-bs-title="Tooltip"
+          ></i>
+        </label>
+        <input type="text" class="form-control" readonly value="Readonly" id="readonly" />
+      </div>
+      <div class="form-input">
+        <label for="editTextInput" class="form-label">
+          <span>Text Input</span>
+          <i
+            class="fa-solid fa-circle-question tooltips-btn"
+            data-bs-toggle="tooltip"
+            data-bs-placement="top"
+            data-bs-custom-class="custom-tooltip"
+            data-bs-title="Tooltip"
+          ></i>
+        </label>
+        <div class="text-input">
+          <div>
+            <input
+              type="text"
+              class="form-control editable-field"
+              id="editTextInput"
+              placeholder="Text"
+              maxlength="20"
+              required
+            />
+            <span class="clear-input-btn">
+              <i class="fa-regular fa-circle-xmark"></i>
+            </span>
+          </div>
+          <span class="char-counter"></span>
+        </div>
+      </div>
+      <div class="custom-input-group">
+        <div class="form-input">
+          <label for="textArea" class="form-label">
+            <span>Text Area</span>
+            <i
+              class="fa-solid fa-circle-question tooltips-btn"
+              data-bs-toggle="tooltip"
+              data-bs-placement="top"
+              data-bs-custom-class="custom-tooltip"
+              data-bs-title="Tooltip"
+            ></i>
+          </label>
+          <div class="text-input">
+            <div>
+              <textarea
+                id="textArea"
+                class="form-control editable-field textarea-normal"
+                maxlength="50"
+                required
+              ></textarea>
+              <span class="clear-input-btn">
+                <i class="fa-regular fa-circle-xmark"></i>
+              </span>
+            </div>
+            <span class="char-counter"></span>
+          </div>
+        </div>
+        <div class="form-input">
+          <label for="textArea" class="form-label">
+            <span>Text Area Horizontal</span>
+            <i
+              class="fa-solid fa-circle-question tooltips-btn"
+              data-bs-toggle="tooltip"
+              data-bs-placement="top"
+              data-bs-custom-class="custom-tooltip"
+              data-bs-title="Tooltip"
+            ></i
+          ></label>
+          <div class="text-input">
+            <div>
+              <textarea
+                id="textArea"
+                class="form-control editable-field textarea-horizontal"
+                maxlength="50"
+                required
+              ></textarea>
+              <span class="clear-input-btn">
+                <i class="fa-regular fa-circle-xmark"></i>
+              </span>
+            </div>
+            <span class="char-counter"></span>
+          </div>
+        </div>
+        <div class="form-input">
+          <label for="textArea" class="form-label">
+            <span>Text Area Vertical</span>
+            <i
+              class="fa-solid fa-circle-question tooltips-btn"
+              data-bs-toggle="tooltip"
+              data-bs-placement="top"
+              data-bs-custom-class="custom-tooltip"
+              data-bs-title="Tooltip"
+            ></i>
+          </label>
+          <div class="text-input">
+            <div>
+              <textarea
+                id="textArea"
+                class="form-control editable-field textarea-vertical"
+                maxlength="50"
+                required
+              ></textarea>
+              <span class="clear-input-btn">
+                <i class="fa-regular fa-circle-xmark"></i>
+              </span>
+            </div>
+            <span class="char-counter"></span>
+          </div>
+        </div>
+      </div>
+      <div class="custom-input-group">
+        <div class="form-input">
+          <label for="editNumber" class="form-label">
+            <span>Min Number</span>
+            <i
+              class="fa-solid fa-circle-question tooltips-btn"
+              data-bs-toggle="tooltip"
+              data-bs-placement="top"
+              data-bs-custom-class="custom-tooltip"
+              data-bs-title="Tooltip"
+            ></i>
+          </label>
+          <input
+            type="text"
+            class="form-control number-input"
+            data-min="1"
+            placeholder="1"
+            required
+          />
+        </div>
+        <div class="form-input">
+          <label for="editNumber" class="form-label">
+            <span>Integer Number</span>
+            <i
+              class="fa-solid fa-circle-question tooltips-btn"
+              data-bs-toggle="tooltip"
+              data-bs-placement="top"
+              data-bs-custom-class="custom-tooltip"
+              data-bs-title="Tooltip"
+            ></i>
+          </label>
+          <input
+            type="text"
+            class="form-control number-input"
+            id="editNumber"
+            placeholder="0"
+            required
+          />
+        </div>
+        <div class="form-input">
+          <label for="editDecimalNumber" class="form-label">
+            <span>Decimal Number</span>
+            <i
+              class="fa-solid fa-circle-question tooltips-btn"
+              data-bs-toggle="tooltip"
+              data-bs-placement="top"
+              data-bs-custom-class="custom-tooltip"
+              data-bs-title="Tooltip"
+            ></i>
+          </label>
+          <input
+            type="text"
+            class="form-control number-input number-input-2"
+            id="editDecimalNumber"
+            placeholder="0.00"
+            step="0.1"
+            required
+          />
+        </div>
+        <div class="form-input">
+          <label for="editDecimalNumber" class="form-label">
+            <span>Decimal Number .xxx</span>
+            <i
+              class="fa-solid fa-circle-question tooltips-btn"
+              data-bs-toggle="tooltip"
+              data-bs-placement="top"
+              data-bs-custom-class="custom-tooltip"
+              data-bs-title="Tooltip"
+            ></i>
+          </label>
+          <input
+            type="text"
+            class="form-control number-input number-input-3"
+            id="editDecimalNumber"
+            placeholder="0.000"
+            step="0.1"
+            required
+          />
+        </div>
+      </div>
+      <div class="form-input">
+        <label for="editAmount" class="form-label">
+          <span>Amount</span>
+          <i
+            class="fa-solid fa-circle-question tooltips-btn"
+            data-bs-toggle="tooltip"
+            data-bs-placement="top"
+            data-bs-custom-class="custom-tooltip"
+            data-bs-title="Tooltip"
+          >
+          </i>
+        </label>
+        <div class="input-group">
+          <span class="input-group-text">฿</span>
+          <input
+            type="text"
+            class="form-control number-input number-input-2"
+            id="editAmount"
+            placeholder="00.00"
+            step="0.1"
+            required
+          />
+        </div>
+      </div>
+      <div class="form-input">
+        <label for="editEmail" class="form-label">
+          <span>Email</span>
+          <i
+            class="fa-solid fa-circle-question tooltips-btn"
+            data-bs-toggle="tooltip"
+            data-bs-placement="top"
+            data-bs-custom-class="custom-tooltip"
+            data-bs-title="Tooltip"
+          ></i>
+        </label>
+        <input
+          type="email"
+          class="form-control"
+          id="editEmail"
+          placeholder="example@email.com"
+          required
+        />
+      </div>
+      <div class="form-input">
+        <label for="editTel" class="form-label">
+          <span>Tel</span>
+          <i
+            class="fa-solid fa-circle-question tooltips-btn"
+            data-bs-toggle="tooltip"
+            data-bs-placement="top"
+            data-bs-custom-class="custom-tooltip"
+            data-bs-title="Tooltip"
+          ></i>
+        </label>
+        <input type="tel" id="telInput" class="form-control" required />
+      </div>
+      <div class="custom-input-group">
+        <div class="form-input required">
+          <label for="checkbox" class="form-label">
+            <span>Checkbox</span>
+            <i
+              class="fa-solid fa-circle-question tooltips-btn"
+              data-bs-toggle="tooltip"
+              data-bs-placement="top"
+              data-bs-custom-class="custom-tooltip"
+              data-bs-title="Tooltip"
+            ></i>
+          </label>
+          <ul class="input-list">
+            <li class="list-group-item">
+              <input class="form-check-input" type="checkbox" value="" id="firstCheckbox" />
+              <label class="form-check-label" for="firstCheckbox">First checkbox</label>
+            </li>
+            <li class="list-group-item">
+              <input class="form-check-input" type="checkbox" value="" id="secondCheckbox" />
+              <label class="form-check-label" for="secondCheckbox">Second checkbox</label>
+            </li>
+            <li class="list-group-item">
+              <input class="form-check-input" type="checkbox" value="" id="thirdCheckbox" />
+              <label class="form-check-label" for="thirdCheckbox">Third checkbox</label>
+            </li>
+          </ul>
+        </div>
+        <div class="form-input required">
+          <label for="radio" class="form-label">
+            <span>Radio</span>
+            <i
+              class="fa-solid fa-circle-question tooltips-btn"
+              data-bs-toggle="tooltip"
+              data-bs-placement="top"
+              data-bs-custom-class="custom-tooltip"
+              data-bs-title="Tooltip"
+            ></i>
+          </label>
+          <ul class="input-list">
+            <li class="list-group-item">
+              <input
+                class="form-check-input me-1"
+                type="radio"
+                name="listGroupRadio"
+                value=""
+                id="firstRadio"
+              />
+              <label class="form-check-label" for="firstRadio">First radio</label>
+            </li>
+            <li class="list-group-item">
+              <input
+                class="form-check-input me-1"
+                type="radio"
+                name="listGroupRadio"
+                value=""
+                id="secondRadio"
+              />
+              <label class="form-check-label" for="secondRadio">Second radio</label>
+            </li>
+            <li class="list-group-item">
+              <input
+                class="form-check-input me-1"
+                type="radio"
+                name="listGroupRadio"
+                value=""
+                id="thirdRadio"
+              />
+              <label class="form-check-label" for="thirdRadio">Third radio</label>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="custom-input-group">
+        <div class="form-input required">
+          <label for="editDate" class="form-label">
+            <span>Date 1</span>
+            <i
+              class="fa-solid fa-circle-question tooltips-btn"
+              data-bs-toggle="tooltip"
+              data-bs-placement="top"
+              data-bs-custom-class="custom-tooltip"
+              data-bs-title="Tooltip"
+            ></i>
+          </label>
+          <input type="text" class="form-control edit-date" placeholder="Select date..." />
+        </div>
+        <div class="form-input required">
+          <label for="editDate" class="form-label">
+            <span>Date 2</span>
+            <i
+              class="fa-solid fa-circle-question tooltips-btn"
+              data-bs-toggle="tooltip"
+              data-bs-placement="top"
+              data-bs-custom-class="custom-tooltip"
+              data-bs-title="Tooltip"
+            ></i>
+          </label>
+          <input type="text" class="form-control edit-date" placeholder="Select date..." />
+        </div>
+        <div class="form-input required">
+          <label for="editTime" class="form-label">
+            <span>Time</span>
+            <i
+              class="fa-solid fa-circle-question tooltips-btn"
+              data-bs-toggle="tooltip"
+              data-bs-placement="top"
+              data-bs-custom-class="custom-tooltip"
+              data-bs-title="Tooltip"
+            ></i>
+          </label>
+          <input type="text" class="form-control" id="editTime" placeholder="Select time..." />
+        </div>
+        <div class="form-input required">
+          <label for="editDateTime" class="form-label">
+            <span>Date & Time</span>
+            <i
+              class="fa-solid fa-circle-question tooltips-btn"
+              data-bs-toggle="tooltip"
+              data-bs-placement="top"
+              data-bs-custom-class="custom-tooltip"
+              data-bs-title="Tooltip"
+            ></i>
+          </label>
+          <input
+            type="text"
+            class="form-control"
+            id="editDateTime"
+            placeholder="Select date and time..."
+          />
+        </div>
+        <div class="form-input required">
+          <label for="editDateRange" class="form-label">
+            <span>Date Range</span>
+            <i
+              class="fa-solid fa-circle-question tooltips-btn"
+              data-bs-toggle="tooltip"
+              data-bs-placement="top"
+              data-bs-custom-class="custom-tooltip"
+              data-bs-title="Tooltip"
+            ></i>
+          </label>
+          <input
+            type="text"
+            class="form-control"
+            id="editDateRange"
+            placeholder="Select date range..."
+          />
+        </div>
+      </div>
+      <div class="form-input-group">
+        <div class="form-input">
+          <label class="form-label">
+            <span>Select</span>
+            <i
+              class="fa-solid fa-circle-question tooltips-btn"
+              data-bs-toggle="tooltip"
+              data-bs-placement="top"
+              data-bs-custom-class="custom-tooltip"
+              data-bs-title="Tooltip"
+            ></i>
+          </label>
+          <select class="form-control dropdown-select2" required></select>
+        </div>
+        <div class="form-input">
+          <label class="form-label">
+            <span>Multi select</span>
+            <i
+              class="fa-solid fa-circle-question tooltips-btn"
+              data-bs-toggle="tooltip"
+              data-bs-placement="top"
+              data-bs-custom-class="custom-tooltip"
+              data-bs-title="Tooltip"
+            ></i>
+          </label>
+          <select class="form-control dropdown-select2" multiple required></select>
+        </div>
+        <div class="form-input required">
+          <label for="file" class="form-label">
+            <span>Upload</span>
+            <i
+              class="fa-solid fa-circle-question tooltips-btn"
+              data-bs-toggle="tooltip"
+              data-bs-placement="top"
+              data-bs-custom-class="custom-tooltip"
+              data-bs-title="Tooltip"
+            ></i>
+          </label>
+          <input type="file" class="file-upload" />
+        </div>
+      </div>
+      <div class="custom-input-group">
+        <div class="form-input multi-autocomplete required" id="multiAutocompleteTemplate">
+          <label class="form-label">
+            <span>Multiple Selection Autocomplete</span>
+            <i
+              class="fa-solid fa-circle-question tooltips-btn"
+              data-bs-toggle="tooltip"
+              data-bs-placement="top"
+              data-bs-custom-class="custom-tooltip"
+              data-bs-title="Tooltip"
+            ></i>
+          </label>
+          <div class="dropdown">
+            <input
+              type="text"
+              class="form-control autocomplete-input"
+              autocomplete="off"
+              placeholder="Type to search"
+            />
+            <ul class="dropdown-menu"></ul>
+          </div>
+        </div>
+      </div>
+      <div class="tabs">
+        <ul>
+          <li>Tab1</li>
+          <li>Tab2</li>
+          <li>Tab3</li>
+          <li>Tab4</li>
+          <li>Tab5</li>
+        </ul>
+        <div>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam semper orci in enim
+          aliquet congue. Sed in augue justo. Vestibulum ut justo quis ipsum sodales accumsan non ut
+          enim. Sed pretium magna vel mi congue placerat. Cras quam libero, euismod vel vehicula
+          vel, ornare eu lorem. Morbi eleifend pellentesque tristique. Vivamus massa nunc, maximus
+          mollis commodo a, hendrerit vitae augue. Nam porttitor aliquam massa non convallis. Fusce
+          arcu metus, tincidunt accumsan dapibus volutpat, bibendum ut enim. Cras eget dui iaculis
+          arcu pellentesque lobortis a ut justo. Pellentesque tempus tristique lectus at viverra.
+        </div>
+        <div>
+          Praesent tincidunt facilisis nulla, tristique consectetur nibh semper nec. Aenean ut lacus
+          at purus mattis laoreet sit amet sit amet magna. Nulla eu rhoncus justo, nec ornare odio.
+          Vivamus eleifend turpis massa, quis sollicitudin enim tincidunt vitae. In eget enim
+          tempus, placerat arcu in, aliquet libero. Mauris egestas ligula efficitur ullamcorper
+          hendrerit. Pellentesque aliquam dolor eu turpis dapibus, ac vehicula lacus eleifend. Donec
+          vehicula turpis facilisis est vulputate, quis rutrum odio finibus. Duis tincidunt ex ac
+          convallis posuere. Phasellus laoreet odio congue justo fringilla ultrices. Integer iaculis
+          nec metus sit amet tincidunt. Aliquam a mauris leo. Vestibulum lobortis aliquam pretium.
+          Vivamus id nunc faucibus mi euismod condimentum. Duis vel arcu massa.
+        </div>
+        <div>
+          Ut in ex in nunc tempor vehicula sit amet vitae mi. Integer at vestibulum odio, eget
+          posuere magna. Sed fringilla odio id lorem interdum scelerisque. Sed porta pulvinar
+          luctus. Curabitur cursus facilisis dignissim. Ut vulputate, augue nec molestie cursus,
+          elit erat fringilla ante, sed commodo nisi felis in dolor. Mauris tincidunt fermentum
+          ante, sed interdum sapien efficitur non. Mauris feugiat mauris est. Etiam quis interdum
+          tortor, in consequat mi. Etiam ullamcorper, mi eget ultrices blandit, dui sem blandit
+          orci, non vehicula massa turpis at elit. Quisque condimentum luctus gravida. Maecenas
+          convallis bibendum quam. Nullam felis magna, vestibulum id quam sed, hendrerit tempus
+          tellus. Maecenas eget tortor ut nibh dictum porta. Donec pretium faucibus fringilla.
+          Integer sodales nisi a turpis dignissim, tincidunt euismod dui lobortis.
+        </div>
+        <div>
+          Aliquam tempor dapibus odio at dapibus. Nam sit amet blandit felis. Nam eu eros purus. In
+          quis lacus auctor, ultricies quam sagittis, tincidunt nisl. Praesent eros purus, euismod
+          ut nisi eu, consectetur facilisis felis. Vivamus tempor lacinia lorem ut pretium. Maecenas
+          ultricies enim sit amet ex convallis aliquet. Vivamus ante ante, euismod quis sapien nec,
+          tincidunt consectetur dolor. Quisque tellus eros, facilisis in lectus quis, porta vehicula
+          quam. Praesent condimentum, augue tincidunt ultrices lacinia, mi erat sodales purus,
+          bibendum iaculis tortor metus non lectus.
+        </div>
+        <div>
+          Nunc mattis nunc nec ipsum porttitor molestie. Vestibulum ante ipsum primis in faucibus
+          orci luctus et ultrices posuere cubilia curae; Donec ultricies massa id lacus efficitur,
+          eget vehicula libero blandit. Nam vestibulum enim at consequat posuere. Vestibulum ante
+          ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Integer leo leo,
+          malesuada at ultrices ut, aliquam eget sem. Vivamus vitae semper lectus, eget pulvinar
+          eros. In sollicitudin finibus euismod. Cras dolor dolor, pharetra et imperdiet quis,
+          egestas id justo. Vestibulum sagittis lectus ac leo facilisis posuere. Sed ac nisi
+          finibus, euismod tortor ut, imperdiet arcu.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

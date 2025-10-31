@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>MI2 FE v.1</title>
+
+    <link href="/core/plugins/bootstrap/bootstrap.min.css" rel="stylesheet" />
+    <script src="/core/plugins/bootstrap/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="/core/plugins/fontawesome/css/all.min.css" />
+
+    <script src="/core/plugins/jquery-3.6.0.min.js"></script>
+    <script src="/core/plugins/socket.io.min.js"></script>
+
+    <script src="/core/plugins/axios.min.js"></script>
+    <script src="/core/plugins/jquery.loading.min.js"></script>
+    <script src="/core/plugins/moment.min.js"></script>
+    <script src="/core/plugins/lodash.min.js"></script>
+    <script src="/core/plugins/cookie.min.js"></script>
+    <script src="/core/plugins/imask.js"></script>
+    <script src="/core/plugins/daterangepicker/daterangepicker.min.js"></script>
+    <link rel="stylesheet" href="/core/plugins/daterangepicker/daterangepicker.css" />
+    <script src="/core/plugins/notify.min.js"></script>
+    <script src="/core/plugins/xlsx.full.min.js"></script>
+    <script src="/core/plugins/xlsx-js-style/xlsx.bundle.js"></script>
+    <script src="/core/plugins/pdfmake/pdfmake.min.js"></script>
+    <script src="/core/plugins/pdfmake/vfs_fonts.js"></script>
+    <script src="/core/plugins/jquery-confirm/jquery-confirm.min.js"></script>
+    <link rel="stylesheet" href="/core/plugins/jquery-confirm/jquery-confirm.min.css" />
+    <script src="/core/plugins/select2/select2.min.js"></script>
+    <link rel="stylesheet" href="/core/plugins/select2/select2.min.css" />
+
+    <link rel="stylesheet" href="/core/plugins/flatpickr/flatpickr.min.css" />
+    <script type="text/javascript" src="/core/plugins/flatpickr/flatpickr.js"></script>
+    <link rel="stylesheet" href="/core/plugins/intlTelInput/intlTelInput.css" />
+    <script type="text/javascript" src="/core/plugins/intlTelInput/intlTelInput.min.js"></script>
+    <script type="text/javascript" src="/core/plugins/intlTelInput/utils.js"></script>
+
+    <link rel="stylesheet" href="/core/plugins/jqwidgets/styles/jqx.base.css" type="text/css" />
+    <script type="text/javascript" src="/core/plugins/jqwidgets/jqxcore.js"></script>
+    <script type="text/javascript" src="/core/plugins/jqwidgets/jqxdata.js"></script>
+    <script type="text/javascript" src="/core/plugins/jqwidgets/jqxbuttons.js"></script>
+    <script type="text/javascript" src="/core/plugins/jqwidgets/jqxscrollbar.js"></script>
+    <script type="text/javascript" src="/core/plugins/jqwidgets/jqxlistbox.js"></script>
+    <script type="text/javascript" src="/core/plugins/jqwidgets/jqxdropdownlist.js"></script>
+    <script type="text/javascript" src="/core/plugins/jqwidgets/jqxmenu.js"></script>
+    <script type="text/javascript" src="/core/plugins/jqwidgets/jqxgrid.js"></script>
+    <script type="text/javascript" src="/core/plugins/jqwidgets/jqxgrid.edit.js"></script>
+    <script type="text/javascript" src="/core/plugins/jqwidgets/jqxgrid.selection.js"></script>
+    <script type="text/javascript" src="/core/plugins/jqwidgets/jqxgrid.aggregates.js"></script>
+    <script type="text/javascript" src="/core/plugins/jqwidgets/jqxgrid.sort.js"></script>
+    <script type="text/javascript" src="/core/plugins/jqwidgets/jqxgrid.columnsresize.js"></script>
+    <script type="text/javascript" src="/core/plugins/jqwidgets/jqxgrid.filter.js"></script>
+    <script type="text/javascript" src="/core/plugins/jqwidgets/jqxcheckbox.js"></script>
+    <script type="text/javascript" src="/core/plugins/jqwidgets/jqxcalendar.js"></script>
+    <script type="text/javascript" src="/core/plugins/jqwidgets/jqxdatetimeinput.js"></script>
+    <script type="text/javascript" src="/core/plugins/jqwidgets/jqxnumberinput.js"></script>
+    <script type="text/javascript" src="/core/plugins/jqwidgets/jqxrating.js"></script>
+    <script type="text/javascript" src="/core/plugins/jqwidgets/jqxgrid.grouping.js"></script>
+    <script type="text/javascript" src="/core/plugins/jqwidgets/jqxnotification.js"></script>
+    <script type="text/javascript" src="/core/plugins/jqwidgets/jqxexpander.js"></script>
+    <script type="text/javascript" src="/core/plugins/jqwidgets/jqxvalidator.js"></script>
+    <script type="text/javascript" src="/core/plugins/jqwidgets/jqxtabs.js"></script>
+    <script type="text/javascript" src="/core/plugins/jqwidgets/jqxcombobox.js"></script>
+    <script
+      type="text/javascript"
+      src="/core/plugins/jqwidgets/globalization/globalize.js"
+    ></script>
+    <script type="text/javascript" src="/core/plugins/jqwidgets/jqxmaskedinput.js"></script>
+    <script type="text/javascript" src="/core/plugins/jqwidgets/jqxinput.js"></script>
+
+    <script type="text/javascript" src="/core/plugins/jquery.validate.js"></script>
+
+    <link rel="stylesheet" href="/core/plugins/sweetalert2/sweetalert2.min.css" type="text/css" />
+    <script type="text/javascript" src="/core/plugins/sweetalert2/sweetalert2.all.min.js"></script>
+
+    <link rel="stylesheet" href="/core/css/index.css" />
+    <link rel="stylesheet" href="/core/css/font.css" />
+
+    <script src="/core/js/index.config.js"></script>
+    <script src="/core/js/index.js"></script>
+
+    <script src="/core/class/Table.js"></script>
+    <script src="/core/class/ConfirmModal.js"></script>
+    <script src="/core/class/FormValidator.js"></script>
+    <script src="/core/class/Axios.js"></script>
+    <script src="/core/class/Notification.js"></script>
+    <script src="/core/class/Input.js"></script>
+    <script src="/core/class/Form.js"></script>
+    <script src="/core/class/Dropdown.js"></script>
+    <script src="/core/class/Upload.js"></script>
+    <script src="/core/class/Alert.js"></script>
+    <script src="/core/class/Tabs.js"></script>
+    <script src="/core/class/DateTimePicker.js"></script>
+
+    <script>
+      const API_CONFIG = {
+        URL: '<%= API_URL %>',
+        PORT: '<%= API_PORT %>',
+      };
+    </script>
+  </head>
+  <body>
+    <nav class="navbar navbar-light bg-light d-none">
+      <div class="navbar-left">
+        <button class="btn btn-light" id="menuToggle">
+          <i class="fa fa-bars"></i>
+        </button>
+        <div class="navbar-brand">
+          <h3 class="main-system-name" id="mainSystemName">MI2</h3>
+          <h3>-</h3>
+          <h3 class="module-name" id="moduleName">Master of Information V2.0</h3>
+        </div>
+      </div>
+
+      <div class="navbar-collapse" id="navbarMenu"></div>
+
+      <div class="navbar-right" id="navbarRight"></div>
+    </nav>
+
+    <div
+      class="modal fade"
+      id="modulesPopup"
+      tabindex="-1"
+      aria-labelledby="modulesTitle"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered modules-popup">
+        <div class="modal-content modules-container">
+          <div class="modal-header">
+            <h3 class="modal-title" id="modulesTitle">เลือกระบบ</h3>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body module-body">
+            <div class="modules-grid" id="moduleGrid"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- <div class="modal fade" id="changePasswordModal" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h3 class="modal-title">เปลี่ยนรหัสผ่าน</h3>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body"></div>
+        </div>
+      </div>
+    </div> -->
+
+    <div class="main-content" id="mainContent">
+      <div class="content-body"></div>
+    </div>
+
+    <div
+      class="modal fade"
+      id="confirmModal"
+      tabindex="-1"
+      aria-labelledby="confirmHeader"
+      aria-describedby="confirmMessage"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content confirm-modal">
+          <div class="modal-header">
+            <h5 class="modal-title" id="confirmHeader"></h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <p class="confirm-message" id="confirmMessage"></p>
+          </div>
+          <div class="modal-footer">
+            <div class="button-group">
+              <button
+                type="button"
+                class="btn btn-sm btn-outline-danger"
+                data-bs-dismiss="modal"
+                id="cancelButtonConfirmModal"
+              >
+                CANCEL
+              </button>
+              <button
+                type="button"
+                class="btn btn-sm btn-success"
+                id="confirmButtonConfirmModal"
+                data-bs-dismiss="modal"
+              >
+                CONFIRM
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal loading" id="loadingModal" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content loading-modal">
+          <div class="spinner"></div>
+          <div class="loading-text">Loading...</div>
+          <div class="timer" id="timer">00</div>
+          <div class="cancel-text">ต้องการยกเลิก Request?</div>
+          <div class="button-group"></div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

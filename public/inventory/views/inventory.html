@@ -1,0 +1,60 @@
+<link rel="stylesheet" href="/inventory/css/inventory.css" />
+<script src="/inventory/js/inventory.js"></script>
+<style>
+  /**inline css**/
+</style>
+<div class="content-body">
+  <h1 class="header">Home of inventory</h1>
+  <div class="button-group SAVE">
+    <button type="button" class="btn btn-sm btn-outline-secondary CANCEL">CANCEL</button>
+    <button type="button" class="btn btn-sm btn-success SAVE">SAVE</button>
+  </div>
+  <div class="button-group APPROVE">
+    <button type="button" class="btn btn-sm btn-outline-danger REJECT">REJECT</button>
+    <button type="button" class="btn btn-sm btn-success APPROVE">APPROVE</button>
+  </div>
+  <div class="button-group ADD">
+    <button type="button" class="btn btn-sm btn-outline-secondary CANCEL">CANCEL</button>
+    <button type="button" class="btn btn-sm btn-success ADD">ADD</button>
+  </div>
+  <div class="button-group APPLY">
+    <button type="button" class="btn btn-sm btn-outline-secondary CLEAR">CLEAR</button>
+    <button type="button" class="btn btn-sm btn-primary APPLY" id="applyBtn">APPLY</button>
+  </div>
+  <div class="button-group DELETE">
+    <button type="button" class="btn btn-sm btn-outline-secondary CANCEL">CANCEL</button>
+    <button type="button" class="btn btn-sm btn-danger DELETE">DELETE</button>
+  </div>
+
+  <div class="form-input DROPDOWN" id="splitButtonDropdownTemplate">
+    <div class="btn-group dropdown dropdown-button">
+      <button type="button" class="btn btn-sm btn-success dropdown-action-button" id="approve-btn">
+        APPROVE
+      </button>
+      <button
+        type="button"
+        class="btn btn-sm btn-success dropdown-toggle-split"
+        data-bs-toggle="dropdown"
+        aria-expanded="false"
+      >
+        <i class="fa-solid fa-chevron-down"></i>
+      </button>
+      <ul class="dropdown-menu"></ul>
+    </div>
+  </div>
+
+  <div class="form-input" id="dropdownButtonTemplate">
+    <div class="dropdown dropdown-button">
+      <button
+        class="btn btn-sm btn-outline-primary btn-text-icon dropdown-button-input"
+        type="button"
+        data-bs-toggle="dropdown"
+        aria-expanded="false"
+      >
+        <i class="fa-solid fa-icons"></i>
+        Select
+      </button>
+      <ul class="dropdown-menu" aria-labelledby="editDropdown"></ul>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>MI2 FE v.1</title>
+
+    <link href="/core/plugins/bootstrap/bootstrap.min.css" rel="stylesheet" />
+    <script src="/core/plugins/bootstrap/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="/core/plugins/fontawesome/css/all.min.css" />
+
+    <script src="/core/plugins/jquery-3.6.0.min.js"></script>
+    <script src="/core/plugins/socket.io.min.js"></script>
+
+    <script src="/core/plugins/axios.min.js"></script>
+    <script src="/core/plugins/cookie.min.js"></script>
+
+    <link rel="stylesheet" href="/core/plugins/jqwidgets/styles/jqx.base.css" type="text/css" />
+    <script type="text/javascript" src="/core/plugins/jqwidgets/jqxcore.js"></script>
+    <script type="text/javascript" src="/core/plugins/jqwidgets/jqxnotification.js"></script>
+
+    <link rel="stylesheet" href="/core/css/index.css" />
+    <link rel="stylesheet" href="/core/css/font.css" />
+
+    <script src="/core/js/index.config.js"></script>
+
+    <script src="/core/class/Axios.js"></script>
+    <script src="/core/class/FormValidator.js"></script>
+    <script src="/core/class/Form.js"></script>
+    <script src="/core/class/Notification.js"></script>
+
+    <script src="/core/js/login.js"></script>
+  </head>
+  <body>
+    <div class="content-body login d-none">
+      <div class="content small">
+        <div class="main-content-body-container">
+          <div class="login-header">
+            <div class="login-logo">
+              <i class="fa-solid fa-lock"></i>
+            </div>
+            <div class="login-header-text">
+              <h2>ยินดีต้อนรับ</h2>
+              <p>กรุณาเข้าสู่ระบบเพื่อใช้งาน MI2</p>
+            </div>
+          </div>
+          <div class="login-form">
+            <div class="form-input">
+              <label for="username" class="form-label">
+                <span>username</span>
+              </label>
+              <div class="text-input">
+                <div>
+                  <input
+                    type="text"
+                    class="form-control editable-field"
+                    id="username"
+                    placeholder="username"
+                    required
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="form-input">
+              <label for="password" class="form-label">
+                <span>password</span>
+              </label>
+              <div class="text-input">
+                <div>
+                  <input
+                    type="password"
+                    class="form-control editable-field"
+                    id="password"
+                    placeholder="password"
+                    required
+                  />
+                </div>
+              </div>
+            </div>
+            <button type="button" id="login" class="btn btn-primary">LOGIN</button>
+          </div>
+          <div class="login-footer">
+            <span>มีปัญหาในการเข้าสู่ระบบ?</span>
+            <span class="btn-link">ติดต่อผู้ดูแลระบบ</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

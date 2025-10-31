@@ -1,0 +1,179 @@
+<link rel="stylesheet" href="/template/css/template.css" />
+<script src="/template/js/button.js"></script>
+
+<div class="content-body button">
+  <div class="main-content-body-container">
+    <div class="main-content-body">
+      <div class="form-check form-switch">
+        <input
+          class="form-check-input"
+          type="checkbox"
+          role="switch"
+          id="flexSwitchCheckChecked"
+          checked
+        />
+        <label class="form-check-label" for="flexSwitchCheckChecked" id="switchCheckLabel"
+          >Active</label
+        >
+      </div>
+
+      <div class="button-group SAVE">
+        <button type="button" class="btn btn-sm btn-outline-secondary CANCEL">CANCEL</button>
+        <button type="button" class="btn btn-sm btn-success SAVE" id="save-btn">SAVE</button>
+      </div>
+      <div class="button-group APPROVE">
+        <button type="button" class="btn btn-sm btn-outline-danger REJECT">REJECT</button>
+        <button type="button" class="btn btn-sm btn-success APPROVE">APPROVE</button>
+      </div>
+      <div class="button-group ADD">
+        <button type="button" class="btn btn-sm btn-outline-secondary CANCEL">CANCEL</button>
+        <button type="button" class="btn btn-sm btn-success ADD">ADD</button>
+      </div>
+      <div class="button-group APPLY">
+        <button type="button" class="btn btn-sm btn-outline-secondary CLEAR">CLEAR</button>
+        <button type="button" class="btn btn-sm btn-primary APPLY" id="applyBtn">APPLY</button>
+      </div>
+      <div class="button-group DELETE">
+        <button type="button" class="btn btn-sm btn-outline-secondary CANCEL">CANCEL</button>
+        <button type="button" class="btn btn-sm btn-danger DELETE">DELETE</button>
+      </div>
+      <div class="button-group CONFIRM">
+        <button type="button" class="btn btn-sm btn-outline-danger CANCEL">CANCEL</button>
+        <button type="button" class="btn btn-sm btn-success CONFIRM" id="confirmBtn">
+          CONFIRM
+        </button>
+      </div>
+      <div class="button-group SAVE_FORM">
+        <button type="button" class="btn btn-sm btn-outline-secondary CANCEL">CANCEL</button>
+        <div class="form-input" id="saveDropdownButton">
+          <div class="btn-group dropdown dropdown-button">
+            <button
+              type="button"
+              class="btn btn-sm btn-success SAVE dropdown-action-button"
+              id="save"
+            >
+              SAVE
+            </button>
+            <button
+              type="button"
+              class="btn btn-sm btn-success dropdown-toggle-split"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              <i class="fa-solid fa-chevron-down"></i>
+            </button>
+            <ul class="dropdown-menu"></ul>
+          </div>
+        </div>
+      </div>
+      <div class="button-group">
+        <button type="button" class="btn btn-sm btn-primary btn-text-icon">
+          <i class="fa-solid fa-icons"></i>
+          Solid Button With Icon
+        </button>
+        <button type="button" class="btn btn-sm btn-outline-primary btn-text-icon">
+          <i class="fa-solid fa-icons"></i>
+          Outline Button With Icon
+        </button>
+      </div>
+      <div class="button-group button-group-icon">
+        <button type="button" class="btn btn-sm btn-icon">
+          <i class="fa-solid fa-icons"></i>
+        </button>
+        <button type="button" class="btn btn-sm btn-icon secondary">
+          <i class="fa-solid fa-icons"></i>
+        </button>
+      </div>
+      <button type="button" class="btn btn-sm btn-link">Link</button>
+      <i
+        class="fa-solid fa-circle-question tooltips-btn"
+        data-bs-toggle="tooltip"
+        data-bs-placement="top"
+        data-bs-custom-class="custom-tooltip"
+        data-bs-title="Tooltip"
+      ></i>
+      <div class="button-group">
+        <div class="form-input" id="dropdownButtonTemplate">
+          <div class="dropdown dropdown-button">
+            <button
+              class="btn btn-sm btn-outline-primary btn-text-icon dropdown-button-input"
+              type="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              <i class="fa-solid fa-icons"></i>
+              Select
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="editDropdown"></ul>
+          </div>
+        </div>
+        <div class="form-input" id="splitButtonDropdownTemplate">
+          <div class="btn-group dropdown dropdown-button">
+            <button
+              type="button"
+              class="btn btn-sm btn-success APPROVE dropdown-action-button"
+              id="approve-btn"
+            >
+              APPROVE
+            </button>
+            <button
+              type="button"
+              class="btn btn-sm btn-success dropdown-toggle-split"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              <i class="fa-solid fa-chevron-down"></i>
+            </button>
+            <ul class="dropdown-menu"></ul>
+          </div>
+        </div>
+        <div class="form-input" id="splitDeleteButton">
+          <div class="btn-group dropdown dropdown-button">
+            <button
+              type="button"
+              class="btn btn-sm btn-danger DELETE dropdown-action-button"
+              id="approve-btn"
+            >
+              DELETE
+            </button>
+            <button
+              type="button"
+              class="btn btn-sm btn-danger dropdown-toggle-split"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              <i class="fa-solid fa-chevron-down"></i>
+            </button>
+            <ul class="dropdown-menu"></ul>
+          </div>
+        </div>
+        <div class="form-input" id="splitPrimaryButton">
+          <div class="btn-group dropdown dropdown-button">
+            <button
+              type="button"
+              class="btn btn-sm btn-primary dropdown-action-button"
+              id="approve-btn"
+            >
+              PRIMARY
+            </button>
+            <button
+              type="button"
+              class="btn btn-sm btn-primary dropdown-toggle-split"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              <i class="fa-solid fa-chevron-down"></i>
+            </button>
+            <ul class="dropdown-menu"></ul>
+          </div>
+        </div>
+      </div>
+      <div class="button-group">
+        <button type="button" class="btn btn-sm btn-success SUCCESS">SUCCESS</button>
+        <button type="button" class="btn btn-sm btn-warning WARNING">WARNING</button>
+        <button type="button" class="btn btn-sm btn-danger ERROR">ERROR</button>
+        <button type="button" class="btn btn-sm btn-primary INFO">INFO</button>
+      </div>
+    </div>
+  </div>
+</div>

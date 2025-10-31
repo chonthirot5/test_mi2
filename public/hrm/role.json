@@ -1,0 +1,13 @@
+{
+    "project": "HRM",
+    "roles": [
+        {
+            "role_name": "ADMIN",
+            "menus": []
+        },
+        {
+            "role_name": "USER1",
+            "menus": []
+        }
+    ]
+}

@@ -1,0 +1,31 @@
+@page {
+  /* page size (require) */
+  size: 7in 3in;
+}
+
+.page {
+  /* page size (require) */
+  width: 7in;
+  height: 3in;
+
+  /* page style */
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+}
+
+/* your print style */
+.title {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.data {
+  font-size: 16px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}

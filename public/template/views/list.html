@@ -1,0 +1,440 @@
+<!-- <link rel="stylesheet" href="/template/css/list.css" /> -->
+<script src="/template/js/list.js"></script>
+
+<div class="content-body list">
+  <div class="content">
+    <div class="list-top">
+      <div class="table-action">
+        <div class="button-group">
+          <div class="form-input table-action-button" id="actionButtonGroup">
+            <div class="btn-group dropdown dropdown-button">
+              <button
+                type="button"
+                class="btn btn-sm btn-success APPROVE_LIST dropdown-action-button disabled"
+                id="approve"
+              >
+                APPROVE
+              </button>
+              <button
+                type="button"
+                class="btn btn-sm btn-success dropdown-toggle-split disabled"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                <i class="fa-solid fa-chevron-down"></i>
+              </button>
+              <ul class="dropdown-menu"></ul>
+            </div>
+          </div>
+          <button
+            type="button"
+            class="btn btn-sm btn-outline-primary btn-text-icon ADD-ROW"
+            id="addRow"
+          >
+            <i class="fa-solid fa-plus"></i>
+            ADD DATA
+          </button>
+          <span class="selected-row"></span>
+        </div>
+
+        <div class="table-filter">
+          <div class="table-search-value"></div>
+
+          <div class="button-group">
+            <div class="search-list-container">
+              <button
+                type="button"
+                class="btn btn-sm btn-outline-primary btn-text-icon"
+                id="searchButton"
+              >
+                <i class="fa-solid fa-magnifying-glass"></i>
+                SEARCH
+              </button>
+              <div class="search-list-expand">
+                <div class="form-input-group">
+                  <div class="form-input span-3">
+                    <label class="form-label"><span>Order Date</span></label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="orderDate"
+                      placeholder="Select order date"
+                    />
+                  </div>
+                  <div class="form-input">
+                    <label class="form-label">
+                      <span>Status</span>
+                    </label>
+                    <select class="form-control select-status" id="statusDropdownSearch"></select>
+                  </div>
+                  <div class="form-input multi-autocomplete full-width" id="searchProductName">
+                    <label class="form-label"><span>Product Name</span></label>
+                    <div class="dropdown">
+                      <input
+                        type="text"
+                        class="form-control autocomplete-input"
+                        autocomplete="off"
+                        placeholder="Type to search"
+                      />
+                      <ul class="dropdown-menu"></ul>
+                    </div>
+                  </div>
+                </div>
+                <hr />
+                <div class="button-group">
+                  <button
+                    type="button"
+                    class="btn btn-sm btn-outline-secondary"
+                    id="clearSearchButton"
+                  >
+                    CLEAR
+                  </button>
+                  <button type="button" class="btn btn-sm btn-primary" id="applySearchButton">
+                    APPLY
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="form-input" id="exportButtonGroup">
+              <div class="dropdown dropdown-button">
+                <button
+                  class="btn btn-sm btn-outline-primary btn-text-icon dropdown-button-input"
+                  type="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  <i class="fa-solid fa-file-export"></i>
+                  EXPORT
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="editDropdown"></ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="table-grid"></div>
+    <div class="pagination-container">
+      <div class="pagination-info">
+        Showing
+        <span id="showingStart">0</span>
+        to
+        <span id="showingEnd">0</span>
+        of
+        <span id="totalRecords">0</span>
+      </div>
+      <div class="form-input">
+        <select class="form-control showRows" id="showRows"></select>
+      </div>
+      <nav aria-label="Table pagination" class="pagination-nav">
+        <ul class="table-pagination pagination"></ul>
+      </nav>
+    </div>
+
+    <div
+      class="modal fade"
+      id="editModal"
+      tabindex="-1"
+      aria-labelledby="editModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div id="editForm" class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="editModalLabel">EDIT DATA</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+
+          <div class="modal-body">
+            <div class="form-input-group FORM">
+              <input type="hidden" id="editRowIndex" />
+
+              <div class="custom-input-group full-width">
+                <div class="form-input">
+                  <label for="editFirstName" class="form-label"><span>First Name</span></label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    data-view
+                    data-hide
+                    readonly
+                    id="editFirstName"
+                  />
+                </div>
+                <div class="form-input">
+                  <label for="editLastName" class="form-label"><span>Last Name</span></label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    data-view
+                    data-hide
+                    readonly
+                    id="editLastName"
+                  />
+                </div>
+              </div>
+              <div class="form-input">
+                <label for="editDate" class="form-label"><span>Order Date</span></label>
+                <input
+                  type="text"
+                  class="form-control date-input"
+                  id="editDate"
+                  placeholder="Order Date"
+                  readonly
+                  data-view
+                />
+              </div>
+              <div class="form-input">
+                <label class="form-label">
+                  <span>Status</span>
+                </label>
+                <select
+                  class="form-control select-status"
+                  data-edit
+                  data-view
+                  id="editStatusDropdown"
+                ></select>
+              </div>
+              <div class="form-input span-2">
+                <label class="form-label">
+                  <span>Product Name</span>
+                </label>
+                <select
+                  class="form-control select-product-name"
+                  id="editProductName"
+                  readonly
+                  data-view
+                ></select>
+              </div>
+              <div class="form-input">
+                <label for="editPrice" class="form-label"><span>Price</span></label>
+                <div class="input-group">
+                  <span class="input-group-text">$</span>
+                  <input
+                    type="text"
+                    class="form-control number-input number-input-2"
+                    id="editPrice"
+                    placeholder="00.00"
+                    step="0.1"
+                    data-view
+                  />
+                </div>
+              </div>
+              <div class="form-input">
+                <label for="editQuantity" class="form-label"><span>Quantity</span></label>
+                <input
+                  type="text"
+                  class="form-control number-input"
+                  id="editQuantity"
+                  placeholder="0"
+                  data-view
+                />
+              </div>
+              <div class="form-input">
+                <label for="editTotal" class="form-label"><span>Total</span></label>
+                <input
+                  type="text"
+                  class="form-control number-input number-input-2"
+                  readonly
+                  id="editTotal"
+                  data-view
+                />
+              </div>
+              <div></div>
+              <div class="form-input">
+                <label for="editMargin" class="form-label"><span>Margin (%)</span></label>
+                <div class="input-group">
+                  <span class="input-group-text">$</span>
+                  <input
+                    type="text"
+                    class="form-control number-input number-input-2"
+                    id="editMargin"
+                    placeholder="00.00"
+                    step="0.1"
+                    data-view
+                  />
+                </div>
+              </div>
+              <div class="form-input">
+                <label for="editProfit" class="form-label"><span>Profit</span></label>
+                <input
+                  type="text"
+                  class="form-control number-input number-input-2"
+                  readonly
+                  id="editProfit"
+                  data-view
+                />
+              </div>
+            </div>
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-sm btn-success SAVE" id="saveEditRow" data-submit>
+              SAVE
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="modal fade"
+      id="addModal"
+      tabindex="-1"
+      aria-labelledby="editModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered modal-lg">
+        <!-- <div id="addForm" class="modal-content small"> -->
+        <!-- <div id="addForm" class="modal-content medium"> -->
+        <div id="addForm" class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="editModalLabel">ADD DATA</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+
+          <div class="modal-body">
+            <div class="form-input-group FORM">
+              <input type="hidden" id="editRowIndex" />
+
+              <div class="form-input full-width">
+                <label for="textArea" class="form-label">
+                  <span>Text Area</span>
+                  <i
+                    class="fa-solid fa-circle-question tooltips-btn"
+                    data-bs-toggle="tooltip"
+                    data-bs-placement="top"
+                    data-bs-custom-class="custom-tooltip"
+                    data-bs-title="Tooltip"
+                  ></i>
+                </label>
+                <div class="text-input">
+                  <div>
+                    <textarea
+                      id="textArea"
+                      class="form-control editable-field textarea-normal"
+                      maxlength="50"
+                      data-view
+                    ></textarea>
+                    <span class="clear-input-btn">
+                      <i class="fa-regular fa-circle-xmark"></i>
+                    </span>
+                  </div>
+                  <span class="char-counter"></span>
+                </div>
+              </div>
+
+              <div class="custom-input-group full-width">
+                <div class="form-input">
+                  <label for="editFirstName" class="form-label"><span>First Name</span></label>
+                  <input type="text" class="form-control" data-view readonly id="editFirstName" />
+                </div>
+                <div class="form-input">
+                  <label for="editLastName" class="form-label"><span>Last Name</span></label>
+                  <input type="text" class="form-control" data-view readonly id="editLastName" />
+                </div>
+              </div>
+              <div class="form-input">
+                <label for="addDate" class="form-label"><span>Order Date</span></label>
+                <input
+                  type="text"
+                  class="form-control date-input"
+                  data-view
+                  placeholder="Order Date"
+                />
+              </div>
+              <div class="form-input" id="addStatusDropdown">
+                <label class="form-label">
+                  <span>Status</span>
+                </label>
+                <select required data-view class="form-control select-status form-control"></select>
+              </div>
+              <div class="form-input span-2" id="addProductName">
+                <label class="form-label">
+                  <span>Product Name</span>
+                </label>
+                <select class="form-control select-product-name form-control" data-view></select>
+              </div>
+              <div class="form-input">
+                <label for="editPrice" class="form-label"><span>Price</span></label>
+                <div class="input-group">
+                  <span class="input-group-text">$</span>
+                  <input
+                    type="text"
+                    class="form-control number-input number-input-2"
+                    id="editPrice"
+                    placeholder="00.00"
+                    step="0.1"
+                    data-view
+                  />
+                </div>
+              </div>
+              <div class="form-input">
+                <label for="editQuantity" class="form-label"><span>Quantity</span></label>
+                <input
+                  type="text"
+                  class="form-control number-input"
+                  id="editQuantity"
+                  placeholder="0"
+                  data-view
+                />
+              </div>
+              <div class="form-input">
+                <label for="editTotal" class="form-label"><span>Total</span></label>
+                <input
+                  type="text"
+                  class="form-control number-input number-input-2"
+                  readonly
+                  id="editTotal"
+                  data-view
+                />
+              </div>
+              <div></div>
+              <div class="form-input">
+                <label for="editMargin" class="form-label"><span>Margin (%)</span></label>
+                <div class="input-group">
+                  <span class="input-group-text">$</span>
+                  <input
+                    type="text"
+                    class="form-control number-input number-input-2"
+                    id="editMargin"
+                    placeholder="00.00"
+                    step="0.1"
+                    data-view
+                  />
+                </div>
+              </div>
+              <div class="form-input">
+                <label for="editProfit" class="form-label"><span>Profit</span></label>
+                <input
+                  type="text"
+                  class="form-control number-input number-input-2"
+                  readonly
+                  id="editProfit"
+                  data-view
+                />
+              </div>
+            </div>
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" id="addRowData" class="btn btn-sm btn-success ADD" data-submit>
+              SAVE
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

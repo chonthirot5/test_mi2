@@ -1,0 +1,54 @@
+{
+  "moduleName": "inventory",
+  "moduleIcon": "fa fa-box-archive",
+  "moduleTitle": "INVENTORY",
+  "moduleDescription": "Inventory Description",
+  "welcomeMenuId": "1",
+  "colors": {
+    "primary": "#537dcf",
+    "secondary": "#2ecc71"
+  },
+  "menus": [
+    {
+      "menuIcon": "fa fa-house",
+      "menuId": "1",
+      "menuFile": "inventory",
+      "menuLabel": "หน้าแรก"
+    },
+    {
+      "menuIcon": "fa fa-circle-info",
+      "menuId": "2",
+      "menuLabel": "Tab 2",
+      "sections": [
+        {
+          "menuIcon": "fa fa-circle-info",
+          "menuId": "2.1",
+          "menuFile": "inventory_tab2_1",
+          "menuLabel": "Tab 2.1"
+        },
+        {
+          "menuIcon": "fa fa-circle-info",
+          "menuId": "2.2",
+          "menuFile": "inventory_tab2_2",
+          "menuLabel": "Tab 2.2"
+        }
+      ]
+    },
+    {
+      "menuIcon": "fa fa-circle-info",
+      "menuId": "3",
+      "menuFile": "inventory_tab3",
+      "menuLabel": "Tab 3"
+    }
+  ],
+  "quickLinks": [
+    {
+      "name": "ใบจอง",
+      "menuId": "2.2"
+    },
+    {
+      "name": "ใบเบิก",
+      "menuId": "3"
+    }
+  ]
+}

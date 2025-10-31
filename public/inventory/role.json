@@ -1,0 +1,66 @@
+{
+    "project": "INVENTORY",
+    "roles": [
+        {
+            "role_name": "ADMIN",
+            "menus": [
+                {
+                    "menu_id": "1",
+                    "buttons": [
+                        "SAVE",
+                        "APPROVE",
+                        "ADD",
+                        "APPLY",
+                        "DELETE",
+                        "REJECT",
+                        "OPTION-1"
+                    ]
+                },
+                {
+                    "menu_id": "2"
+                },
+                {
+                    "menu_id": "2.1"
+                },
+                {
+                    "menu_id": "3",
+                    "buttons": [
+                        "SAVE",
+                        "APPROVE",
+                        "ADD",
+                        "DELETE"
+                    ]
+                }
+            ]
+        },
+        {
+            "role_name": "USER1",
+            "menus": [
+                {
+                    "menu_id": "1",
+                    "buttons": [
+                        "SAVE",
+                        "ADD",
+                        "APPLY",
+                        "DELETE"
+                    ]
+                },
+                {
+                    "menu_id": "2"
+                },
+                {
+                    "menu_id": "2.2"
+                },
+                {
+                    "menu_id": "3",
+                    "buttons": [
+                        "SAVE",
+                        "APPROVE",
+                        "ADD",
+                        "APPLY"
+                    ]
+                }
+            ]
+        }
+    ]
+}

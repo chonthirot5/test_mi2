@@ -1,0 +1,74 @@
+{
+  "moduleName": "hrm",
+  "moduleIcon": "fa fa-user-group",
+  "moduleTitle": "hrm",
+  "moduleDescription": "HRM Description",
+  "welcomeMenuId": "1",
+  "colors": {
+    "primary": "#7868a9",
+    "secondary": "#e84393"
+  },
+  "menus": [
+    {
+      "menuIcon": "fa fa-house",
+      "menuId": "1",
+      "menuFile": "hrm",
+      "menuLabel": "Home"
+    },
+    {
+      "menuIcon": "fa fa-circle-info",
+      "menuId": "2",
+      "menuLabel": "Tab 2",
+      "sections": [
+        {
+          "menuIcon": "fa fa-circle-info",
+          "sectionHeader": "Tab 2.1",
+          "menuId": "2.1",
+          "subMenus": [
+            {
+              "menuId": "2.1.1",
+              "menuLabel": "Tab 2.1.1",
+              "menuFile": "hrm_tab2_1_1"
+            },
+            {
+              "menuIcon": "fa fa-circle-info",
+              "menuId": "2.1.2",
+              "menuFile": "hrm_tab2_1_2",
+              "menuLabel": "Tab 2.1.2"
+            }
+          ]
+        },
+        {
+          "menuId": "2.2",
+          "menuFile": "hrm_tab2_2",
+          "menuLabel": "Tab 2.2"
+        },
+        {
+          "menuIcon": "fa fa-circle-info",
+          "menuId": "2.3",
+          "menuFile": "hrm_tab2_3",
+          "menuLabel": "Tab 2.3"
+        }
+      ]
+    },
+    {
+      "menuIcon": "fa fa-circle-info",
+      "menuId": "3",
+      "menuLabel": "Tab 3",
+      "sections": [
+        {
+          "menuIcon": "fa fa-circle-info",
+          "menuId": "3.1",
+          "menuFile": "hrm_tab3_1",
+          "menuLabel": "Tab 3.1"
+        }
+      ]
+    }
+  ],
+  "quickLinks": [
+    {
+      "name": "ใบลา",
+      "menuId": "2.1.1"
+    }
+  ]
+}

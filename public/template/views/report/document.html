@@ -1,0 +1,224 @@
+<link rel="stylesheet" href="/template/css/template.css" />
+
+<div class="content-body">
+  <div class="content large">
+    <div class="main-content-body-container">
+      <div class="main-content-body">
+        <div class="d-flex flex-column flex-lg-row justify-content-between align-items-lg-center gap-3 mb-4">
+          <div>
+            <h1 class="mb-1">Document Overview</h1>
+            <p class="text-muted mb-0">สรุปเอกสารสำคัญจากทุกโปรเจกต์ในระบบ MI2</p>
+          </div>
+          <div class="button-group d-flex gap-2">
+            <button type="button" class="btn btn-sm btn-outline-secondary">
+              <i class="fas fa-file-export me-2"></i>
+              EXPORT
+            </button>
+            <button type="button" class="btn btn-sm btn-primary">
+              <i class="fas fa-plus me-2"></i>
+              สร้างเอกสาร
+            </button>
+          </div>
+        </div>
+
+        <div class="row g-3 mb-4">
+          <div class="col-md-4">
+            <div class="card border-0 shadow-sm h-100">
+              <div class="card-body">
+                <p class="text-uppercase text-muted fw-semibold mb-1">ทั้งหมด</p>
+                <h3 class="mb-0">128 เอกสาร</h3>
+                <small class="text-success">
+                  <i class="fas fa-arrow-up me-1"></i>
+                  เพิ่มขึ้น 12% ในสัปดาห์นี้
+                </small>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card border-0 shadow-sm h-100">
+              <div class="card-body">
+                <p class="text-uppercase text-muted fw-semibold mb-1">รอตรวจสอบ</p>
+                <h3 class="mb-0">9 รายการ</h3>
+                <small class="text-warning">
+                  <i class="fas fa-clock me-1"></i>
+                  ต้องติดตามภายใน 3 วัน
+                </small>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card border-0 shadow-sm h-100">
+              <div class="card-body">
+                <p class="text-uppercase text-muted fw-semibold mb-1">กำลังจะหมดอายุ</p>
+                <h3 class="mb-0">4 รายการ</h3>
+                <small class="text-danger">
+                  <i class="fas fa-triangle-exclamation me-1"></i>
+                  ถึงกำหนดใน 7 วัน
+                </small>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card border-0 shadow-sm mb-4">
+          <div class="card-header bg-white d-flex justify-content-between align-items-center">
+            <div>
+              <h5 class="mb-0">เอกสารล่าสุด</h5>
+              <small class="text-muted">อัปเดตภายใน 30 วันที่ผ่านมา</small>
+            </div>
+            <div class="btn-group btn-group-sm">
+              <button type="button" class="btn btn-outline-secondary active">ทั้งหมด</button>
+              <button type="button" class="btn btn-outline-secondary">กำลังดำเนินการ</button>
+              <button type="button" class="btn btn-outline-secondary">เสร็จสิ้น</button>
+            </div>
+          </div>
+          <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+              <thead class="table-light">
+                <tr>
+                  <th scope="col">เลขที่เอกสาร</th>
+                  <th scope="col">ชื่อเอกสาร</th>
+                  <th scope="col">โปรเจกต์</th>
+                  <th scope="col">อัปเดตล่าสุด</th>
+                  <th scope="col" class="text-center">สถานะ</th>
+                  <th scope="col" class="text-end">การดำเนินการ</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>DOC-2025-018</td>
+                  <td>สรุปรายงานประจำไตรมาส Q1</td>
+                  <td>COLOR_LIMIT</td>
+                  <td>28 ต.ค. 2568 10:45</td>
+                  <td class="text-center">
+                    <span class="badge bg-success">อนุมัติแล้ว</span>
+                  </td>
+                  <td class="text-end">
+                    <button type="button" class="btn btn-sm btn-outline-primary">
+                      <i class="fas fa-eye"></i>
+                    </button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>DOC-2025-017</td>
+                  <td>แบบฟอร์มคำขอสิทธิ์ผู้ใช้งาน</td>
+                  <td>HRM</td>
+                  <td>27 ต.ค. 2568 16:20</td>
+                  <td class="text-center">
+                    <span class="badge bg-warning text-dark">รออนุมัติ</span>
+                  </td>
+                  <td class="text-end">
+                    <button type="button" class="btn btn-sm btn-outline-primary">
+                      <i class="fas fa-eye"></i>
+                    </button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>DOC-2025-016</td>
+                  <td>ใบเสนอราคาชุดเครื่องมือ</td>
+                  <td>INVENTORY</td>
+                  <td>25 ต.ค. 2568 09:05</td>
+                  <td class="text-center">
+                    <span class="badge bg-primary">กำลังดำเนินการ</span>
+                  </td>
+                  <td class="text-end">
+                    <button type="button" class="btn btn-sm btn-outline-primary">
+                      <i class="fas fa-eye"></i>
+                    </button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>DOC-2025-015</td>
+                  <td>บันทึกประชุมประจำเดือน</td>
+                  <td>TEMPLATE</td>
+                  <td>20 ต.ค. 2568 14:10</td>
+                  <td class="text-center">
+                    <span class="badge bg-secondary">เก็บถาวร</span>
+                  </td>
+                  <td class="text-end">
+                    <button type="button" class="btn btn-sm btn-outline-primary">
+                      <i class="fas fa-eye"></i>
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="row g-3">
+          <div class="col-lg-6">
+            <div class="card border-0 shadow-sm h-100">
+              <div class="card-header bg-white">
+                <h5 class="mb-0">เอกสารที่ต้องติดตาม</h5>
+              </div>
+              <div class="card-body">
+                <div class="list-group list-group-flush">
+                  <div class="list-group-item px-0">
+                    <div class="d-flex justify-content-between align-items-start">
+                      <div>
+                        <h6 class="mb-1">แบบฟอร์มคำสั่งซื้อสินค้า</h6>
+                        <small class="text-muted">กำหนดส่งภายใน 30 ต.ค. 2568</small>
+                      </div>
+                      <span class="badge bg-warning text-dark">รออนุมัติ</span>
+                    </div>
+                  </div>
+                  <div class="list-group-item px-0">
+                    <div class="d-flex justify-content-between align-items-start">
+                      <div>
+                        <h6 class="mb-1">รายงานผลการตรวจสอบอุปกรณ์</h6>
+                        <small class="text-muted">กำหนดส่งภายใน 01 พ.ย. 2568</small>
+                      </div>
+                      <span class="badge bg-primary">กำลังดำเนินการ</span>
+                    </div>
+                  </div>
+                  <div class="list-group-item px-0">
+                    <div class="d-flex justify-content-between align-items-start">
+                      <div>
+                        <h6 class="mb-1">เอกสารลงนามผู้บริหาร</h6>
+                        <small class="text-muted">กำหนดส่งภายใน 02 พ.ย. 2568</small>
+                      </div>
+                      <span class="badge bg-danger">เร่งด่วน</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="card border-0 shadow-sm h-100">
+              <div class="card-header bg-white">
+                <h5 class="mb-0">กิจกรรมล่าสุด</h5>
+              </div>
+              <div class="card-body">
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item px-0 d-flex align-items-center justify-content-between">
+                    <div>
+                      <h6 class="mb-1">BAITOEY อัปโหลด DOC-2025-018</h6>
+                      <small class="text-muted">28 ต.ค. 2568 • 10:45</small>
+                    </div>
+                    <span class="badge bg-success">สำเร็จ</span>
+                  </li>
+                  <li class="list-group-item px-0 d-flex align-items-center justify-content-between">
+                    <div>
+                      <h6 class="mb-1">SOMJAI ส่งกลับเอกสารเพื่อแก้ไข</h6>
+                      <small class="text-muted">27 ต.ค. 2568 • 17:05</small>
+                    </div>
+                    <span class="badge bg-warning text-dark">รอตรวจ</span>
+                  </li>
+                  <li class="list-group-item px-0 d-flex align-items-center justify-content-between">
+                    <div>
+                      <h6 class="mb-1">MANOP เพิ่มบันทึกประกอบ DOC-2025-015</h6>
+                      <small class="text-muted">24 ต.ค. 2568 • 13:20</small>
+                    </div>
+                    <span class="badge bg-secondary">อ้างอิง</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
