@@ -5,7 +5,7 @@
         {
           type: 'date', // 'date' | 'time' | 'datetime' | 'range'
           allowInput: false,
-          dateFormat: 'Y-m-d',
+          dateFormat: 'd/m/Y',
           onChange: null,
         },
         methodOrOptions
@@ -27,7 +27,7 @@
           case 'datetime':
             typeConfig = {
               enableTime: true,
-              dateFormat: 'Y-m-d H:i',
+              dateFormat: 'd/m/Y H:i',
               time_24hr: true,
             };
             break;
@@ -35,7 +35,7 @@
           case 'range':
             typeConfig = {
               mode: 'range',
-              dateFormat: 'Y-m-d',
+              dateFormat: 'd/m/Y',
             };
             break;
         }

@@ -51,6 +51,7 @@ class Axios {
 
   static showLoadingModal(delay = Axios.delay) {
     if (Axios.loadingShown) return;
+    Axios._modalContent = '';
 
     let timerInterval;
     Axios.loadingShown = false;
@@ -136,7 +137,7 @@ class Axios {
         method,
         url,
         data,
-        signal: Axios.controller.signal,
+        signal: config.signal || Axios.controller.signal,
         ...config,
       });
 
