@@ -52,7 +52,7 @@ $(function () {
     // window.location.href = '/';
 
     const api = new Axios({
-      baseURL: 'http://192.168.200.13:8001/api/v1/authen/',
+      baseURL: `http://${API_CONFIG.URL}:${API_CONFIG.PORT}/api/v1/authen/`,
     });
 
     try {
@@ -64,7 +64,7 @@ $(function () {
         const data = JSON.stringify(res.data.data);
         document.cookie = `userData=${encodeURIComponent(data)}; path=/; max-age=${
           60 * 60 * 24 * 7
-        }; Secure; SameSite=Lax`;
+        }; SameSite=None`;
         window.location.href = '/';
       } else Notification.error('USERNAME หรือ PASSWORD ไม่ถูกต้อง');
     } catch (error) {
