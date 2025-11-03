@@ -1,12 +1,12 @@
 {
-  "name": "mi-fe",
+  "name": "mi2-fe",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "local": "SET NODE_ENV=local&& nodemon index.js",
-    "dev": "SET NODE_ENV=development&& nodemon index.js",
-    "production": "SET NODE_ENV=production&& pm2 delete MI2-COLOR-LIMIT || pm2 start index.js --name MI2-COLOR-LIMIT"
+    "dev": "SET NODE_ENV=development&& pm2 delete MI2-FE || pm2 start index.js --name MI2-FE",
+    "production": "SET NODE_ENV=production&& pm2 delete MI2-FE || pm2 start index.js --name MI2-FE"
   },
   "keywords": [],
   "author": "",
