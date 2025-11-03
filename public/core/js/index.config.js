@@ -854,16 +854,14 @@ const initializeNavbarEvents = () => {
     }
   });
 
-  $(document).on('click.navbar', function (event) {
-    if (!$(event.target).closest('#dropdown, #navItem, #navItemDropdown').length) {
-      $('#dropdownMenu').hide();
-      $('#submenu').removeClass('show').hide();
-      $('#dropdownNested').removeClass('hover-active');
-      $('#dropdown, #dropdownNested').each(function () {
-        clearTimeout($(this).data('hoverTimeout'));
-        clearTimeout($(this).data('submenuTimeout'));
-      });
-    }
+  $(document).on('click.navbar', function () {
+    $('#dropdownMenu').hide();
+    $('#submenu').removeClass('show').hide();
+    $('#dropdownNested').removeClass('hover-active');
+    $('#dropdown, #dropdownNested').each(function () {
+      clearTimeout($(this).data('hoverTimeout'));
+      clearTimeout($(this).data('submenuTimeout'));
+    });
   });
 };
 
