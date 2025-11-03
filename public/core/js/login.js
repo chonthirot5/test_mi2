@@ -64,7 +64,7 @@ $(function () {
         const data = JSON.stringify(res.data.data);
         document.cookie = `userData=${encodeURIComponent(data)}; path=/; max-age=${
           60 * 60 * 24 * 7
-        }; SameSite=None`;
+        }; SameSite=Lax`;
         window.location.href = '/';
       } else Notification.error('USERNAME หรือ PASSWORD ไม่ถูกต้อง');
     } catch (error) {
