@@ -52,7 +52,7 @@ $(function () {
     // window.location.href = '/';
 
     const api = new Axios({
-      baseURL: 'http://192.168.200.11:8001/api/v1/authen/',
+      baseURL: 'http://192.168.200.13:8001/api/v1/authen/',
     });
 
     try {
