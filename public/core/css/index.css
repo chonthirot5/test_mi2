@@ -14,6 +14,9 @@
   --primary_main_color: #7868a9;
   --primary_dark_color: #615291;
   --secondary_main_color: #537dcf;
+  --secondary_main_25_color: #537dcf40;
+  --secondary_main_50_color: #537dcf80;
+  --secondary_main_75_color: #537dcfc0;
 
   --success_main_25_color: #d6dfd7;
   --success_main_color: #5e8860;
@@ -21,6 +24,7 @@
   --warning_main_25_color: #faebc3;
   --warning_main_color: #ffc107;
   --warning_hover_color: #f0b505;
+  --warning_dark_color: #ed8936;
   --error_main_12_color: #db5f5b20;
   --error_main_25_color: #db5f5b40;
   --error_main_50_color: #e2a9a7;
@@ -574,7 +578,7 @@ h6,
 }
 
 .module-name.btn-link:hover {
-  color: var(--primary_text_contrast_color) ;
+  color: var(--primary_text_contrast_color);
 }
 
 .btn-sm {
