@@ -1,0 +1,747 @@
+  var JOBS;
+  var MACHINES;
+  var PALLETS;
+  var ZONES;
+  var PROCESS;
+  $(async function(){
+    
+    JOBS = await PlPalletInstance.getSelectJobData();
+    MACHINES = await PlMachineInstance.getSelectMachine();
+    PALLETS = await PlPalletInstance.getSelectPallet();
+    ZONES = await PlZoneInstance.getSelectZone();
+    PROCESS = await PlPalletInstance.getSelectProcess();
+
+    const showRowsInit = 25;
+    let showRowsDashboard = showRowsInit;
+    const showRowsOptions = [
+      { text: 'ALL', value: 'ALL' },
+      { text: '10', value: 10 },
+      { text: '25', value: 25 },
+      { text: '50', value: 50 },
+      { text: '100', value: 100 },
+      { text: '300', value: 300 },
+      { text: '500', value: 500 },
+    ];
+    $('.showRows').each(function () {
+      initDropdown({
+        select: $(this),
+        options: showRowsOptions,
+        isMultiple: $(this).prop('multiple'),
+        placeholder: 'Select show rows',
+        selectedValue: showRowsInit,
+      });
+    });
+    $('#showRows').on('change', function () {
+      const selectedValue = $(this).val();
+      showRows = selectedValue;
+      myTable.rowsPerPage = (showRows == "ALL")? 1000 : showRows;
+      myTable.goToPage(1);
+    });
+    const dataSource = async (page, pageSize) => {
+      let response;
+      try {
+        Axios.showLoadingIcon();
+        response =  await PlDashboardInstance.getZoneDashboard(page, pageSize);
+      } catch (error) {
+        console.error('API Error:', err);
+        Notification.error();
+      } finally {
+        Axios.hideLoading();
+      }
+      return { total: response.data.total, data: response.data };
+    };
+    const myTable = new Table({
+      gridSelector: '#tableMain',
+      dataSource: dataSource,
+      checkboxCol: false,
+      fieldId: 'zone_code',
+      columns: [
+        {
+          text: 'Zone Code',
+          dataField: 'zone_code',
+          width: '20%',
+          pinned: true,
+          align: 'center',
+          cellsalign: 'center',
+          cellsrenderer: function (_row, _columnfield, value, _defaulthtml, _columnproperties, rowdata) {
+            const zoneClass = value || '';
+            return `<div class="status-container">
+                      <span class="zone_color_bg ${zoneClass}">
+                        ${value}
+                      </span>
+                    </div>
+            `;
+          }
+        },
+        {
+          text: 'Zone Name',
+          dataField: 'zone_name',
+          width: '25%',
+          pinned: true,
+          align: 'left',
+          cellsrenderer: function (_row, _columnfield, value, _defaulthtml, _columnproperties, rowdata) {
+            return `
+              <div class="status-container" style="justify-content: flex-start;">
+                <button type="button" class="btn btn-sm btn-link zone-link" data-zone="${rowdata.zone_code}">
+                  ${value}
+                </button>
+              </div>
+            `;
+          }
+        },
+        {
+          text: 'Outbound',
+          dataField: 'outbound_total',
+          width: '18%',
+          pinned: true,
+          align: 'center',
+          cellsrenderer: function (_row, _columnfield, value, _defaulthtml, _columnproperties, rowdata) {
+            return `
+              <div class="status-container">
+                <button type="button" class="btn btn-sm ${value ? 'btn-link outbound-link' : ''}" data-zone="${rowdata.zone_code}" style="font-size: 12px;">
+                  ${value}
+                </button>
+              </div>
+            `;
+          }
+        },
+        {
+          text: 'Inbound',
+          dataField: 'inbound_total',
+          width: '19%',
+          pinned: true,
+          align: 'center',
+          cellsrenderer: function (_row, _columnfield, value, _defaulthtml, _columnproperties, rowdata) {
+            return `
+              <div class="status-container">
+                <button type="button" class="btn btn-sm ${value ? 'btn-link inbound-link' : ''}" data-zone="${rowdata.zone_code}" style="font-size: 12px;">
+                  ${value}
+                </button>
+              </div>
+            `;
+          }
+        },
+        {
+          text: 'รอ QC ตรวจสอบ',
+          dataField: 'pending_count',
+          width: '18%',
+          pinned: true,
+          align: 'center',
+          cellsrenderer: function (_row, _columnfield, value, _defaulthtml, _columnproperties, rowdata) {
+            return `
+              <div class="status-container">
+                <button type="button" class="btn btn-sm ${value ? 'btn-link pending-qc-link' : ''}" data-zone="${rowdata.zone_code}" style="font-size: 12px;">
+                  ${value}
+                </button>
+              </div>
+            `;
+          }
+        }
+      ],
+      dataFields: [
+        { name: 'zone_code', type: 'string' },
+        { name: 'zone_name', type: 'string' },
+        { name: 'outbound_total', type: 'number' },
+        { name: 'inbound_total', type: 'number' },
+        { name: 'pending_count', type: 'number' },
+      ],
+      enableRowEdit: false,
+      editable: false,
+      fieldMap: {
+        zone_code: '.zone-code',
+      },
+      rowsPerPage: showRowsDashboard,
+    });
+  
+
+    let tableDetail = null;
+    let tableQc = null;
+    let tableZoneProcess = null;
+
+    const showRowsQc = [
+      { text: 'ALL', value: 'ALL' },
+      { text: '15', value: 15 },
+      { text: '22', value: 22 },
+      { text: '25', value: 25 },
+      { text: '50', value: 50 },
+      { text: '100', value: 100 },
+      { text: '300', value: 300 },
+      { text: '500', value: 500 },
+    ];
+    $('.showRows').dropdownSelect2({
+      options: showRowsQc,
+      selectedValue: showRowsInit,
+      allowClear: false,
+    });
+
+    const initTableQc = () => {
+      if (!tableQc) {
+        const dataTableQc = async (page, pageSize) => {
+          const zone_code = $('.zone-code').val();
+          const type = $('#type').val();
+          const params = {};
+          if (zone_code) params.zone_code = zone_code;
+          params.status = 'PENDING_QC';
+          const response = await PlPalletInstance.getPallets(params);
+          const data = response.data.map(p => ({
+            ...p,
+            job_name: JOBS.data.find(j => j.job_id === p.job_id)?.job_name || '',
+            machine_name: MACHINES.data.data.find(j => j.machine_id === p.machine_id)?.machine_name || '',
+            next_machine_name: MACHINES.data.data.find(j => j.machine_id === p.next_machine_id)?.machine_name || '',
+            process_name: PROCESS.data.find(j => j.process_id === p.process_id)?.process_name || '',
+            next_process_name: PROCESS.data.find(j => j.process_id === p.next_process_id)?.process_name || '',
+            zone_name: ZONES.data.data.find(j => j.zone_code === p.zone_code)?.zone_name || '',
+            next_zone_name: ZONES.data.data.find(j => j.zone_code === p.next_zone_code)?.zone_name || ''
+          }));
+          return { total: response.data.length, data: data };
+        //   const response = await PlPalletInstance.getPalletDashboard(page, pageSize, params);
+        //   return { total: response.data.length, data: response.data.data };
+        };
+        tableQc = new Table({
+          gridSelector: '#tableQc',
+          checkboxCol: false,
+          dataSource: dataTableQc,
+          columns: [
+            {
+              text: 'รหัส',
+              dataField: 'pallet_code',
+              width: '10%',
+              pinned: true,
+              align: 'center',
+              cellsrenderer: function (_row, _columnfield, value, _defaulthtml, _columnproperties, rowdata) {
+                return `
+                  <div class="status-container">
+                    <button type="button" class="btn btn-sm btn-link print-pallet" data-pallet-code="${rowdata.pallet_code}">
+                      ${value}
+                    </button>
+                  </div>
+                `;
+              }
+            },
+            {
+              text: 'ลำดับพาเลท',
+              dataField: 'pallet_number',
+              cellsformat: 'N',
+              width: '7%',
+              pinned: true,
+              align: 'center',
+              cellsalign: 'center'
+            },
+            {
+              text: 'Job',
+              dataField: 'job_id',
+              width: '22%',
+              align: 'start',
+              filtertype: 'list',
+              cellsrenderer: function (_row, _columnfield, value, _defaulthtml, _columnproperties, rowdata) {
+                return `
+                  <div class="column-text" title="${rowdata.job_id}${rowdata.job_name ? ' : ' + rowdata.job_name : ''}">
+                    <span>
+                      ${rowdata.job_id}${rowdata.job_name ? ' : ' + rowdata.job_name : ''}
+                    </span>
+                  </div>
+                `;
+              }
+            },
+            {
+              text: 'ชิ้นส่วน',
+              dataField: 'part_name',
+              width: '15%',
+              align: 'start',
+            },
+            {
+              text: 'ยก',
+              dataField: 'sig',
+              cellsformat: 'N',
+              width: '3%',
+              align: 'start',
+            },
+            {
+              text: 'จำนวน',
+              dataField: 'qty',
+              cellsformat: 'N',
+              width: '5%',
+              align: 'end',
+              cellsalign: 'right',
+            },
+            {
+              text: 'ขั้นตอน',
+              dataField: 'process_name',
+              width: '10%',
+              align: 'center',
+              cellsalign: 'center',
+            },
+            {
+              text: 'ขั้นตอนถัดไป',
+              dataField: 'next_process_name',
+              width: '8%',
+              align: 'center',
+              cellsalign: 'center',
+            },
+            {
+              text: 'Outbound',
+              dataField: 'zone_code',
+              width: '10%',
+              align: 'center',
+              cellsalign: 'center',
+              cellsrenderer: function (_row, _columnfield, value, _defaulthtml, _columnproperties, rowdata) {
+                const zoneClass = value || '';
+                return `<div class="status-container">
+                          <span class="zone_color_bg ${zoneClass}">
+                            ${value}
+                          </span>
+                        </div>
+                `;
+              }
+            },
+            {
+              text: 'Inbound',
+              dataField: 'next_zone_code',
+              width: '10%',
+              align: 'center',
+              cellsalign: 'center',
+              cellsrenderer: function (_row, _columnfield, value, _defaulthtml, _columnproperties, rowdata) {
+                const zoneClass = value || '';
+                return `<div class="status-container">
+                          <span class="zone_color_bg ${zoneClass}">
+                            ${value}
+                          </span>
+                        </div>
+                `;
+              }
+            },
+            {
+              text: 'job_name',
+              dataField: 'job_name',
+              width: '5%',
+              align: 'start',
+              filtertype: 'list',
+              hidden: true
+            },
+          ],
+          dataFields: [
+            { name: 'id', type: 'number' },
+            { name: 'pallet_code', type: 'string' },
+            { name: 'job_id', type: 'string' },
+            { name: 'job_name', type: 'string' },
+            { name: 'part_name', type: 'string' },
+            { name: 'pallet_number', type: 'string' },
+            { name: 'sig', type: 'number' },
+            { name: 'qty', type: 'number' },
+            { name: 'zone_code', type: 'string' },
+            { name: 'next_zone_code', type: 'string' },
+            { name: 'status', type: 'string' },
+            { name: 'process_name', type: 'string' },
+            { name: 'next_process_name', type: 'string' },
+          ],
+          enableRowEdit: false,
+          editable: false,
+          fieldMap: {
+          },
+          rowsPerPage: showRowsQc,
+        });
+      }
+      return tableQc;
+    }
+
+    const showRowsTableDetail = [
+      { text: 'ALL', value: 'ALL' },
+      { text: '15', value: 15 },
+      { text: '22', value: 22 },
+      { text: '25', value: 25 },
+      { text: '50', value: 50 },
+      { text: '100', value: 100 },
+      { text: '300', value: 300 },
+      { text: '500', value: 500 },
+    ];
+    $('.showRows').dropdownSelect2({
+      options: showRowsTableDetail,
+      selectedValue: showRowsInit,
+      allowClear: false,
+    });
+    const initTableDetail = () => {
+      if (!tableDetail) {
+        const dataTableDetail = async (page, pageSize) => {
+          const params = {};
+          const zone_code = $('.zone-code').val();
+          const type = $('#type').val();
+          let process_id = $('#process_id').val();
+          process_id = process_id ? parseInt(process_id) : '';
+          if(type === 'outbound'){
+            if(zone_code) params.zone_code = zone_code;
+            if(process_id) params.process_id = process_id;
+          } else {
+            if(zone_code) params.next_zone_code = zone_code;
+            if(process_id) params.next_process_id = process_id;
+          }
+
+          const response = await PlPalletInstance.getPallets(params);
+          const data = response.data.map(p => ({
+            ...p,
+            job_name: JOBS.data.find(j => j.job_id === p.job_id)?.job_name || '',
+            machine_name: MACHINES.data.data.find(j => j.machine_id === p.machine_id)?.machine_name || '',
+            next_machine_name: MACHINES.data.data.find(j => j.machine_id === p.next_machine_id)?.machine_name || '',
+            process_name: PROCESS.data.find(j => j.process_id === p.process_id)?.process_name || '',
+            next_process_name: PROCESS.data.find(j => j.process_id === p.next_process_id)?.process_name || '',
+            zone_name: ZONES.data.data.find(j => j.zone_code === p.zone_code)?.zone_name || '',
+            next_zone_name: ZONES.data.data.find(j => j.zone_code === p.next_zone_code)?.zone_name || ''
+          }));
+          return { total: response.data.length, data: data };
+
+        //   const response = await PlPalletInstance.getPalletDashboard(page, pageSize, params);
+        //   const data = response.data.data.map(p => ({
+        //     ...p,
+        //     job_name: JOBS.data.find(j => j.job_id === p.job_id)?.job_name || '',
+        //     machine_name: MACHINES.data.data.find(j => j.machine_id === p.machine_id)?.machine_name || '',
+        //     next_machine_name: MACHINES.data.data.find(j => j.machine_id === p.next_machine_id)?.machine_name || '',
+        //     process_name: PROCESS.data.find(j => j.process_id === p.process_id)?.process_name || '',
+        //     next_process_name: PROCESS.data.find(j => j.process_id === p.next_process_id)?.process_name || '',
+        //     zone_name: ZONES.data.data.find(j => j.zone_code === p.zone_code)?.zone_name || '',
+        //     next_zone_name: ZONES.data.data.find(j => j.zone_code === p.next_zone_code)?.zone_name || ''
+        //   }));
+        //   return { total: response.data.total, data: data };
+        };
+        tableDetail = new Table({
+          gridSelector: '#tableDetail',
+          checkboxCol: false,
+          dataSource: dataTableDetail,
+          columns: [
+            {
+              text: 'รหัส',
+              dataField: 'pallet_code',
+              width: '10%',
+              pinned: true,
+              align: 'center',
+              cellsrenderer: function (_row, _columnfield, value, _defaulthtml, _columnproperties, rowdata) {
+                return `
+                  <div class="status-container">
+                    <button type="button" class="btn btn-sm btn-link print-pallet" data-pallet-code="${rowdata.pallet_code}">
+                      ${value}
+                    </button>
+                  </div>
+                `;
+              }
+            },
+            {
+              text: 'ลำดับพาเลท',
+              dataField: 'pallet_number',
+              cellsformat: 'N',
+              width: '7%',
+              pinned: true,
+              align: 'center',
+              cellsalign: 'center'
+            },
+            {
+              text: 'Job',
+              dataField: 'job_id',
+              width: '18%',
+              align: 'start',
+              filtertype: 'list',
+              cellsrenderer: function (_row, _columnfield, value, _defaulthtml, _columnproperties, rowdata) {
+                return `
+                  <div class="column-text" title="${rowdata.job_id}${rowdata.job_name ? ' : ' + rowdata.job_name : ''}">
+                    <span>
+                      ${rowdata.job_id}${rowdata.job_name ? ' : ' + rowdata.job_name : ''}
+                    </span>
+                  </div>
+                `;
+              }
+            },
+            {
+              text: 'ชิ้นส่วน',
+              dataField: 'part_name',
+              width: '15%',
+              align: 'start',
+            },
+            {
+              text: 'ยก',
+              dataField: 'sig',
+              cellsformat: 'N',
+              width: '3%',
+              align: 'start',
+            },
+            {
+              text: 'จำนวน',
+              dataField: 'qty',
+              cellsformat: 'N',
+              width: '5%',
+              align: 'end',
+              cellsalign: 'right',
+            },
+            {
+              text: 'ขั้นตอน',
+              dataField: 'process_name',
+              width: '9%',
+              align: 'start',
+            },
+            {
+              text: 'ขั้นตอนถัดไป',
+              dataField: 'next_process_name',
+              width: '9%',
+              align: 'start',
+            },
+            {
+              text: 'Outbound',
+              dataField: 'zone_code',
+              width: '8%',
+              align: 'center',
+              cellsalign: 'center',
+              cellsrenderer: function (_row, _columnfield, value, _defaulthtml, _columnproperties, rowdata) {
+                const zoneClass = value || '';
+                return `<div class="status-container">
+                          <span class="zone_color_bg ${zoneClass}">
+                            ${value}
+                          </span>
+                        </div>
+                `;
+              }
+            },
+            {
+              text: 'Inbound',
+              dataField: 'next_zone_code',
+              width: '8%',
+              align: 'center',
+              cellsalign: 'center',
+              cellsrenderer: function (_row, _columnfield, value, _defaulthtml, _columnproperties, rowdata) {
+                const zoneClass = value || '';
+                return `<div class="status-container">
+                          <span class="zone_color_bg ${zoneClass}">
+                            ${value}
+                          </span>
+                        </div>
+                `;
+              }
+            },
+            {
+              text: 'สถานะ',
+              dataField: 'status',
+              width: '7%',
+              align: 'center',
+              editable: false,
+              filtertype: 'list',
+              cellsrenderer: function (_row, _columnfield, value) {
+                let badgeClass = 'bg-secondary';
+                if (value === 'USED') badgeClass = 'success';
+                else if (value === 'INBOUND') badgeClass = 'success';
+                else if (value === 'OUTBOUND') badgeClass = 'received';
+                else if (value === 'WAIT_DRY') badgeClass = 'pending';
+                else if (value === 'REJECT') badgeClass = 'error';
+                else if (value === 'AUTO_PASS') badgeClass = 'received';
+                else if (value === 'PENDING_QC') badgeClass = 'pending';
+                else if (value === 'CANCELLED') badgeClass = 'error';
+                return `
+                        <div class="status-container">
+                          <span class="status-badge ${badgeClass}">
+                            ${value}
+                          </span>
+                        </div>
+                      `;
+              },
+            },
+            {
+              text: 'job_name',
+              dataField: 'job_name',
+              width: '5%',
+              align: 'start',
+              filtertype: 'list',
+              hidden: true
+            },
+          ],
+          dataFields: [
+            { name: 'pallet_code', type: 'string' },
+            { name: 'job_id', type: 'string' },
+            { name: 'job_name', type: 'string' },
+            { name: 'part_name', type: 'string' },
+            { name: 'pallet_number', type: 'string' },
+            { name: 'sig', type: 'number' },
+            { name: 'qty', type: 'number' },
+            { name: 'process_name', type: 'string' },
+            { name: 'next_process_name', type: 'string' },
+            { name: 'zone_code', type: 'string' },
+            { name: 'next_zone_code', type: 'string' },
+            { name: 'status', type: 'string' },
+          ],
+          enableRowEdit: false,
+          editable: false,
+          fieldMap: {
+          },
+          rowsPerPage: showRowsTableDetail,
+        });
+      }
+      return tableDetail;
+    }
+
+    const showRowsTableZoneProcess = [
+      { text: 'ALL', value: 'ALL' },
+      { text: '15', value: 15 },
+      { text: '22', value: 22 },
+      { text: '25', value: 25 },
+      { text: '50', value: 50 },
+      { text: '100', value: 100 },
+      { text: '300', value: 300 },
+      { text: '500', value: 500 },
+    ];
+    $('.showRows').dropdownSelect2({
+      options: showRowsTableZoneProcess,
+      selectedValue: showRowsInit,
+      allowClear: false,
+    });
+    const initTableZoneProcess = () => {
+      if (!tableZoneProcess) {
+        const dataTableZoneProcess = async (page, pageSize) => {
+          let response;
+          let data;
+          try {
+            Axios.showLoadingIcon();
+            response =  await PlDashboardInstance.getProcessDashboard(page, pageSize);
+            data = response.data.map(p => ({
+              ...p,
+              process_name: PROCESS.data.find(j => j.process_id === p.process_id)?.process_name || '',
+              zone_name: ZONES.data.data.find(j => j.zone_code === p.zone_code)?.zone_name || '',
+            }));
+
+          } catch (error) {
+            console.error('API Error:', error);
+            Notification.error();
+          } finally {
+            Axios.hideLoading();
+          }
+          return { total: response.data.length, data: data };
+        };
+        tableZoneProcess= new Table({
+          gridSelector: '#tableZoneProcess',
+          checkboxCol: false,
+          dataSource: dataTableZoneProcess,
+          fieldId: 'zone_code',
+          columns: [
+            {
+              text: 'ขั้นตอน',
+              dataField: 'process_name',
+              width: '59%',
+              pinned: true,
+              align: 'start',
+              cellsalign: 'left',
+            },
+            {
+              text: 'พาเลทใน Outbound ของแต่ละขั้นตอน',
+              dataField: 'outbound_total',
+              width: '20%',
+              pinned: true,
+              align: 'center',
+              cellsrenderer: function (_row, _columnfield, value, _defaulthtml, _columnproperties, rowdata) {
+                return `
+                  <div class="status-container">
+                    <button type="button" class="btn btn-sm ${value ? 'btn-link outbound-link' : ''}" data-zone="${rowdata.zone_code}" data-process-id="${rowdata.process_id}" style="font-size: 12px;">
+                      ${value}
+                    </button>
+                  </div>
+                `;
+              }
+            },
+            {
+              text: 'พาเลทใน Inbound ของแต่ละขั้นตอน',
+              dataField: 'inbound_total',
+              width: '20%',
+              align: 'center',
+              cellsrenderer: function (_row, _columnfield, value, _defaulthtml, _columnproperties, rowdata) {
+                return `
+                  <div class="status-container">
+                    <button type="button" class="btn btn-sm ${value ? 'btn-link inbound-link' : ''}" data-zone="${rowdata.zone_code}" data-process-id="${rowdata.process_id}" style="font-size: 12px;">
+                      ${value}
+                    </button>
+                  </div>
+                `;
+              }
+            },
+            {
+              text: 'Zone Code',
+              dataField: 'zone_code',
+              width: '59%',
+              pinned: true,
+              align: 'start',
+              cellsalign: 'left',
+              hidden: true
+            },
+            {
+              text: 'ขั้นตอน',
+              dataField: 'process_id',
+              width: '59%',
+              pinned: true,
+              align: 'start',
+              cellsalign: 'left',
+              hidden: true
+            }
+          ],
+          dataFields: [
+            { name: 'zone_code', type: 'string' },
+            { name: 'process_id', type: 'number' },
+            { name: 'process_name', type: 'string' },
+            { name: 'outbound_total', type: 'number' },
+            { name: 'inbound_total', type: 'number' },
+          ],
+          enableRowEdit: false,
+          editable: false,
+          fieldMap: {
+            zone_code: '.zone-code',
+          },
+          rowsPerPage: showRowsTableZoneProcess,
+        });
+      }
+      return tableZoneProcess;
+    }
+
+    $('#tableDetail').on('click', '.print-pallet', function(e) {
+      e.preventDefault();
+      const pallet_code = $(this).data('pallet-code');
+      window.open(`/view?module=pl&file=pl_print&folder=views/print&pallet_code=${pallet_code}`, '_blank');
+    });
+
+    $('#tableMain').on('click', '.zone-link', function(e) {
+      e.preventDefault();
+      const zone_code = $(this).data('zone');
+      $('.zone-code').val(zone_code);
+      $('#type').val('pending_qc');
+      $('#editZoneModalLabel').text('สรุปจำนวนพาเลทในโซน ' + zone_code + ' ของแต่ละขั้นตอน');
+      $('#editZoneModal').modal('show')
+      initTableZoneProcess().refresh();
+    });
+    
+    $('#tableMain').on('click', '.outbound-link, .inbound-link, .pending-qc-link', function(e) {
+      e.preventDefault();
+      const zone_code = $(this).data('zone');
+      $('.zone-code').val(zone_code);
+      $('#process_id').val('');
+
+      if ($(this).hasClass('outbound-link')) {
+        $('#type').val('outbound');
+        $('#editModalLabel').text('รายการพาเลทใน Outbound');
+        initTableDetail().refresh();
+        $('#editModal').modal('show');
+      } else if ($(this).hasClass('inbound-link')) {
+        $('#type').val('inbound');
+        $('#editModalLabel').text('รายการพาเลทใน Inbound');
+        initTableDetail().refresh();
+        $('#editModal').modal('show');
+      } else {
+        $('#type').val('pending_qc');
+        initTableQc().refresh();
+        $('#editQcModal').modal('show');
+      }
+    });
+
+    $('#editZoneModal').on('click', '.outbound-link, .inbound-link', function(e) {
+      e.preventDefault();
+      const process_id = $(this).data('process-id');
+      $('#process_id').val(process_id);
+      if ($(this).hasClass('outbound-link')) {
+        $('#type').val('outbound');
+        $('#editModalLabel').text('รายการพาเลทใน Outbound');
+      } else if ($(this).hasClass('inbound-link')) {
+        $('#type').val('inbound');
+        $('#editModalLabel').text('รายการพาเลทใน Inbound');
+      }
+      $('#editModal').modal('show');
+      initTableDetail().refresh();
+    });
+
+  })

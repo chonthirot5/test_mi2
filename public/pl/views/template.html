@@ -1,0 +1,199 @@
+<link rel="stylesheet" href="/template/css/template.css" />
+<script src="/template/js/template.js"></script>
+
+<div class="content-body home-page">
+  <div class="dashboard-container">
+    <section class="hero-card">
+      <div class="hero-content">
+        <p class="eyebrow">ภาพรวมระบบ</p>
+        <h1>ยินดีต้อนรับ, <span id="currentUserName">ผู้ใช้งาน</span></h1>
+        <p class="hero-subtitle">ติดตามความคืบหน้าของทุกโปรเจกต์และบทบาทของคุณภายใน MI2 Systems.</p>
+        <div class="hero-chips">
+          <div class="hero-chip">
+            <i class="fas fa-folder-tree"></i>
+            <span id="heroProjectCount">0 โปรเจกต์</span>
+          </div>
+          <div class="hero-chip">
+            <i class="fas fa-user-shield"></i>
+            <span id="heroRoleCount">0 บทบาท</span>
+          </div>
+        </div>
+        <div class="hero-actions">
+          <button
+            type="button"
+            class="btn btn-primary"
+            data-bs-toggle="modal"
+            data-bs-target="#modulesPopup"
+          >
+            เลือกโปรเจกต์
+          </button>
+          <a class="btn btn-outline-primary" href="#activitySection" id="viewActivityLink">
+            ดูกิจกรรมล่าสุด
+          </a>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="hero-bubble primary">
+          <i class="fas fa-chart-line"></i>
+        </div>
+        <div class="hero-bubble secondary"></div>
+        <div class="hero-bubble tertiary"></div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-heading">
+        <div>
+          <h2 class="section-title">ตัวชี้วัดสำคัญ</h2>
+          <p class="section-description">สถานะสรุปจากโปรเจกต์ทั้งหมดที่คุณมีสิทธิ์เข้าถึง</p>
+        </div>
+        <span class="section-update" id="lastUpdatedLabel">อัพเดตล่าสุด: -</span>
+      </div>
+      <div class="metric-grid">
+        <article class="metric-card">
+          <div class="metric-icon">
+            <i class="fas fa-layer-group"></i>
+          </div>
+          <div class="metric-body">
+            <span class="metric-label">โปรเจกต์ที่ดูแล</span>
+            <h3 class="metric-value" id="metricProjects">0</h3>
+            <span class="metric-trend positive" id="metricProjectsTrend">
+              กำลังใช้งาน 0 รายการ
+            </span>
+          </div>
+        </article>
+        <article class="metric-card">
+          <div class="metric-icon success">
+            <i class="fas fa-calendar-check"></i>
+          </div>
+          <div class="metric-body">
+            <span class="metric-label">งานที่ต้องติดตาม</span>
+            <h3 class="metric-value" id="metricTasks">0</h3>
+            <span class="metric-trend" id="metricTasksTrend">ใกล้กำหนด 0 งาน</span>
+          </div>
+        </article>
+        <article class="metric-card">
+          <div class="metric-icon warning">
+            <i class="fas fa-user-check"></i>
+          </div>
+          <div class="metric-body">
+            <span class="metric-label">การอนุมัติที่รอ</span>
+            <h3 class="metric-value" id="metricApprovals">0</h3>
+            <span class="metric-trend alert" id="metricApprovalsTrend">
+              รอการตรวจสอบ 0 รายการ
+            </span>
+          </div>
+        </article>
+        <article class="metric-card">
+          <div class="metric-icon neutral">
+            <i class="fas fa-bell"></i>
+          </div>
+          <div class="metric-body">
+            <span class="metric-label">แจ้งเตือนใหม่</span>
+            <h3 class="metric-value" id="metricNotifications">0</h3>
+            <span class="metric-trend" id="metricNotificationsTrend">ไม่มีแจ้งเตือนใหม่</span>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-heading">
+        <div>
+          <h2 class="section-title">โปรเจกต์ของคุณ</h2>
+          <p class="section-description">สรุปรายละเอียดบทบาทและความคืบหน้าในแต่ละโปรเจกต์</p>
+        </div>
+        <div class="section-actions">
+          <a class="btn btn-link" href="#" id="refreshProjects">
+            <i class="fas fa-sync-alt"></i> รีเฟรชข้อมูล
+          </a>
+        </div>
+      </div>
+      <div class="project-grid" id="projectOverview">
+        <div class="empty-state">
+          <i class="fas fa-ghost"></i>
+          <p>ยังไม่มีโปรเจกต์ที่เชื่อมโยงกับผู้ใช้งานนี้</p>
+          <small>กรุณาติดต่อผู้ดูแลระบบเพื่อเพิ่มสิทธิ์เข้าถึง</small>
+        </div>
+      </div>
+    </section>
+
+    <section class="info-columns">
+      <div class="insight-card" id="activitySection">
+        <div class="section-heading compact">
+          <div>
+            <h3 class="section-title">กิจกรรมล่าสุด</h3>
+            <p class="section-description">ติดตามการเปลี่ยนแปลงล่าสุดในระบบ</p>
+          </div>
+        </div>
+        <ul class="activity-feed" id="activityFeed">
+          <li class="activity-item">
+            <div class="activity-icon">
+              <i class="fas fa-circle-notch fa-spin"></i>
+            </div>
+            <div class="activity-detail">
+              <p class="activity-title">กำลังโหลดข้อมูล</p>
+              <span class="activity-meta">กรุณารอสักครู่...</span>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div class="insight-card">
+        <div class="section-heading compact">
+          <div>
+            <h3 class="section-title">ภาพรวมสถานะ</h3>
+            <p class="section-description">ดูสัดส่วนโปรเจกต์ในแต่ละขั้นตอน</p>
+          </div>
+        </div>
+        <div class="status-summary">
+          <div class="status-item">
+            <div>
+              <p class="status-label">โปรเจกต์กำลังดำเนินการ</p>
+              <span class="status-helper">รวมงานที่อยู่ในขั้นประสานงาน</span>
+            </div>
+            <span class="status-badge" id="progressActiveValue">0%</span>
+          </div>
+          <div class="progress-track">
+            <div class="progress-bar" id="progressActiveBar"></div>
+          </div>
+
+          <div class="status-item">
+            <div>
+              <p class="status-label">รอการตรวจสอบ</p>
+              <span class="status-helper">งานที่ต้องการการอนุมัติหรือทบทวน</span>
+            </div>
+            <span class="status-badge" id="progressReviewValue">0%</span>
+          </div>
+          <div class="progress-track">
+            <div class="progress-bar secondary" id="progressReviewBar"></div>
+          </div>
+
+          <div class="status-item stacked">
+            <div>
+              <p class="status-label">โปรเจกต์เสร็จสมบูรณ์</p>
+              <span class="status-helper">ข้อมูลอ้างอิงตามรอบสัปดาห์ล่าสุด</span>
+            </div>
+            <span class="status-complete" id="progressCompletedValue">
+              0 โปรเจกต์เสร็จสมบูรณ์
+            </span>
+          </div>
+        </div>
+
+        <div class="quick-links">
+          <a class="quick-link primary" data-bs-toggle="modal" data-bs-target="#modulesPopup">
+            <i class="fas fa-th-large"></i>
+            <span>ศูนย์รวมโปรเจกต์</span>
+          </a>
+          <a class="quick-link secondary" href="#projectOverview">
+            <i class="fas fa-chart-pie"></i>
+            <span>ตรวจสอบสรุป</span>
+          </a>
+          <a class="quick-link tertiary" href="#">
+            <i class="fas fa-life-ring"></i>
+            <span>คู่มือการใช้งาน</span>
+          </a>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>

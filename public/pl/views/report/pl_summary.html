@@ -1,0 +1,290 @@
+<link rel="stylesheet" href="/pl/css/pl.css" />
+<script src="/pl/js/pl_summary.js"></script>
+<div class="content-body list">
+  <div class="content">
+    <div class="list-top">
+      <div class="table-action">
+        <div class="button-group">
+          <div class="form-input table-action-button" id="actionButtonGroup">
+          </div>
+        </div>
+
+        <div class="table-filter">
+          <div class="table-search-value"></div>
+
+          <div class="button-group">
+            <div class="search-list-container">
+              <button
+                type="button"
+                class="btn btn-sm btn-outline-primary btn-text-icon"
+                id="searchButton"
+              >
+                <i class="fa-solid fa-magnifying-glass"></i>
+                SEARCH
+              </button>
+              <div class="search-list-expand">
+                <div class="form-input-group">
+                  <div class="form-input span-2">
+                    <label class="form-label"><span>Pallet Code</span></label>
+                    <!-- <input type="text" class="form-control searchPallet" id="searchPallet"/> -->
+                    <select class="form-control dropdown-select2 searchPallet" id="searchPallet"></select>
+                  </div>
+                  <div class="form-input span-2">
+                    <label class="form-label"><span>Job</span></label>
+                    <select class="form-control dropdown-select2 searchJob" id="searchJob"></select>
+                  </div>
+                </div>
+
+                <div class="form-input-group">
+                  <div class="form-input span-2">
+                    <label class="form-label"><span>Plan</span></label>
+                    <select class="form-control dropdown-select2 searchPlan" id="searchPlan"></select>
+                  </div>
+                  <div class="form-input span-2">
+                    <label class="form-label"><span>ชิ้นส่วน</span></label>
+                    <select class="form-control dropdown-select2 searchPartName" id="searchPartName"></select>
+                  </div>
+                </div>
+
+                <div class="form-input-group">
+                  <div class="form-input span-2">
+                    <label class="form-label"><span>Outbound</span></label>
+                    <select class="form-control dropdown-select2 searchOutbound" id="searchOutbound"></select>
+                  </div>
+                  <div class="form-input span-2">
+                    <label class="form-label"><span>Inbound</span></label>
+                    <select class="form-control dropdown-select2 searchInbound" id="searchInbound"></select>
+                  </div>
+                </div>
+                <div class="form-input-group">
+                  <div class="form-input span-2">
+                    <label class="form-label"><span>ขั้นตอน</span></label>
+                    <select class="form-control dropdown-select2 searchProcess" id="searchProcess"></select>
+                  </div>
+                  <div class="form-input span-2">
+                    <label class="form-label"><span>ขั้นตอนถัดไป</span></label>
+                    <select class="form-control dropdown-select2 searchNextProcess" id="searchNextProcess"></select>
+                  </div>
+                </div>
+                <div class="form-input-group">
+                  <div class="form-input span-2">
+                    <label class="form-label"><span>Status</span></label>
+                    <select class="form-control dropdown-select2 palletStatusSearch" id="palletStatusSearch"></select>
+                  </div>
+                </div>
+
+                <div class="button-group">
+                  <button
+                    type="button"
+                    class="btn btn-sm btn-outline-secondary"
+                    id="clearSearchButton"
+                  >
+                    CLEAR
+                  </button>
+                  <button
+                    type="button"
+                    class="btn btn-sm btn-primary"
+                    id="applySearchButton"
+                  >
+                    APPLY
+                  </button>
+                </div>
+
+              </div>
+            </div>
+            <div class="form-input" id="exportButtonGroup">
+              <div class="dropdown dropdown-button">
+                <button
+                  class="btn btn-sm btn-outline-primary btn-text-icon dropdown-button-input"
+                  type="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  <i class="fa-solid fa-file-export"></i>
+                  EXPORT
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="editDropdown"></ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="table-grid"></div>
+    <div class="pagination-container">
+      <div class="pagination-info">
+        Showing
+        <span id="showingStart">0</span>
+        to
+        <span id="showingEnd">0</span>
+        of
+        <span id="totalRecords">0</span>
+      </div>
+      <div class="form-input">
+        <select class="form-control showRows" id="showRows"></select>
+      </div>
+      <nav aria-label="Table pagination" class="pagination-nav">
+        <ul class="table-pagination pagination"></ul>
+      </nav>
+    </div>
+
+    <div
+      class="modal fade"
+      id="editModal"
+      tabindex="-1"
+      aria-labelledby="editModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div id="editForm" class="modal-content medium">
+          <div class="modal-header">
+            <h5 class="modal-title" id="editModalLabel">EDIT DATA</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+
+          <div class="modal-body">
+            <div class="form-input-group">
+              <input type="hidden" id="editRowIndex" />
+              <div class="custom-input-group full-width">
+                <div class="form-input">
+                  <label for="editPalletCode" class="form-label"><span>Pallet Code</span></label>
+                  <input type="text" class="form-control" id="editPalletCode" readonly/>
+                </div>
+                <div class="form-input span-2">
+                  <label class="form-label"><span>Plan ID</span></label>
+                  <input type="text" id="editPlanId" class="form-control" placeholder="Type to search" readonly/>
+                </div>
+                <div class="form-input">
+                  <label for="editPlanDate" class="form-label">
+                    <span>Plan Date</span>
+                  </label>
+                  <span class="span-text" id="editPlanDate"></span>
+                </div>
+              </div>
+
+              <div class="custom-input-group full-width">
+                <div class="form-input span-2">
+                  <label for="editJobId" class="form-label"><span>Job ID</span></label>
+                  <input type="text" class="form-control" id="editJobId" placeholder="" readonly/>
+                </div>
+                <div class="form-input">
+                  <label for="editPartName" class="form-label"><span>ชิ้นส่วน</span></label>
+                  <input type="text"class="form-control" id="editPartName" readonly/>
+                </div>
+              </div>
+
+              <div class="custom-input-group full-width">
+                <div class="form-input">
+                  <label class="form-label"><span>MACHINE</span></label>
+                  <input type="text" class="form-control autocomplete-input" id="editMachineId"  readonly/>
+                </div>
+                <div class="form-input span-2">
+                  <label for="editNextMachineId" class="form-label"><span>Next MACHINE</span></label>
+                  <input type="text" class="form-control autocomplete-input" id="editNextMachineId"  readonly/>
+                </div>
+              </div>
+
+              <div class="custom-input-group full-width">
+                <div class="form-input span-2">
+                  <label for="editProcessId" class="form-label"><span>Process</span></label>
+                  <input type="text" class="form-control" id="editProcessId"  readonly/>
+                </div>
+                <div class="form-input span-2">
+                  <label for="editNextProcessId" class="form-label"><span>Next Process</span></label>
+                  <input type="text" class="form-control" id="editNextProcessId"  readonly/>
+                </div>
+              </div>
+
+
+              <div class="custom-input-group full-width">
+                <div class="form-input span-2">
+                  <label for="editZoneCode" class="form-label"><span>Zone</span></label>
+                  <input type="text" class="form-control" id="editZoneCode"  readonly/>
+                </div>
+                <div class="form-input span-2">
+                  <label for="editNextZoneCode" class="form-label"><span>Next Zone</span></label>
+                  <input type="text" class="form-control" id="editNextZoneCode"  readonly/>
+                </div>
+              </div> 
+
+              <div class="custom-input-group full-width">
+                <div class="form-input">
+                  <label for="editQty" class="form-label"><span>จำนวน (Qty)</span></label>
+                  <input type="text" class="form-control number-input" data-min="1" id="editQty" placeholder="0"  readonly/>
+                </div>
+                <div class="form-input">
+                  <label for="editSig" class="form-label"><span>ยก</span></label>
+                  <input type="text" class="form-control number-input" data-min="1" id="editSig" placeholder="0"  readonly/>
+                </div>
+                <div class="form-input">
+                  <label for="editSigFolding" class="form-label"><span>ยกพับ</span></label>
+                  <input type="text" class="form-control" id="editSigFolding" readonly/>
+                </div>
+                <div class="form-input">
+                  <label for="editDetailSigFolding" class="form-label"><span>รายละเอียดยก</span></label>
+                  <input type="text" class="form-control" id="editDetailSigFolding" readonly/>
+                </div>
+              </div>
+
+              <div class="custom-input-group full-width">
+                <div class="form-input">
+                  <label for="editTechnicianId" class="form-label"><span>ช่างพิมพ์</span></label>
+                  <input type="text" class="form-control" id="editTechnicianId" readonly/>
+                </div>
+                <div class="form-input">
+                  <label class="form-label"><span>ประเภทพาเลท</span></label>
+                  <select class="form-control dropdown-select2 editPalletType" id="editPalletType" readonly></select>
+                </div>
+              </div>
+              <div class="custom-input-group full-width">
+                <div class="form-input">
+                  <label for="editTimesheetRemark" class="form-label"><span>หมายเหตุ</span></label>
+                  <input type="text" class="form-control" id="editTimesheetRemark" readonly/>
+                </div>
+              </div>
+              <div class="custom-input-group full-width">
+                <div class="form-input">
+                  <label for="checkbox" class="form-label"><span>ลำดับพาเลท</span></label>
+                  <ul class="input-list">
+                    <li class="list-group-item">
+                      <input class="form-check-input" type="checkbox" value="" id="editIsLastPallet" readonly/>
+                      <label class="form-check-label" for="editIsLastPallet">เป็นพาเลทสุดท้าย</label>
+                    </li>
+                  </ul>
+                </div>
+                <div class="form-input">
+                  <label for="checkbox" class="form-label"><span>สถานะรอแห้ง</span></label>
+                  <ul class="input-list">
+                    <li class="list-group-item d-flex align-items-center gap-2">
+                      <input class="form-check-input" type="checkbox" id="editDryFinishTime" readonly/>
+                      <input type="text" class="form-control" id="editWaitDryHr" placeholder="เวลา (ชม.)" readonly>
+                    </li>
+                  </ul>
+                </div>
+                <div class="form-input">
+                  <label for="checkbox" class="form-label"><span>สถานะส่งผลิตข้างนอก</span></label>
+                  <ul class="input-list">
+                    <li class="list-group-item">
+                      <input class="form-check-input" type="checkbox" value="" id="editIsSendOut" readonly/>
+                      <label class="form-check-label" for="editIsSendOut">ส่งผลิตข้างนอก</label>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-sm btn-success SAVE" id="saveEditRowPallet">SAVE</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
