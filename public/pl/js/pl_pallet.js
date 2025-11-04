@@ -628,8 +628,8 @@
     });
 
     $('#exportExcel').on('click', () => {
-      // Get all data from table
-      const allData = myTable.getAllData ? myTable.getAllData() : myTable.getData();
+      // Get all data from jqxGrid directly
+      const allData = $('#tableMain').jqxGrid('getrows');
 
       if (!allData || allData.length === 0) {
         Notification.warning('ไม่มีข้อมูลสำหรับ Export');
