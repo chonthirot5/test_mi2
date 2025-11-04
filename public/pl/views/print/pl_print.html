@@ -1,0 +1,120 @@
+<script src="/pl/js/pl_print.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js"></script>
+<link rel="stylesheet" href="/pl/css/print.css" />
+<div class="page">
+  <div class="pallet-content">
+    <div class="pallet-header">
+      <div class="pallet-header-title">ใบพาเลท</div>
+      <div class="pallet-header-code">FM-823-02-52 REV.01</div>
+    </div>
+
+    <table class="pallet-table">
+      <tr>
+        <td colspan="2" rowspan="2" class="td-col-2 pallet-code-cell font-20" id="pallet_code">-</td>
+        <td rowspan="2" class="td-col-1 pallet-info-cell">
+          <span class="pallet-label-head">ลำดับพาเลท</span><br>
+          <span class="pallet-value" id="pallet_number"></span>
+        </td>
+        <td rowspan="2" class="td-col-1 pallet-info-cell">
+          <span class="pallet-label-head">จำนวน</span><br>
+          <span class="pallet-value" id="pallet_qty">-</span>
+        </td>
+        <td colspan="2" rowspan="2" class="td-col-2 pallet-info-cell">
+          <span class="pallet-label-head">ยอดรวมสะสม/ยอดงาน</span><br>
+          <span class="pallet-value" id="accumulate_qty">- / -</span>
+        </td>
+      </tr>
+      <tr></tr>
+
+      <tr>
+        <td colspan="2">
+          <span class="pallet-label">เลขที่งาน</span> <span class="pallet-data" id="job_id"></span>
+        </td>
+        <td colspan="2">
+          <span class="pallet-label">วันที่ผลิต</span> <span class="pallet-data" id="production_date"></span>
+        </td>
+        <td colspan="2" rowspan="5" class="pallet-zone-cell">
+          <div class="pallet-zone-box" id="zone_code">-</div>
+        </td>
+      </tr>
+
+      <tr>
+        <td colspan="4">
+          <span class="pallet-label">ชื่องาน</span> <span class="pallet-data" id="job_name"></span>
+        </td>
+      </tr>
+
+      <tr>
+        <td colspan="4">
+          <span class="pallet-label">ชิ้นส่วน</span> <span class="pallet-data" id="part_name"></span>
+        </td>
+      </tr>
+
+      <tr>
+        <td colspan="2">
+          <span class="pallet-label">เครื่องจักร</span> <span class="pallet-data" id="machine_name"></span>
+        </td>
+        <td colspan="2">
+          <span class="pallet-label">ขั้นตอน</span> <span class="pallet-data" id="process_name"></span>
+        </td>
+      </tr>
+
+      <tr>
+        <td colspan="2">
+          <span class="pallet-label">เวลาเสร็จ</span> <span class="pallet-data" id="finish_time"></span>
+        </td>
+        <td colspan="2">
+          <span class="pallet-label">ยกที่</span> <span class="pallet-data" id="sig"></span>
+        </td>
+      </tr>
+
+      <tr>
+        <td colspan="2">
+          <span class="pallet-label">ผู้ปฏิบัติงาน</span> <span class="pallet-data" id="technician_id"></span>
+        </td>
+        <td colspan="2">
+          <span class="pallet-label">ขั้นตอนถัดไป</span> <span class="pallet-data" id="next_process_name"></span>
+        </td>
+        <td colspan="2">
+          <span class="pallet-label">โซนถัดไป</span> <span class="pallet-data" id="next_zone_name"></span>
+        </td>
+      </tr>
+      <tr id="no_trim_row">
+        <td colspan="2">
+          <span class="pallet-label">ส่วนสูง (CM)</span> <span class="pallet-data trim_height" id="trim_height"> - </span>
+        </td>
+        <td colspan="2">
+          <span class="pallet-label">พร้อมขนย้าย</span> <span class="pallet-data" id="dry_finish_time"></span>
+        </td>
+      </tr>
+
+      
+      <tr class="trim_row" id="trim_header">
+        <td colspan="4" rowspan="2" style="vertical-align: top;">
+          <span class="pallet-label">รายละเอียด</span> 
+          <span class="pallet-data" id="trim_detail">-</span>
+        </td>
+        <td colspan="2">
+          <span class="pallet-label">ขนาดตัด(นิ้ว)</span> 
+          <span class="pallet-data" id="trim_size">-</span>
+        </td>
+      </tr>
+      <tr class="trim_row">
+        <td colspan="2">
+          <span class="pallet-label">ส่วนสูง (CM)</span> 
+          <span class="pallet-data trim_height" id="trim_height">-</span>
+        </td>
+      </tr>
+    </table>
+
+    <div class="pallet-approval">
+      <div id="qc_status_box" class="pallet-status-box pallet-qc-approve">QC<br>Approve</div>
+      <div class="pallet-status-box pallet-cf-check">PL<br>Check</div>
+    </div>
+
+    <div class="pallet-barcode">
+      <canvas id="barcode"></canvas>
+      <div class="pallet-code-large" id="barcode_text">-</div>
+    </div>
+  </div>
+</div>

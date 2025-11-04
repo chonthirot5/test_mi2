@@ -1,0 +1,853 @@
+<link rel="stylesheet" href="/pl/css/pl.css" />
+<script src="/pl/js/pl_machine.js"></script>
+<div class="content-body list">
+  <div class="content large">
+    <div class="list-top">
+      <div class="table-action">
+        <div class="button-group">
+          <!-- <div class="form-input table-action-button" id="actionButtonGroup">
+            <div class="btn-group dropdown dropdown-button">
+              <button
+                type="button"
+                class="btn btn-sm btn-success APPROVE_LIST dropdown-action-button disabled"
+                id="actipn"
+              >
+                ACTION
+              </button>
+              <button
+                type="button"
+                class="btn btn-sm btn-success dropdown-toggle-split disabled"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                <i class="fa-solid fa-chevron-down"></i>
+              </button>
+              <ul class="dropdown-menu"></ul>
+            </div>
+          </div>
+          <button type="button" class="btn btn-sm btn-outline-primary btn-text-icon" id="addRow">
+            <i class="fa-solid fa-plus"></i>
+            ADD DATA
+          </button>
+          <span class="selected-row"></span> -->
+        </div>
+
+        <div class="table-filter">
+          <div class="table-search-value"></div>
+          <div class="button-group">
+            <div class="search-list-container">
+              <button
+                type="button"
+                class="btn btn-sm btn-outline-primary btn-text-icon"
+                id="searchButton"
+              >
+                <i class="fa-solid fa-magnifying-glass"></i>
+                SEARCH
+              </button>
+              <div class="search-list-expand">
+                <div class="form-input-group">
+                  <div class="form-input span-2">
+                    <label class="form-label"><span>Machine</span></label>
+                    <select class="form-control dropdown-select2 machineIdSearch" id="machineIdSearch"></select>
+                  </div>
+                  <div class="form-input span-2">
+                    <label class="form-label"><span>Zone</span></label>
+                    <select class="form-control dropdown-select2 zoneCodeSearch" id="zoneCodeSearch"></select>
+                  </div>
+                </div>
+                <div class="form-input-group">
+                  <div class="form-input span-2">
+                    <label class="form-label"><span>Status</span></label>
+                    <select class="form-control dropdown-select2 isActiveSearch" id="isActiveSearch"></select>
+                  </div>
+                </div>
+                <hr />
+                <div class="button-group">
+                  <button type="button" class="btn btn-sm btn-outline-secondary" id="clearSearchButton">CLEAR</button>
+                  <button type="button" class="btn btn-sm btn-primary" id="applySearchButton">APPLY</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="table-grid"></div>
+    <div class="pagination-container">
+      <div class="pagination-info">
+        Showing
+        <span id="showingStart">0</span>
+        to
+        <span id="showingEnd">0</span>
+        of
+        <span id="totalRecords">0</span>
+      </div>
+      <div class="form-input">
+        <select class="form-control showRows" id="showRows"></select>
+      </div>
+      <nav aria-label="Table pagination" class="pagination-nav">
+        <ul class="table-pagination pagination"></ul>
+      </nav>
+    </div>
+
+    <div
+      class="modal fade"
+      id="editModal"
+      tabindex="-1"
+      aria-labelledby="editModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div id="editForm" class="modal-content medium">
+          <div class="modal-header">
+            <h5 class="modal-title" id="editModalLabel">EDIT DATA</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+
+          <div class="modal-body">
+            <div class="form-input-group">
+              <input type="hidden" id="editRowIndex" />
+              <div class="custom-input-group full-width">
+                <div class="form-input span-2">
+                  <label for="jobId" class="form-label"><span>Machine Code</span></label>
+                  <input type="text" class="form-control" id="editMachineCode" required readonly>
+                </div>
+                <div class="form-input" id="editMachineName">
+                  <label class="form-label"><span>Machine Name</span></label>
+                  <div class="autocomplete-container">
+                    <input type="text" class="form-control autocomplete-input" autocomplete="off" placeholder="Type to search" readonly/>
+                    <div class="selection-list d-none autocomplete-list"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="custom-input-group full-width">
+                <div class="form-input">
+                  <label class="form-label"><span>Zone</span></label>
+                  <select class="form-control dropdown-select2 editZoneCode" id="editZoneCode" required></select>
+                </div>
+                <div class="form-input required">
+                  <label for="radio" class="form-label">
+                    <span>Status</span>
+                    <i
+                      class="fa-solid"
+                      data-bs-placement="top"
+                    ></i>
+                  </label>
+                  <ul class="input-list">
+                    <li class="list-group-item">
+                      <input
+                        class="form-check-input me-1"
+                        type="radio"
+                        name="listGroupRadioEdit"
+                        value="1"
+                        id="active"
+                      />
+                      <label class="form-check-label" for="active">ACTIVE</label>
+                    </li>
+                    <li class="list-group-item">
+                      <input
+                        class="form-check-input me-1"
+                        type="radio"
+                        name="listGroupRadioEdit"
+                        value="0"
+                        id="inactive"
+                      />
+                      <label class="form-check-label" for="inactive">INACTIVE</label>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-sm btn-success SAVE" id="saveEditMachine">SAVE</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="modal fade"
+      id="addModal"
+      tabindex="-1"
+      aria-labelledby="editModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div id="addForm" class="modal-content medium">
+          <div class="modal-header">
+            <h5 class="modal-title" id="editModalLabel">ADD DATA</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+
+          <div class="modal-body">
+            <div class="form-input-group">
+              <input type="hidden" id="editRowIndex" />
+              <div class="custom-input-group full-width">
+                <div class="form-input span-2">
+                  <label for="jobId" class="form-label"><span>Machine Code</span></label>
+                  <input type="text" class="form-control" id="machineCode" placeholder="" required="" readonly="">
+                </div>
+                <div class="form-input span-2" id="machineName">
+                  <label class="form-label"><span>Machine Name</span></label>
+                  <div class="autocomplete-container">
+                    <input
+                      type="text"
+                      class="form-control autocomplete-input"
+                      autocomplete="off"
+                      placeholder="Type to search"
+                    />
+                    <div class="selection-list d-none autocomplete-list"></div>
+                  </div>
+                </div>
+                <div class="form-input">
+                  <label class="form-label"><span>Zone</span></label>
+                  <select class="form-control dropdown-select2 zoneCode" id="zoneCode" required></select>
+                </div>
+                <div class="form-input" style="display: none;">
+                  <label for="radio" class="form-label">
+                    <span>Status</span>
+                    <i class="fa-solid" data-bs-placement="top"></i>
+                  </label>
+                  <ul class="input-list">
+                    <li class="list-group-item">
+                      <input class="form-check-input me-1" type="radio" name="listGroupRadioAdd" value="1" id="active" checked/>
+                      <label class="form-check-label" for="active">ACTIVE</label>
+                    </li>
+                    <li class="list-group-item">
+                      <input class="form-check-input me-1" type="radio" name="listGroupRadioAdd" value="0" id="inactive"/>
+                      <label class="form-check-label" for="inactive">INACTIVE</label>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="modal-footer">
+            <button type="button" id="addRowData" class="btn btn-sm btn-success ADD">SAVE</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- <script>
+
+  $(async function(){
+
+    $('#saveEditMachine').on('click', async () => {
+      const f = new Form({ formSelector: '#editForm' });
+      const v = f.validateInput();
+      if (!v) {
+        return;
+      }
+      const data = await PlElementMachineInstance.getDataEditForm();
+      const response = await PlMachineInstance.updateMachine(data);
+      if(!response.success){
+        let err = (response.data && response.data[0] && response.data[0].path && response.data[0].message) ? `${response.data[0].path[0]} : ${response.data[0].message}` : response.data;
+        if (err.includes('SequelizeForeignKeyConstraintError')) {
+          Notification.error('ไม่มี Zone ดังกล่าว');
+        } else {
+          Notification.error(err);
+        }
+      }else{
+        $('#editModal').modal('hide');
+        Notification.success();
+        myTable.refresh();
+      }
+    });
+
+    $('#addRowData').on('click', async () => {
+      const f = new Form({ formSelector: '#addForm' });
+      const v = f.validateInput();
+      if (!v) {
+        return;
+      }
+      const dataObj = await PlElementMachineInstance.getDataAddForm();
+      const { success, data } = await PlMachineInstance.createMachine(dataObj);
+      if(!success){
+        let err = (data && data[0] && data[0].path && data[0].message) ? `${data[0].path[0]} : ${data[0].message}` : data;
+        Notification.error(err);
+      }else{
+        $('#addModal').find('input').val('');
+        $('#addModal').modal('hide');
+        Notification.success();
+        myTable.goToPage(1);
+      }
+    });
+
+    $('#addRow').on('click', function () {
+      $('#addModal').modal('show');
+    });
+
+    const showRowsInit = 25;
+    let showRows = showRowsInit;
+    const showRowsOptions = [
+      { text: 'ALL', value: 'ALL' },
+      { text: '25', value: 25 },
+      { text: '50', value: 50 },
+      { text: '100', value: 100 },
+      { text: '300', value: 300 },
+      { text: '500', value: 500 },
+    ];
+    $('.showRows').dropdownSelect2({
+      options: showRowsOptions,
+      selectedValue: showRowsInit,
+      allowClear: false,
+    });
+    $('#showRows').on('change', function () {
+      const selectedValue = $(this).val();
+      showRows = selectedValue;
+      myTable.rowsPerPage = (showRows == "ALL")? 1000 : showRows;
+      myTable.goToPage(1);
+    });
+    const dataSource = async (page, pageSize) => {
+      const machineId = $('#machineIdSearch').val()?.trim();
+      const machineName = $('#machineNameSearch').val()?.trim();
+      const zoneCode = $('#zoneCodeSearch').val()?.trim();
+      const isActive = $('#isActiveSearch').val();
+      const filterData = {
+        machine_id: machineId || null,
+        machine_name: machineName || null,
+        zone_code: zoneCode || null,
+        is_active: isActive != null && isActive !== '' ? Number(isActive) : null
+      };
+      await PlElementMachineInstance.setData(filterData)
+      let response;
+      try {
+        Axios.showLoadingIcon();
+        response = await PlMachineInstance.getMachine(page, pageSize);
+      } catch (error) {
+        console.error('API Error:', err);
+        Notification.error();
+      } finally {
+        await new Promise((resolve) => setTimeout(resolve, 500));
+        Axios.hideLoading();
+      }
+      return { total: response.data.total, data: response.data.data };
+    };
+    const myTable = new Table({
+      dataSource: dataSource,
+      checkboxCol: false,
+      columns: [
+        {
+          text: 'id',
+          dataField: 'id',
+          pinned: true,
+          align: 'start',
+          hidden: true
+        },
+        {
+          text: 'Machine Code',
+          dataField: 'machine_id',
+          width: '20%',
+          pinned: true,
+          align: 'start',
+        },
+        {
+          text: 'Machine Name',
+          dataField: 'machine_name',
+          width: '38%',
+          align: 'start',
+          filtertype: 'list',
+        },
+        {
+          text: 'Zone Code',
+          dataField: 'zone_code',
+          width: '30%',
+          filtertype: 'list',
+          align: 'center',
+          cellsalign: 'center',
+          cellsrenderer: function (_row, _columnfield, value, _defaulthtml, _columnproperties, rowdata) {
+            if (!value) return '';
+            return `
+              <div class="status-container">
+                <span class="zone_color_bg ${value}">
+                  ${value}
+                </span>
+              </div>
+            `;
+          }
+        },
+        {
+          text: 'Active',
+          dataField: 'is_active',
+          width: '12%',
+          align: 'center',
+          cellsrenderer: function (_row, _columnfield, value) {
+            let badgeClass = 'bg-secondary';
+            let displayText = '';
+
+            if (value === '1' || value === 1) {
+              badgeClass = 'bg-success';
+              displayText = 'ACTIVE';
+            } else if (value === '0' || value === 0) {
+              badgeClass = 'bg-danger';
+              displayText = 'INACTIVE';
+            } else {
+              badgeClass = 'bg-secondary';
+              displayText = value;
+            }
+
+            return `
+              <div class="status-container">
+                <span class="status-badge ${badgeClass}">
+                  ${displayText}
+                </span>
+              </div>
+            `;
+          }
+        }
+      ],
+      // groupable: true,
+      // groups: ['productName'],
+      dataFields: [
+        { name: 'id', type: 'number' },
+        { name: 'machine_id', type: 'string' },
+        { name: 'machine_name', type: 'string' },
+        { name: 'zone_code', type: 'string' },
+        { name: 'is_active', type: 'number' },
+      ],
+      enableRowEdit: true,
+      editModalId: 'editModal',
+      onRowEdit: async (updatedData) => {
+      },
+      fieldMap: {
+        id: '#editRowIndex',
+        machine_id: '#editMachineCode .autocomplete-input',
+      },
+      rowsPerPage: showRows,
+    });
+
+
+    $('#editModal').on('show.bs.modal', async () => {
+      if (!myTable.currentEditRow) return;
+      await PlElementMachineInstance.setData({machine_id: myTable.currentEditRow.data.machine_id});
+      const { success, data } = await PlMachineInstance.getMachineOne();
+      await PlElementMachineInstance.setData(data.data[0]);
+      await PlElementMachineInstance.renderDataForm();
+    });
+
+    Input.splitButtonDropdown({
+      containerSelector: '#actionButtonGroup',
+      normalItems: [
+        { label: '<span class="CANCEL">CANCEL</span>', value: 'cancel', id: 'cancel' },
+      ],
+      moduleName: 'template',
+      menuId: '4',
+    });
+
+    $('.table-action').on('click', '#cancel', async (e) => {
+      e.preventDefault();
+      
+      const selectedRows = myTable.getSelectedRowData(); 
+      if (!selectedRows || selectedRows.length === 0) {
+        Notification.error('กรุณาเลือกอย่างน้อย 1 แถว');
+        return;
+      }
+
+      const confirmModal = new ConfirmModal({
+        confirmHeader: 'CONFIRM CANCEL',
+        confirmMessage: 'Are you sure you want to cancel?',
+      });
+      const confirmModalEl = new bootstrap.Modal(document.getElementById('confirmModal'));
+      confirmModalEl.show();
+
+      confirmModal.onConfirm(async (isConfirm) => {
+        if (!isConfirm) return;
+
+        const successCodes = [];
+        const errorItems = [];
+        const updatedIds = [];
+        let isCanceled = false;
+        const controller = new AbortController();
+        const api = new Axios({ controller });
+        
+        try {
+          api.showLoadingModal();    
+          await new Promise(resolve => setTimeout(resolve, 200));
+
+          for (let i = 0; i < selectedRows.length; i++) {
+            if (api.controller?.signal.aborted) {
+              isCanceled = true;
+              break;
+            }
+            
+            const row = selectedRows[i];
+            api.modalContent = `
+              <h4>Cancel Zone...</h4>
+              <div>Processing: ${i + 1} / ${selectedRows.length}</div>
+              <div><strong>${row.zone_code}</strong></div>
+            `;
+
+            const response = await PlMachineInstance.cancelMachine({ machine_id: row.machine_id });
+            if (response === 'canceled') {
+              isCanceled = true;
+              break;
+            }
+            
+            if (response.success === 0) {
+              errorItems.push({ code: row.zone_code, reason: response.data });
+              break;
+            }
+            
+            if (response.success) {
+              successCodes.push(row.zone_code);
+              updatedIds.push(row.id);
+              
+              api.modalContent = `
+                <h4>Cancel Zone...</h4>
+                <div>Processing: ${i + 1} / ${selectedRows.length}</div>
+                <div><strong>${row.pallet_code}</strong></div>
+              `;
+              await new Promise(resolve => setTimeout(resolve, 300));
+              
+            } else {
+              const reason = response.data || response.message || 'Unknown reason';
+              errorItems.push({ code: row.zone_code, reason: reason });
+              break;
+            }
+          }
+
+          api.hideLoading();
+          
+          if (isCanceled) {
+            if (updatedIds.length > 0) {
+              updatedIds.forEach(id => {
+                const index = myTable.currentPageData.findIndex(r => r.id === id);
+                if (index > -1) {
+                  myTable.currentPageData[index].status = 'CANCELLED';
+                }
+                const $row = $(`.row-checkbox[data-row-id="${id}"]`).closest('div[role="row"]');
+                const $statusBadge = $row.find('.status-badge');
+                $statusBadge.removeClass('received pending success bg-secondary');
+                $statusBadge.addClass('error').text('CANCELLED');
+                myTable.selectedRowIds.delete(id);
+                $(`.row-checkbox[data-row-id="${id}"]`).prop('checked', false);
+              });
+            }
+            
+            if (successCodes.length > 0) {
+              let cancelHtml = '<div style="text-align: left;">';
+              cancelHtml += '<strong>รายการที่ Cancel สำเร็จแล้ว:</strong><br>';
+              successCodes.forEach(code => {
+                cancelHtml += `${code}<br>`;
+              });
+              //cancelHtml += '<br><p style="font-size: 12px; color: #666;">สถานะได้ถูกเปลี่ยนเป็น CANCELLED แล้ว</p>';
+              cancelHtml += '</div>';
+              Swal.fire({
+                title: 'ยกเลิกการ Cancel',
+                html: cancelHtml,
+                icon: 'warning',
+                confirmButtonText: 'OK'
+              });
+            } else {
+              Notification.warning('การ Cancel ถูกยกเลิก');
+            }
+            return;
+          }
+            
+          if (successCodes.length > 0 && errorItems.length === 0) {
+            updatedIds.forEach(id => {
+              const index = myTable.currentPageData.findIndex(r => r.id === id);
+              if (index > -1) {
+                myTable.currentPageData[index].status = 'CANCELLED';
+              }
+              const $row = $(`.row-checkbox[data-row-id="${id}"]`).closest('div[role="row"]');
+              const $statusBadge = $row.find('.status-badge');
+              $statusBadge.removeClass('received pending success bg-secondary');
+              $statusBadge.addClass('error').text('CANCELLED');
+              myTable.selectedRowIds.delete(id);
+              $(`.row-checkbox[data-row-id="${id}"]`).prop('checked', false);
+            });
+            
+            myTable.clearSelection();
+            if (successCodes.length === 1) {
+              Notification.success(`${successCodes[0]} Cancel สำเร็จ`);
+            } else {
+              Notification.success(`Cancel สำเร็จทั้งหมด ${successCodes.length} รายการ`);
+            }
+          } else if (successCodes.length > 0 || errorItems.length > 0) {
+            if (updatedIds.length > 0) {
+              updatedIds.forEach(id => {
+                const index = myTable.currentPageData.findIndex(r => r.id === id);
+                if (index > -1) {
+                  myTable.currentPageData[index].status = 'CANCELLED';
+                }
+                const $row = $(`.row-checkbox[data-row-id="${id}"]`).closest('div[role="row"]');
+                const $statusBadge = $row.find('.status-badge');
+                $statusBadge.removeClass('received pending success bg-secondary');
+                $statusBadge.addClass('error').text('CANCELLED');
+                myTable.selectedRowIds.delete(id);
+                $(`.row-checkbox[data-row-id="${id}"]`).prop('checked', false);
+              });
+            }
+
+            let summaryHtml = '<div style="text-align: left;">';
+            if (successCodes.length > 0) {
+              summaryHtml += '<strong>Cancel สำเร็จ:</strong><br>';
+              successCodes.forEach(code => {
+                summaryHtml += `${code}<br>`;
+              });
+              summaryHtml += '<br>';
+            }
+            if (errorItems.length > 0) {
+              summaryHtml += '<strong>Cancel ไม่สำเร็จ:</strong><br>';
+              errorItems.forEach(item => {
+                summaryHtml += `${item.code} : ${item.reason}<br>`;
+              });
+            }
+            summaryHtml += '</div>';
+            Swal.fire({
+              title: 'Cancel',
+              html: summaryHtml,
+              icon: 'warning',
+              confirmButtonText: 'OK'
+            });
+          }
+        } catch (err) {
+          console.error('Cancel error:', err);
+          api.hideLoading();
+          Alert.error({ 
+            title: 'เกิดข้อผิดพลาด',
+            text: err.message || 'Unknown error'
+          });
+        }
+      });
+    });
+
+    
+    /*$('.table-action').on('click', '#cancel', async (e) => {
+      e.preventDefault();
+
+      const confirmModal = new ConfirmModal({
+        confirmHeader: 'CONFIRM CANCEL',
+        confirmMessage: 'Are you sure you want to cancel?',
+      });
+      const confirmModalEl = new bootstrap.Modal(document.getElementById('confirmModal'));
+      confirmModalEl.show();
+
+      const selectedRows = myTable.getSelectedRowData(); 
+      const failedRows = [];
+
+      if (!selectedRows || selectedRows.length === 0) {
+        Notification.error('กรุณาเลือกอย่างน้อย 1 แถว');
+        return;
+      }
+      confirmModal.onConfirm(async (isConfirm) => {
+        if (!isConfirm) return;
+
+        for (const row of selectedRows) {
+          try {
+            const response = await PlMachineInstance.cancelMachine({ machine_id: row.machine_id });
+
+            if (response.success) {
+              // อัปเดตสถานะแถวใน currentPageData
+              const index = myTable.currentPageData.findIndex(r => r.id === row.id);
+              if (index > -1) {
+                myTable.currentPageData[index].status = 'CANCELLED';
+              }
+              Notification.success(`Pallet ${row.machine_id} cancel successfully`);
+            } else {
+              failedRows.push({ ...row, reason: response.data || 'Unknown error' });
+            }
+          } catch (err) {
+            failedRows.push({ ...row, reason: err?.message || 'Unknown error' });
+          }
+        }
+
+        myTable.refreshCurrentPage();
+
+        // แจ้งเตือนแถวที่ Cancel ไม่สำเร็จ
+        failedRows.forEach(row => {
+          Notification.error(`Pallet ${row.machine_id}: ${row.reason}`);
+          myTable.selectedRowIds.add(row.id);
+        });
+
+        myTable.restoreCheckboxStates();
+        myTable.updateActionButtonVisibility();
+      });
+    });*/
+
+    const machines = await PlMachineInstance.getSelectMachine();
+    const sortedMachines = machines.data.data.filter((obj, index, self) => index === self.findIndex(o => o.machine_id === obj.machine_id)).sort((a, b) => a.machine_id.localeCompare(b.machine_id)); 
+    const selectMachine = sortedMachines.map(p => ({
+      text: p.machine_id + ' : ' + p.machine_name,
+      value: p.machine_id
+    }));
+    $('.machineIdSearch').dropdownSelect2({
+      options: selectMachine,
+      placeholder: 'เลือก Machine',
+      allowClear: true,
+      selectedValue: '',
+      allowSearch: true,
+      onSelect: (selected) => {
+        console.log(selected);
+      },
+    });
+
+    const zones = await PlZoneInstance.getSelectZone();
+    const sortedOutbound = zones.data.data.filter((obj, index, self) => index === self.findIndex(o => o.zone_code === obj.zone_code)).sort((a, b) => a.zone_code.localeCompare(b.zone_code)); 
+    const selectOutbound = sortedOutbound.map(p => ({
+      text: p.zone_code + ' : ' + p.zone_name,
+      value: p.zone_code
+    }));
+    $('.zoneCode').dropdownSelect2({
+      options: selectOutbound,
+      placeholder: 'เลือก ZONE',
+      allowClear: true,
+      selectedValue: '',
+      allowSearch: true,
+      onSelect: (selected) => {
+        console.log(selected);
+      },
+    });
+    $('.editZoneCode').dropdownSelect2({
+      options: selectOutbound,
+      placeholder: 'เลือก ZONE',
+      allowClear: true,
+      selectedValue: '',
+      allowSearch: true,
+      onSelect: (selected) => {
+        console.log(selected);
+      },
+    });
+    $('.zoneCodeSearch').dropdownSelect2({
+      options: selectOutbound,
+      placeholder: 'เลือก ZONE',
+      allowClear: true,
+      selectedValue: '',
+      allowSearch: true,
+      onSelect: (selected) => {
+        console.log(selected);
+      },
+    });
+
+
+    function search() {
+      const chipContainer = $('.table-search-value');
+      $('#searchButton').on('click', () => {
+        $('.search-list-expand').toggleClass('show');
+      });
+      $('#applySearchButton').on('click', () => {
+        const machineId = $('#machineIdSearch').val()?.trim();
+        const machineName = $('#machineNameSearch').val()?.trim();
+        const zoneCode = $('#zoneCodeSearch').val()?.trim();
+        const zoneName = '';
+        const isActive = $('#isActiveSearch').val();
+
+        PlSearchInstance.setSearch('machine', {
+          machine_id: machineId,
+          machine_name: machineName,
+          zone_code: zoneCode,
+          zone_name: zoneName,
+          is_active: (isActive === '1' || isActive === '0') ? isActive : '',
+        });
+
+        chipContainer.empty();
+        const addChip = (label, value) => {
+          if (value) chipContainer.append(`<div class="chip"><span class="filter-chip-text">${label}: ${value}</span></div>`);
+        };
+
+        addChip('MACHINE', machineId);
+        addChip('MACHINE NAME', machineName);
+        addChip('ZONE CODE', zoneCode);
+        addChip('ZONE NAME', zoneName);
+        addChip('STATUS', isActive === '1' ? 'ACTIVE' : isActive === '0' ? 'INACTIVE' : '');
+        myTable.loadTable(1);
+        $('.search-list-expand').removeClass('show');
+      });
+
+      $('#clearSearchButton').on('click', () => {
+        $('#machineIdSearch').val(null).trigger('change');
+        $('#machineNameSearch').val('');
+        $('#zoneCodeSearch').val(null).trigger('change');
+        $('#isActiveSearch').val('');
+        PlSearchInstance.setSearch('machine',{
+          machine_id: null,
+          machine_name: null,
+          zone_code: null,
+          zone_name: null,
+          is_active: null,
+        });
+        chipContainer.empty();
+      });
+
+      $(document).on('click', (e) => {
+        if (!$(e.target).closest('.search-list-container').length) {
+          $('.search-list-expand').removeClass('show');
+        }
+      });
+
+      const save = PlSearchInstance.getSearch('machine');
+      loadSearchChips(save, {
+        fieldMap: {
+          machine_id: '#machineIdSearch',
+          machine_name: '#machineNameSearch',
+          zone_code: '#zoneCodeSearch',
+          zone_name: '#zoneNameSearch',
+          is_active: '#isActiveSearch',
+        },
+        labelMap: {
+          machine_id: 'MACHINE',
+          machine_name: 'MACHINE NAME',
+          zone_code: 'ZONE CODE',
+          zone_name: 'ZONE NAME',
+          is_active: 'STATUS',
+        },
+        displayFn: {
+          is_active: v => v === '1' ? 'ACTIVE' : v === '0' ? 'INACTIVE' : '',
+        },
+        displayOrder: ['machine_id', 'machine_name', 'zone_code', 'zone_name', 'is_active'],
+      });
+
+    }
+    search();
+
+  });
+
+  function loadSearchChips(saved, config) {
+    const chipContainer = $('.table-search-value');
+    chipContainer.empty();
+    config.displayOrder.forEach(key => {
+      const value = saved[key];
+      if (value === null || value === undefined || value === '' || value === 0) return;
+
+      const label = config.labelMap[key] || key;
+      const displayValue = config.displayFn?.[key] ? config.displayFn[key](value) : value;
+
+      chipContainer.append(
+        `<div class="chip"><span class="filter-chip-text">${label}: ${displayValue}</span></div>`
+      );
+
+      if (config.fieldMap?.[key]) {
+        const $input = $(config.fieldMap[key]);
+        const inputVal = value === null || value === undefined || value === 0 ? '' : value;
+
+        if ($input.hasClass('dropdown-select2')) {
+          if ($input.find(`option[value="${inputVal}"]`).length === 0) {
+            $input.append(new Option(inputVal, inputVal, true, true));
+          }
+          $input.val(inputVal).trigger('change.select2');
+        } else {
+          $input.val(inputVal);
+        }
+      }
+    });
+  }
+
+</script> -->

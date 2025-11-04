@@ -1,0 +1,65 @@
+{
+  "moduleName": "pl",
+  "moduleIcon": "fa fa-user-group",
+  "moduleTitle": "PL",
+  "moduleDescription": "PL Description",
+  "welcomeMenuId": "1",
+  "menus": [
+    {
+      "menuIcon": "fa fa-house",
+      "menuId": "1",
+      "menuFile": "template",
+      "menuLabel": "Home"
+    },
+    {
+      "menuIcon": "fa fa-list-alt",
+      "menuId": "2",
+      "menuFile": "pl_dashboard",
+      "menuLabel": "Dashboard"
+    },
+    {
+      "menuIcon": "fa fa-note-sticky",
+      "menuId": "3",
+      "menuFile": "pl_pallet",
+      "menuLabel": "ใบพาเลท"
+    },
+    {
+      "menuIcon": "fa fa-file-alt",
+      "menuId": "4",
+      "menuLabel": "รายงาน",
+      "sections": [
+        {
+          "menuIcon": "fa fa-list",
+          "sectionHeader": "รายงาน Summary",
+          "menuFile": "report/pl_summary",
+          "menuId": "4.1"
+        }
+      ]
+    },
+    {
+      "menuIcon": "fa fa-cogs",
+      "menuId": "5",
+      "menuLabel": "จัดการข้อมูล",
+      "sections": [
+        {
+          "menuIcon": "fa fa-map-marker-alt",
+          "sectionHeader": "โซน",
+          "menuFile": "pl_zone",
+          "menuId": "5.1"
+        },
+        {
+          "menuIcon": "fa fa-wrench",
+          "sectionHeader": "เครื่องจักร",
+          "menuFile": "pl_machine",
+          "menuId": "5.2"
+        }
+      ]
+    }
+  ],
+  "quickLinks": [
+    {
+      "name": "ใบพาเลท",
+      "menuId": "3"
+    }
+  ]
+}

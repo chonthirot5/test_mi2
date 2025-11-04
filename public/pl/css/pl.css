@@ -1,0 +1,132 @@
+  /* #tableMain {
+    margin: 0 auto !important;
+    width: 88% !important;
+  }
+  .modal {
+    --bs-modal-padding: 3rem 4rem 3rem 4rem !important; 
+  } */
+
+  .content-table {
+    padding: 1rem 2rem;
+  }
+
+  .zone_color_bg {
+    color: #000000;
+    min-width: 30px;
+    height: 19px;
+    line-height: 19px;
+    text-align: center;
+    border-radius: 2px;
+    text-transform: uppercase;
+    font-size: var(--badge_font_size);
+    display: inline-block;
+    border: 1px solid #333;
+    max-width: max-content;
+  }
+
+  .A {
+    background: #990000;
+    color: var(--primary_text_contrast_color);
+  }
+
+  .A2 {
+    background: #990000;
+    color: var(--primary_text_contrast_color);
+  }
+
+  .B {
+    background: #522e1a;
+    color: var(--primary_text_contrast_color);
+  }
+
+  .C {
+    background: #5a5b60;
+    color: var(--primary_text_contrast_color);
+  }
+
+  .D {
+    background: #db3d7b;
+    color: var(--primary_text_contrast_color);
+  }
+
+  .E {
+    background: #e8c300;
+    color: var(--primary_text_contrast_color);
+  }
+
+  .F {
+    background: #f36e31;
+    color: var(--primary_text_contrast_color);
+  }
+
+  .G {
+    background: transparent;
+  }
+
+  .FG {
+    background: transparent;
+  }
+
+  .H {
+    background: #1b2c55;
+    color: var(--primary_text_contrast_color);
+  }
+
+  .I {
+    background: #00c300;
+    color: var(--primary_text_contrast_color);
+  }
+
+  .J {
+    background: #145139;
+    color: var(--primary_text_contrast_color);
+  }
+
+  .K {
+    background: #5aaebd;
+    color: var(--primary_text_contrast_color);
+  }
+
+  .GMP {
+    background: #000000;
+    color: var(--primary_text_contrast_color);
+  }
+
+  .SS {
+    background: transparent;
+  }
+
+  .OEM {
+    background: transparent;
+  }
+
+  .PS {
+    background: transparent;
+  }
+
+  .column-text {
+    display: flex;
+    align-items: center;
+    height: 100%;
+  }
+
+  .column-text span {
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .span-text {
+    padding-left: 10px;
+  }
+
+
+
+
+
+
+
+
+
+  

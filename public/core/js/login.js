@@ -15,41 +15,46 @@ $(function () {
       return;
     }
 
-    // const data = {
-    //   user_id: 11,
-    //   user_name: 'BAITOEY',
-    //   user_account: '2680016',
-    //   emp_id: '2680016',
-    //   status: 'ACTIVE',
-    //   created: '2025-10-21T17:00:29.477Z',
-    //   projects: [
-    //     {
-    //       project: 'COLOR_LIMIT',
-    //       // roles: ['ADMIN', 'CREATOR', 'EDITOR'],
-    //       // roles: ['ADMIN'],
-    //       // roles: ['CREATOR'],
-    //       roles: ['EDITOR'],
-    //     },
-    //     {
-    //       project: 'HRM',
-    //       roles: ['ADMIN'],
-    //     },
-    //     {
-    //       project: 'INVENTORY',
-    //       roles: ['ADMIN'],
-    //     },
-    //     {
-    //       project: 'TEMPLATE',
-    //       roles: ['ADMIN'],
-    //     },
-    //   ],
-    // };
-    // document.cookie = `userData=${encodeURIComponent(JSON.stringify(data))}; path=/; max-age=${
-    //   60 * 60 * 24 * 7
-    // }; Secure; SameSite=Lax`;
-    // const currentUser = JSON.parse(Cookies.get('userData') || null);
-    // console.log('currentUser', currentUser);
-    // window.location.href = '/';
+    const data = {
+      user_id: 11,
+      user_name: 'BAITOEY',
+      user_account: '2680016',
+      emp_id: '2680016',
+      status: 'ACTIVE',
+      created: '2025-10-21T17:00:29.477Z',
+      projects: [
+        {
+          project: 'COLOR_LIMIT',
+          // roles: ['ADMIN', 'CREATOR', 'EDITOR'],
+          // roles: ['ADMIN'],
+          // roles: ['CREATOR'],
+          roles: ['EDITOR'],
+        },
+        {
+          project: 'PL',
+          // roles: ['ADMIN', 'QC', 'SDC', 'WEB', 'LEADER', 'USER', 'FORKLIFT', 'TECHNICIAN'],
+          roles: ['ADMIN'],
+        },
+        {
+          project: 'HRM',
+          roles: ['ADMIN'],
+        },
+        {
+          project: 'INVENTORY',
+          roles: ['ADMIN'],
+        },
+        {
+          project: 'TEMPLATE',
+          roles: ['ADMIN'],
+        },
+      ],
+    };
+    document.cookie = `userData=${encodeURIComponent(JSON.stringify(data))}; path=/; max-age=${
+      60 * 60 * 24 * 7
+    }; Secure; SameSite=Lax`;
+    const currentUser = JSON.parse(Cookies.get('userData') || null);
+    console.log('currentUser', currentUser);
+    window.location.href = '/';
 
     const api = new Axios({
       baseURL: `http://${API_CONFIG.URL}:${API_CONFIG.PORT}/api/v1/authen/`,

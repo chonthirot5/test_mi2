@@ -1,0 +1,92 @@
+{
+  "project": "PL",
+  "roles": [
+    {
+      "role_name": "ADMIN",
+      "menus": [
+        { "menu_id": "1" },
+        { "menu_id": "2" },
+        { "menu_id": "3" },
+        { "menu_id": "4" },
+        { "menu_id": "4.1",
+          "form": [
+            "data-view"
+          ]
+        },
+        { "menu_id": "5" },
+        { "menu_id": "5.1" },
+        { "menu_id": "5.2" }
+      ]
+    },
+    {
+      "role_name": "FORKLIFT",
+      "menus": [
+        { "menu_id": "1" },
+        { "menu_id": "2" }
+      ]
+    },
+    {
+      "role_name": "TECHNICIAN",
+      "menus": [
+        { "menu_id": "1" },
+        { "menu_id": "2" }
+      ]
+    },
+    {
+      "role_name": "LEADER",
+      "menus": [
+        { "menu_id": "1" },
+        { "menu_id": "2" },
+        { "menu_id": "4" },
+        { "menu_id": "4.1",
+          "form": [
+            "data-view"
+          ]
+        }
+      ]
+    },
+    {
+      "role_name": "USER",
+      "menus": [
+        { "menu_id": "1" },
+        { "menu_id": "2" },
+        { "menu_id": "4" },
+        { "menu_id": "4.1",
+          "form": [
+            "data-view"
+          ]
+        }
+      ]
+    },
+    {
+      "role_name": "QC",
+      "menus": [
+        { "menu_id": "1" },
+        { "menu_id": "2" },
+        { "menu_id": "3" },
+        { "menu_id": "4" },
+        { "menu_id": "4.1" }
+      ]
+    },
+    {
+      "role_name": "SDC",
+      "menus": [
+        { "menu_id": "1" },
+        { "menu_id": "2" },
+        { "menu_id": "3" },
+        { "menu_id": "4" },
+        { "menu_id": "4.1" }
+      ]
+    },
+    {
+      "role_name": "WEB",
+      "menus": [
+        { "menu_id": "1" },
+        { "menu_id": "2" },
+        { "menu_id": "3" },
+        { "menu_id": "4" },
+        { "menu_id": "4.1" }
+      ]
+    }
+  ]
+}

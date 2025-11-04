@@ -1,6 +1,7 @@
 {
   "modules": [
     "HRM",
+    "PL",
     "INVENTORY",
     "TEMPLATE"
   ]

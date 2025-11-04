@@ -1,0 +1,1858 @@
+<link rel="stylesheet" href="/pl/css/pl.css" />
+<script src="/pl/js/pl_pallet.js"></script>
+<div class="content-body list">
+  <div class="content">
+    <div class="list-top">
+      <div class="table-action">
+        <div class="button-group">
+          <div class="form-input table-action-button" id="actionButtonGroup">
+            <div class="btn-group dropdown dropdown-button">
+              <button
+                type="button"
+                class="btn btn-sm btn-success APPROVE_LIST dropdown-action-button disabled"
+                id="actipn"
+              >
+                ACTION
+              </button>
+              <button
+                type="button"
+                class="btn btn-sm btn-success dropdown-toggle-split disabled"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                <i class="fa-solid fa-chevron-down"></i>
+              </button>
+              <ul class="dropdown-menu"></ul>
+            </div>
+          </div>
+          <button type="button" class="btn btn-sm btn-outline-primary btn-text-icon" id="addRow">
+            <i class="fa-solid fa-plus"></i>
+            ADD DATA
+          </button>
+          <span class="selected-row"></span>
+        </div>
+
+        <div class="table-filter">
+          <div class="table-search-value"></div>
+
+          <div class="button-group">
+            <div class="search-list-container">
+              <button
+                type="button"
+                class="btn btn-sm btn-outline-primary btn-text-icon"
+                id="searchButton"
+              >
+                <i class="fa-solid fa-magnifying-glass"></i>
+                SEARCH
+              </button>
+              <div class="search-list-expand">
+                <div class="form-input-group">
+                  <div class="form-input span-2">
+                    <label class="form-label"><span>Pallet Code</span></label>
+                    <!-- <input type="text" class="form-control searchPallet" id="searchPallet"/> -->
+                    <select class="form-control dropdown-select2 searchPallet" id="searchPallet"></select>
+                  </div>
+                  <div class="form-input span-2">
+                    <label class="form-label"><span>Job</span></label>
+                    <select class="form-control dropdown-select2 searchJob" id="searchJob"></select>
+                  </div>
+                </div>
+
+                <div class="form-input-group">
+                  <div class="form-input span-2">
+                    <label class="form-label"><span>Plan</span></label>
+                    <select class="form-control dropdown-select2 searchPlan" id="searchPlan"></select>
+                  </div>
+                  <div class="form-input span-2">
+                    <label class="form-label"><span>ชิ้นส่วน</span></label>
+                    <select class="form-control dropdown-select2 searchPartName" id="searchPartName"></select>
+                  </div>
+                </div>
+
+                <div class="form-input-group">
+                  <div class="form-input span-2">
+                    <label class="form-label"><span>Outbound</span></label>
+                    <select class="form-control dropdown-select2 searchOutbound" id="searchOutbound"></select>
+                  </div>
+                  <div class="form-input span-2">
+                    <label class="form-label"><span>Inbound</span></label>
+                    <select class="form-control dropdown-select2 searchInbound" id="searchInbound"></select>
+                  </div>
+                </div>
+                <div class="form-input-group">
+                  <div class="form-input span-2">
+                    <label class="form-label"><span>ขั้นตอน</span></label>
+                    <select class="form-control dropdown-select2 searchProcess" id="searchProcess"></select>
+                  </div>
+                  <div class="form-input span-2">
+                    <label class="form-label"><span>Status</span></label>
+                    <select class="form-control dropdown-select2 palletStatusSearch" id="palletStatusSearch"></select>
+                  </div>
+                </div>
+
+                <div class="button-group">
+                  <button
+                    type="button"
+                    class="btn btn-sm btn-outline-secondary"
+                    id="clearSearchButton"
+                  >
+                    CLEAR
+                  </button>
+                  <button
+                    type="button"
+                    class="btn btn-sm btn-primary"
+                    id="applySearchButton"
+                  >
+                    APPLY
+                  </button>
+                </div>
+
+              </div>
+            </div>
+            <div class="form-input" id="exportButtonGroup">
+              <div class="dropdown dropdown-button">
+                <button
+                  class="btn btn-sm btn-outline-primary btn-text-icon dropdown-button-input"
+                  type="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  <i class="fa-solid fa-file-export"></i>
+                  EXPORT
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="editDropdown"></ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="table-grid"></div>
+    <div class="pagination-container">
+      <div class="pagination-info">
+        Showing
+        <span id="showingStart">0</span>
+        to
+        <span id="showingEnd">0</span>
+        of
+        <span id="totalRecords">0</span>
+      </div>
+      <div class="form-input">
+        <select class="form-control showRows" id="showRows"></select>
+      </div>
+      <nav aria-label="Table pagination" class="pagination-nav">
+        <ul class="table-pagination pagination"></ul>
+      </nav>
+    </div>
+
+    <div
+      class="modal fade"
+      id="editModal"
+      tabindex="-1"
+      aria-labelledby="editModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div id="editForm" class="modal-content medium">
+          <div class="modal-header">
+            <h5 class="modal-title" id="editModalLabel">EDIT DATA</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+
+          <div class="modal-body">
+            <div class="form-input-group">
+              <input type="hidden" id="editRowIndex" />
+              <div class="custom-input-group full-width">
+                <div class="form-input">
+                  <label for="editPalletCode" class="form-label"><span>Pallet Code</span></label>
+                  <input type="text" class="form-control" id="editPalletCode" readonly/>
+                </div>
+                <div class="form-input span-2">
+                  <label class="form-label"><span>Plan ID</span></label>
+                    <input type="text" id="editPlanId" class="form-control" placeholder="Type to search" required readonly/>
+                </div>
+                <div class="form-input">
+                  <label for="editPlanDate" class="form-label">
+                    <span>Plan Date</span>
+                  </label>
+                  <span id="editPlanDate"></span>
+                </div>
+              </div>
+
+              <div class="custom-input-group full-width">
+                <div class="form-input span-2">
+                  <label for="editJobId" class="form-label"><span>Job ID</span></label>
+                  <input type="text" class="form-control" id="editJobId" placeholder="" required readonly/>
+                </div>
+                <div class="form-input">
+                  <label for="editPartName" class="form-label"><span>ชิ้นส่วน</span></label>
+                  <input type="text"class="form-control" id="editPartName" required readonly/>
+                </div>
+              </div>
+
+              <div class="custom-input-group full-width">
+                <div class="form-input">
+                  <label class="form-label"><span>MACHINE</span></label>
+                  <input type="text" class="form-control autocomplete-input" id="editMachineId" required readonly/>
+                </div>
+                <div class="form-input span-2">
+                  <label for="editNextMachineId" class="form-label"><span>Next MACHINE</span></label>
+                  <input type="text" class="form-control autocomplete-input" id="editNextMachineId" required readonly/>
+                </div>
+              </div>
+
+              <div class="custom-input-group full-width">
+                <div class="form-input span-2">
+                  <label for="editProcessId" class="form-label"><span>Process</span></label>
+                  <input type="text" class="form-control" id="editProcessId" required readonly/>
+                </div>
+                <div class="form-input span-2">
+                  <label for="editNextProcessId" class="form-label"><span>Next Process</span></label>
+                  <input type="text" class="form-control" id="editNextProcessId" required readonly/>
+                </div>
+              </div>
+
+
+              <div class="custom-input-group full-width">
+                <div class="form-input span-2">
+                  <label for="editZoneCode" class="form-label"><span>Zone</span></label>
+                  <input type="text" class="form-control" id="editZoneCode" required readonly/>
+                </div>
+                <div class="form-input span-2">
+                  <label for="editNextZoneCode" class="form-label"><span>Next Zone</span></label>
+                  <input type="text" class="form-control" id="editNextZoneCode" required readonly/>
+                </div>
+              </div> 
+
+              <div class="custom-input-group full-width">
+                <div class="form-input">
+                  <label for="editQty" class="form-label"><span>จำนวน (Qty)</span></label>
+                  <input type="text" class="form-control number-input" data-min="1" id="editQty" placeholder="0" required readonly/>
+                </div>
+                <div class="form-input">
+                  <label for="editSig" class="form-label"><span>ยก</span></label>
+                  <input type="text" class="form-control number-input" data-min="1" id="editSig" placeholder="0" required readonly/>
+                </div>
+                <div class="form-input">
+                  <label for="editSigFolding" class="form-label"><span>ยกพับ</span></label>
+                  <input type="text" class="form-control" id="editSigFolding" readonly/>
+                </div>
+                <div class="form-input">
+                  <label for="editDetailSigFolding" class="form-label"><span>รายละเอียดยก</span></label>
+                  <input type="text" class="form-control" id="editDetailSigFolding" readonly/>
+                </div>
+              </div>
+
+              <div class="custom-input-group full-width">
+                <div class="form-input">
+                  <label for="editTechnicianId" class="form-label"><span>ช่างพิมพ์</span></label>
+                  <input type="text" class="form-control" id="editTechnicianId" readonly/>
+                </div>
+                <div class="form-input">
+                  <label class="form-label"><span>ประเภทพาเลท</span></label>
+                  <select class="form-control dropdown-select2 editPalletType" id="editPalletType" required></select>
+                </div>
+              </div>
+              <div class="custom-input-group full-width">
+                <div class="form-input">
+                  <label for="editTimesheetRemark" class="form-label"><span>หมายเหตุ</span></label>
+                  <input type="text" class="form-control" id="editTimesheetRemark"/>
+                </div>
+              </div>
+              <div class="custom-input-group full-width">
+                <div class="form-input">
+                  <label for="checkbox" class="form-label"><span>ลำดับพาเลท </span><span class="pallet_number"></span></label>
+                  <ul class="input-list">
+                    <li class="list-group-item">
+                      <input class="form-check-input" type="checkbox" value="" id="editIsLastPallet" readonly/>
+                      <label class="form-check-label" for="editIsLastPallet">เป็นพาเลทสุดท้าย</label>
+                    </li>
+                  </ul>
+                </div>
+                <div class="form-input">
+                  <label for="checkbox" class="form-label"><span>สถานะรอแห้ง</span></label>
+                  <ul class="input-list">
+                    <li class="list-group-item d-flex align-items-center gap-2">
+                      <input class="form-check-input" type="checkbox" id="editDryFinishTime" readonly/>
+                      <input type="text" class="form-control" id="editWaitDryHr" placeholder="เวลา (ชม.)" readonly>
+                    </li>
+                  </ul>
+                </div>
+                <div class="form-input">
+                  <label for="checkbox" class="form-label"><span>สถานะส่งผลิตข้างนอก</span></label>
+                  <ul class="input-list">
+                    <li class="list-group-item">
+                      <input class="form-check-input" type="checkbox" value="" id="editIsSendOut" readonly/>
+                      <label class="form-check-label" for="editIsSendOut">ส่งผลิตข้างนอก</label>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-sm btn-success SAVE" id="saveEditRowPallet">SAVE</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="modal fade"
+      id="addModal"
+      tabindex="-1"
+      aria-labelledby="editModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div id="addForm" class="modal-content medium">
+          <div class="modal-header">
+            <h5 class="modal-title" id="editModalLabel">ADD DATA</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+
+          <div class="modal-body">
+            <div class="form-input-group">
+              <input type="hidden" id="editRowIndex" />
+              <input type="hidden" id="jobQty" required readonly/>
+              <input type="hidden" id="trimDetail" readonly/>
+              <input type="hidden" id="trimSize" readonly/>
+              <input type="hidden" id="trimHeight" readonly/>
+              <input type="hidden" id="trimData" readonly/>
+
+              <div class="custom-input-group full-width">
+                <div class="form-input">
+                  <label class="form-label"><span>PLAN ID</span></label>
+                  <select class="form-control dropdown-select2 planId" required></select>
+                </div>
+                <div class="form-input">
+                  <label for="planDate" class="form-label">
+                    <span>Plan Date</span>
+                  </label>
+                  <span id="planDate"></span>
+                </div>
+              </div>
+
+              <div class="custom-input-group full-width">
+                <div class="form-input span-2">
+                  <label for="jobId" class="form-label"><span>Job ID</span></label>
+                  <input type="text" class="form-control" id="jobId" placeholder="" required readonly/>
+                </div>
+                <div class="form-input">
+                  <label for="partName" class="form-label"><span>ชิ้นส่วน</span></label>
+                  <input type="text"class="form-control" id="partName" required readonly/>
+                </div>
+              </div>
+
+              <div class="custom-input-group full-width">
+                <div class="form-input">
+                  <label class="form-label"><span>MACHINE</span></label>
+                  <select class="form-control dropdown-select2 machineId" id="machineId" required reaonly ></select>
+                </div>
+                <div class="form-input span-2">
+                  <label for="nextMachineId" class="form-label"><span>Next MACHINE</span></label>
+                  <input type="text" class="form-control autocomplete-input" id="nextMachineId" required readonly/>
+                </div>
+              </div>
+
+
+              <div class="custom-input-group full-width">
+                <div class="form-input span-2">
+                  <label for="processId" class="form-label"><span>Process</span></label>
+                  <input type="text" class="form-control" id="processId" required readonly/>
+                </div>
+                <div class="form-input span-2">
+                  <label for="nextProcessId" class="form-label"><span>Next Process</span></label>
+                  <input type="text" class="form-control" id="nextProcessId" required readonly/>
+                </div>
+              </div>
+
+              <div class="custom-input-group full-width">
+                <div class="form-input span-2">
+                  <label for="zoneCode" class="form-label"><span>Zone</span></label>
+                  <input type="text" class="form-control" id="zoneCode" required readonly/>
+                </div>
+                <div class="form-input span-2">
+                  <label for="nextZoneCode" class="form-label"><span>Next Zone</span></label>
+                  <input type="text" class="form-control" id="nextZoneCode" required readonly/>
+                </div>
+              </div> 
+
+              <div class="custom-input-group full-width">
+                <div class="form-input span-1">
+                  <label for="qty" class="form-label"><span>จำนวน (Qty)</span></label>
+                  <input type="text" class="form-control number-input" id="qty" placeholder="0" data-min="1" required/>
+                </div>
+                <div class="form-input">
+                  <label for="sig" class="form-label"><span>ยก</span></label>
+                  <input type="text" class="form-control number-input" id="sig" placeholder="0" data-min="1" required/>
+                </div>
+                <div class="form-input">
+                  <label for="sigFolding" class="form-label"><span>ยกพับ</span></label>
+                  <input type="text" class="form-control" id="sigFolding" />
+                </div>
+                <div class="form-input">
+                  <label for="detailSigFolding" class="form-label"><span>รายละเอียดยก</span></label>
+                  <input type="text" class="form-control" id="detailSigFolding"/>
+                </div>
+              </div>
+
+              <div class="custom-input-group full-width">
+                <div class="form-input">
+                    <div class="form-input">
+                      <label class="form-label"><span>ช่างพิมพ์</span></label>
+                      <select class="form-control dropdown-select2 technicianId" id="technicianId" required></select>
+                    </div>
+                </div>
+                <div class="form-input">
+                  <label class="form-label"><span>ประเภทพาเลท</span></label>
+                  <select class="form-control dropdown-select2 palletType" id="palletType" required></select>
+                </div>
+              </div>
+              <div class="custom-input-group full-width">
+                <div class="form-input">
+                  <label for="timesheetRemark" class="form-label"><span>หมายเหตุ</span></label>
+                  <input type="text" class="form-control" id="timesheetRemark"/>
+                </div>
+              </div>
+              <div class="custom-input-group full-width">
+                <div class="form-input">
+                  <label for="checkbox" class="form-label"><span>ลำดับพาเลท</span></label>
+                  <ul class="input-list">
+                    <li class="list-group-item">
+                      <input class="form-check-input" type="checkbox" value="" id="isLastPallet" />
+                      <label class="form-check-label" for="isLastPallet">เป็นพาเลทสุดท้าย</label>
+                    </li>
+                  </ul>
+                </div>
+                <div class="form-input">
+                  <label for="checkbox" class="form-label"><span>สถานะรอแห้ง</span></label>
+                  <ul class="input-list">
+                    <li class="list-group-item d-flex align-items-center gap-2">
+                      <input class="form-check-input" type="checkbox" id="dryFinishTime">
+                      <input type="text" class="form-control number-input" id="waitDryHr" placeholder="เวลา (ชม.)" readonly>
+                    </li>
+                  </ul>
+                </div>
+                <div class="form-input">
+                  <label for="checkbox" class="form-label"><span>สถานะส่งผลิตข้างนอก</span></label>
+                  <ul class="input-list">
+                    <li class="list-group-item">
+                      <input class="form-check-input" type="checkbox" value="" id="isSendOut" />
+                      <label class="form-check-label" for="isSendOut">ส่งผลิตข้างนอก</label>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="modal-footer">
+            <button type="button" id="addRowData" class="btn btn-sm btn-success ADD">SAVE</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- <script>
+  var JOBS;
+  $(async function(){
+    const showRowsInit = 22;
+    let showRows = showRowsInit;
+
+    JOBS = await PlPalletInstance.getSelectJobData();
+
+    const showRowsOptions = [
+      { text: 'ALL', value: 'ALL' },
+      { text: '15', value: 15 },
+      { text: '22', value: 22 },
+      { text: '25', value: 25 },
+      { text: '50', value: 50 },
+      { text: '100', value: 100 },
+      { text: '300', value: 300 },
+      { text: '500', value: 500 },
+    ];
+    $('.showRows').dropdownSelect2({
+      options: showRowsOptions,
+      selectedValue: showRowsInit,
+      allowClear: false,
+    });
+  
+    $('#showRows').on('change', function () {
+      const selectedValue = $(this).val();
+      showRows = selectedValue;
+      myTable.rowsPerPage = (showRows == "ALL")? 1000 : showRows;
+      myTable.goToPage(1);
+    });
+
+    const dataSource = async (page, pageSize) => {
+      const response = await PlPalletInstance.getPallet(page, pageSize);
+      const mergedData = response.data.data.map(p => ({
+        ...p,
+        job_name: JOBS.data.find(j => j.job_id === p.job_id)?.job_name || ''
+      }));
+      return { total: response.data.total, data: mergedData };
+    };
+    const myTable = new Table({
+      dataSource: dataSource,
+      columns: [
+        {
+          text: 'Pallet Code',
+          dataField: 'pallet_code',
+          width: '7%',
+          pinned: true,
+          align: 'center',
+          cellsrenderer: function (_row, _columnfield, value, _defaulthtml, _columnproperties, rowdata) {
+            return `
+                <div class="status-container">
+                  <button type="button" class="btn btn-sm btn-link print-pallet" data-pallet-code="${rowdata.pallet_code}"> ${value} </button>
+                </div>
+            `;
+          }
+        },
+        {
+          text: 'ลำดับพาเลท',
+          dataField: 'pallet_number',
+          cellsformat: 'N',
+          width: '6%',
+          pinned: true,
+          align: 'center',
+          cellsalign: 'center'
+        },
+        {
+          text: 'Job',
+          dataField: 'job_id',
+          width: '16%',
+          align: 'start',
+          filtertype: 'list',
+          cellsrenderer: function (_row, _columnfield, value, _defaulthtml, _columnproperties, rowdata) {
+            return `
+              <div class="column-text" title="${rowdata.job_id}${rowdata.job_name ? ' : ' + rowdata.job_name : ''}">
+                <span>
+                  ${rowdata.job_id}${rowdata.job_name ? ' : ' + rowdata.job_name : ''}
+                </span>
+              </div>
+            `;
+          }
+        },
+        {
+          text: 'Plan',
+          dataField: 'plan_id',
+          width: '6%',
+          align: 'start',
+          filtertype: 'list',
+        },
+        {
+          text: 'ชิ้นส่วน',
+          dataField: 'part_name',
+          width: '16%',
+          align: 'start',
+          filtertype: 'list',
+        },
+        {
+          text: 'ยก',
+          dataField: 'sig',
+          width: '4%',
+          align: 'start',
+          filtertype: 'list',
+        },
+        {
+          text: 'จำนวน',
+          dataField: 'qty',
+          cellsformat: 'N',
+          width: '4%',
+          align: 'end',
+          cellsalign: 'right',
+        },
+        {
+          text: 'สะสม',
+          dataField: 'accumulate_qty',
+          cellsformat: 'N',
+          width: '5%',
+          align: 'end',
+          cellsalign: 'right',
+        },
+        {
+          text: 'ขั้นตอน',
+          dataField: 'process_name',
+          width: '10%',
+          align: 'start',
+          filtertype: 'list',
+        },
+        {
+          text: 'Outbound',
+          dataField: 'zone_code',
+          width: '7%',
+          align: 'center',
+          cellsalign: 'center',
+          cellsrenderer: function (_row, _columnfield, value, _defaulthtml, _columnproperties, rowdata) {
+            const zoneClass = value || '';
+            return `<div class="status-container">
+                      <span class="zone_color_bg ${zoneClass}">
+                        ${value}
+                      </span>
+                    </div>
+            `;
+          }
+        },
+        {
+          text: 'Inbound',
+          dataField: 'next_zone_code',
+          width: '7%',
+          align: 'center',
+          cellsalign: 'center',
+          cellsrenderer: function (_row, _columnfield, value, _defaulthtml, _columnproperties, rowdata) {
+            const zoneClass = value || '';
+            return `<div class="status-container">
+                      <span class="zone_color_bg ${zoneClass}">
+                        ${value}
+                      </span>
+                    </div>
+            `;
+          }
+        },
+        {
+          text: 'สถานะ',
+          dataField: 'status',
+          width: '10%',
+          align: 'center',
+          editable: false,
+          filtertype: 'list',
+          cellsrenderer: function (_row, _columnfield, value) {
+            let badgeClass = 'bg-secondary';
+            if (value === 'USED') badgeClass = 'success';
+            else if (value === 'INBOUND') badgeClass = 'success';
+            else if (value === 'OUTBOUND') badgeClass = 'received';
+            else if (value === 'WAIT_DRY') badgeClass = 'pending';
+            else if (value === 'REJECT') badgeClass = 'error';
+            else if (value === 'AUTO_PASS') badgeClass = 'received';
+            else if (value === 'PENDING_QC') badgeClass = 'pending';
+            else if (value === 'CANCELLED') badgeClass = 'error';
+            return `
+                    <div class="status-container">
+                      <span class="status-badge ${badgeClass}">
+                        ${value}
+                      </span>
+                    </div>
+                  `;
+          },
+        },
+        {
+          text: 'MACHINE',
+          dataField: 'machine_id',
+          width: '5%',
+          align: 'start',
+          filtertype: 'list',
+          hidden: true
+        },
+        {
+          text: 'Next MACHINE',
+          dataField: 'next_machine_id',
+          width: '5%',
+          align: 'start',
+          filtertype: 'list',
+          hidden: true
+        },
+        {
+          text: 'Next Process ID',
+          dataField: 'next_process_name',
+          width: '5%',
+          align: 'start',
+          filtertype: 'list',
+          hidden: true
+        },
+        {
+          text: 'Process Name',
+          dataField: 'process_id',
+          width: '5%',
+          align: 'start',
+          filtertype: 'list',
+          hidden: true
+        },
+        {
+          text: 'Next Process Name',
+          dataField: 'next_process_id',
+          width: '5%',
+          align: 'start',
+          filtertype: 'list',
+          hidden: true
+        },
+        {
+          text: 'ยกพับ',
+          dataField: 'sig_folding',
+          width: '5%',
+          align: 'start',
+          filtertype: 'list',
+          hidden: true
+        },
+        {
+          text: 'Pallet Type',
+          dataField: 'pallet_type',
+          width: '5%',
+          align: 'start',
+          filtertype: 'list',
+          hidden: true
+        },
+        {
+          text: 'Last Pallet',
+          dataField: 'is_last_pallet',
+          width: '5%',
+          align: 'start',
+          filtertype: 'list',
+          hidden: true
+        },
+        {
+          text: 'Wait Dry',
+          dataField: 'dry_finish_time',
+          width: '5%',
+          align: 'start',
+          filtertype: 'list',
+          hidden: true
+        },
+        {
+          text: 'Send Out',
+          dataField: 'is_send_out',
+          width: '5%',
+          align: 'start',
+          filtertype: 'list',
+          hidden: true
+        },
+        {
+          text: 'Plan Date',
+          dataField: 'plan_date',
+          width: '5%',
+          align: 'start',
+          filtertype: 'list',
+          hidden: true
+        },
+        {
+          text: 'is_wait_dry',
+          dataField: 'is_wait_dry',
+          width: '5%',
+          align: 'start',
+          filtertype: 'list',
+          hidden: true
+        },
+        {
+          text: 'job_name',
+          dataField: 'job_name',
+          width: '5%',
+          align: 'start',
+          filtertype: 'list',
+          hidden: true
+        },
+      ],
+      // groupable: true,
+      // groups: ['productName'],
+      dataFields: [
+        { name: 'id', type: 'number' },
+        { name: 'pallet_code', type: 'string' },
+        { name: 'job_id', type: 'string' },
+        { name: 'job_name', type: 'string' },
+        { name: 'part_name', type: 'string' },
+        { name: 'plan_id', type: 'string' },
+        { name: 'pallet_number', type: 'string' },
+        { name: 'sig', type: 'number' },
+        { name: 'qty', type: 'number' },
+        { name: 'accumulate_qty', type: 'number' },
+        { name: 'process_id', type: 'number' },
+        { name: 'process_name', type: 'string' },
+        { name: 'zone_code', type: 'string' },
+        { name: 'next_zone_code', type: 'string' },
+        { name: 'status', type: 'string' },
+        { name: 'machine_id', type: 'string' },
+        { name: 'next_machine_id', type: 'string' },
+        { name: 'next_process_id', type: 'number' },
+        { name: 'next_process_name', type: 'string' },
+        { name: 'sig_folding', type: 'string' },
+        { name: 'pallet_type', type: 'string' },
+        { name: 'is_last_pallet', type: 'string' },
+        { name: 'is_wait_dry', type: 'string' },
+        { name: 'dry_finish_time', type: 'string' },
+        { name: 'is_send_out', type: 'string' },
+        { name: 'plan_date', type: 'string' },
+      ],
+      enableRowEdit: true,
+      editModalId: 'editModal',
+      onRowEdit: async (createPalletdData) => {
+      },
+      fieldMap: {
+        pallet_code: '#editPalletCode',
+      },
+      rowsPerPage: showRows,
+    });
+
+    $('#addRow').on('click', function () {
+      clearPlanForm();
+      $('#addModal').modal('show');
+    })
+
+    $('#addRowData').on('click', async () => {
+      const f = new Form({ formSelector: '#addForm' });
+      const v = f.validateInput();
+      if (!v) {
+        const planId = $('.planId').val();
+        const machineId = $('#machineId').val();
+        const technicianId = $('#technicianId').val();
+        const palletType = $('#palletType').val();
+        const qty = Number($('#qty').val());
+        const sig = Number($('#sig').val());
+        const jobId = $('#jobId').val();
+        const jobQty = $('#jobQty').val();
+        const partName = $('#partName').val();
+        const processId = $('#processId').val();
+        const nextProcessId = $('#nextProcessId').val();
+        const zoneCode = $('#zoneCode').val();
+        const nextZoneCode = $('#nextZoneCode').val();
+        const timesheetRemark = $('#timesheetRemark').val();
+
+        if (!planId) {
+          Notification.error('กรุณาเลือก PLAN ID');
+          $('.planId').focus();
+          return;
+        }
+        if (!jobId) {
+          Notification.error('กรุณากรอก Job ID');
+          $('#jobId').focus();
+          return;
+        }
+        if (!jobQty) {
+          Notification.error('ไม่มีข้อมูล Job QTY');
+          $('#jobQty').focus();
+          return;
+        }
+        if (!partName) {
+          Notification.error('กรุณากรอก ชิ้นส่วน');
+          $('#partName').focus();
+          return;
+        }
+        if (!machineId) {
+          Notification.error('กรุณาเลือก MACHINE');
+          $('#machineId').focus();
+          return;
+        }
+        if (!nextProcessId) {
+          Notification.error('กรุณากรอก Next Process');
+          $('#nextProcessId').focus();
+          return;
+        }
+        if (!processId) {
+          Notification.error('กรุณากรอก Process');
+          $('#processId').focus();
+          return;
+        }
+        if (!zoneCode) {
+          Notification.error('กรุณากรอก Zone');
+          $('#zoneCode').focus();
+          return;
+        }
+        if (!nextZoneCode) {
+          Notification.error('กรุณากรอก Next Zone');
+          $('#nextZoneCode').focus();
+          return;
+        }
+        if (!technicianId) {
+          Notification.error('กรุณาเลือก ช่างพิมพ์');
+          $('#technicianId').focus();
+          return;
+        }
+        if (!palletType) {
+          Notification.error('กรุณาเลือก ประเภทพาเลท');
+          $('#palletType').focus();
+          return;
+        }
+        if (isNaN(qty) || qty <= 0) {
+          Notification.error('กรุณากรอกจำนวน (Qty) ที่มากกว่า 0');
+          $('#qty').focus();
+          return;
+        }
+        if (isNaN(sig) || sig <= 0) {
+          Notification.error('กรุณากรอกจำนวนยก (Sig) ที่มากกว่า 0');
+          $('#sig').focus();
+          return;
+        }
+        return;
+      }
+
+      const result = await PlPalletInstance.createPallet();
+      if (!result) {
+        return;
+      }
+      const { success, data } = result;
+      if (!success) {
+        let err = (data && data[0] && data[0].path && data[0].message) ? `${data[0].path[0]} : ${data[0].message}` : data;
+        Notification.error(err);
+      } else {
+        $('#addModal').find('input').val('');
+        Notification.success();
+        $('#addModal').modal('hide');
+        clearPlanForm();
+        myTable.goToPage(1)
+      }
+    });
+
+    $('#saveEditRowPallet').on('click', async (e) => {
+      const f = new Form({ formSelector: '.form' });
+      const v = f.validateInput();
+      if (!v) {
+        const planId = $('.planId').val();
+        const machineId = $('#machineId').val();
+        const technicianId = $('#technicianId').val();
+        const palletType = $('#palletType').val();
+        const qty = Number($('#qty').val());
+        const sig = Number($('#sig').val());
+        const jobId = $('#jobId').val();
+        const partName = $('#partName').val();
+        const processId = $('#processId').val();
+        const nextProcessId = $('#nextProcessId').val();
+        const zoneCode = $('#zoneCode').val();
+        const nextZoneCode = $('#nextZoneCode').val();
+        const timesheetRemark = $('#timesheetRemark').val();
+
+        if (!planId) {
+          Notification.error('กรุณาเลือก PLAN ID');
+          $('.planId').focus();
+          return;
+        }
+        if (!jobId) {
+          Notification.error('กรุณากรอก Job ID');
+          $('#jobId').focus();
+          return;
+        }
+        if (!partName) {
+          Notification.error('กรุณากรอก ชิ้นส่วน');
+          $('#partName').focus();
+          return;
+        }
+        if (!machineId) {
+          Notification.error('กรุณาเลือก MACHINE');
+          $('#machineId').focus();
+          return;
+        }
+        if (!nextProcessId) {
+          Notification.error('กรุณากรอก Next Process');
+          $('#nextProcessId').focus();
+          return;
+        }
+        if (!processId) {
+          Notification.error('กรุณากรอก Process');
+          $('#processId').focus();
+          return;
+        }
+        if (!zoneCode) {
+          Notification.error('กรุณากรอก Zone');
+          $('#zoneCode').focus();
+          return;
+        }
+        if (!nextZoneCode) {
+          Notification.error('กรุณากรอก Next Zone');
+          $('#nextZoneCode').focus();
+          return;
+        }
+        if (!technicianId) {
+          Notification.error('กรุณาเลือก ช่างพิมพ์');
+          $('#technicianId').focus();
+          return;
+        }
+        if (!palletType) {
+          Notification.error('กรุณาเลือก ประเภทพาเลท');
+          $('#palletType').focus();
+          return;
+        }
+        if (isNaN(qty) || qty <= 0) {
+          Notification.error('กรุณากรอกจำนวน (Qty) ที่มากกว่า 0');
+          $('#qty').focus();
+          return;
+        }
+        if (isNaN(sig) || sig <= 0) {
+          Notification.error('กรุณากรอกจำนวนยก (Sig) ที่มากกว่า 0');
+          $('#sig').focus();
+          return;
+        }
+        
+        return;
+      }
+      const formData = PlElementInstance.getDataEditFormNormalized();
+      const result = await PlPalletInstance.updatePallet(formData);
+      if (!result) {
+        return;
+      }
+      const { success, data } = result;
+      if(!success){
+        Notification.error(data);
+      }else{
+        Notification.success();
+        $('#editModal').modal('hide');
+        myTable.refresh();
+      }
+    });
+
+    $('#editModal').on('show.bs.modal', async () => {
+      if (!myTable.currentEditRow) return;
+      await PlElementInstance.setData({pallet_code: myTable.currentEditRow.data.pallet_code});
+      const { success, data } = await PlPalletInstance.getPalletOne();
+      await PlElementInstance.setData(data.data[0]);
+      await PlElementInstance.renderDataForm();
+    });
+
+    $('#dryFinishTime').change(() => {
+      if ($('#dryFinishTime').is(':checked')) {
+        $('#waitDryHr').prop('readonly', false);
+        $('#waitDryHr').focus();
+      } else {
+        $('#waitDryHr').prop('readonly', true);
+        $('#waitDryHr').val('');
+      }
+    });
+
+    $('.table-grid').on('click', '.print-pallet', function(e) {
+      e.preventDefault();
+      const pallet_code = $(this).data('pallet-code');
+      const pdfUrl = `/view?module=pl&file=pl_print_pallet&folder=views&pallet_code=${pallet_code}`;
+      window.open(pdfUrl, '_blank');
+    });
+
+    Input.dropdownButton({
+      containerSelector: '#exportButtonGroup',
+      items: [
+        {
+          icon: '<i class="fa-solid fa-file-pdf"></i>',
+          label: 'Export as PDF',
+          value: 'exportPDF',
+          id: 'exportPdf',
+        },
+        {
+          icon: '<i class="fa-solid fa-file-excel"></i>',
+          label: 'Export as Excel',
+          value: 'exportExcel',
+          id: 'exportExcel',
+        },
+      ],
+      isActionButton: true,
+    });
+
+    $('#exportPdf').on('click', () => {
+      console.log('Export as PDF');
+    });
+
+    $('#exportExcel').on('click', () => {
+      console.log('Export as Excel');
+    });
+
+    Input.splitButtonDropdown({
+      containerSelector: '#actionButtonGroup',
+      normalItems: [
+        { label: '<span class="DELETE">DELETE</span>', value: 'delete', id: 'delete' },
+        { label: '<span class="CANCEL">CANCEL</span>', value: 'cancel', id: 'cancel' },
+      ],
+      moduleName: 'template',
+      menuId: '4',
+    });
+
+
+    $('.table-action').on('click', '#delete', async (e) => {
+      e.preventDefault();
+      
+      const selectedRows = myTable.getSelectedRowData(); 
+      if (!selectedRows || selectedRows.length === 0) {
+        Notification.error('กรุณาเลือกอย่างน้อย 1 แถว');
+        return;
+      }
+
+      const confirmModal = new ConfirmModal({
+        confirmHeader: 'CONFIRM DELETE',
+        confirmMessage: 'Are you sure you want to delete?',
+      });
+      const confirmModalEl = new bootstrap.Modal(document.getElementById('confirmModal'));
+      confirmModalEl.show();
+      confirmModal.onConfirm(async (isConfirm) => {
+        if (!isConfirm) return;
+        const controller = new AbortController();
+        const api = new Axios({ controller });
+        const successCodes = [];
+        const errorItems = [];
+        const deletedIds = [];
+        let isCanceled = false;
+
+        try {
+          api.showLoadingModal();    
+          await new Promise(resolve => setTimeout(resolve, 200));
+          for (let i = 0; i < selectedRows.length; i++) {
+            if (api.controller?.signal.aborted) {
+              isCanceled = true;
+              break;
+            }
+            
+            const row = selectedRows[i];
+            api.modalContent = `
+              <h5>Deleting : ${row.pallet_code}</h5>
+            `;
+            const response = await PlPalletInstance.deletePallet({ data: { pallet_code: row.pallet_code }}, api);
+            if (response === 'canceled') {
+              isCanceled = true;
+              break;
+            }
+            if (response.success === 0) {
+              errorItems.push({ code: row.pallet_code, reason: response.data });
+              break;
+            }
+            if (response.success) {
+              successCodes.push(row.pallet_code);
+              deletedIds.push(row.id);
+              api.modalContent = `
+                <h5>Deleting : ${row.pallet_code}</h5>
+              `;
+              await new Promise(resolve => setTimeout(resolve, 300));
+            } else {
+              const reason = response.data || response.message || 'Unknown reason';
+              errorItems.push({ code: row.pallet_code, reason: reason });
+              break;
+            }
+          }
+          api.hideLoading();
+          
+          if (isCanceled) {
+            if (deletedIds.length > 0) {
+              myTable.currentPageData = myTable.currentPageData.filter(row => !deletedIds.includes(row.id));
+              deletedIds.forEach(id => {
+                myTable.selectedRowIds.delete(id);
+                $(`.row-checkbox[data-row-id="${id}"]`).closest('div[role="row"]').remove();
+              });
+            }
+            if (successCodes.length > 0) {
+              Notification.success(`Delete สำเร็จ ${successCodes.length} รายการ`);   
+            } else {
+              Notification.warning('การ Delete ถูกยกเลิก');
+            }
+            return;
+          }
+            
+          if (successCodes.length > 0 && errorItems.length === 0) {
+            myTable.currentPageData = myTable.currentPageData.filter(row => !deletedIds.includes(row.id));
+            deletedIds.forEach(id => {
+              myTable.selectedRowIds.delete(id);
+            });
+            myTable.refresh();
+            myTable.clearSelection();
+            if (successCodes.length === 1) {
+              Notification.success(`${successCodes[0]} Delete สำเร็จ`);
+            } else {
+              Notification.success(`Delete สำเร็จทั้งหมด ${successCodes.length} รายการ`);
+            }
+          } else if (successCodes.length > 0 || errorItems.length > 0) {
+            if (deletedIds.length > 0) {
+              myTable.currentPageData = myTable.currentPageData.filter(row => !deletedIds.includes(row.id));
+              deletedIds.forEach(id => {
+                myTable.selectedRowIds.delete(id);
+                $(`.row-checkbox[data-row-id="${id}"]`).closest('div[role="row"]').remove();
+              });
+            }
+            let summaryHtml = '<div style="text-align: left;">';
+            if (errorItems.length > 0) {
+              summaryHtml += '<strong>Delete ไม่สำเร็จ:</strong><br>';
+              errorItems.forEach(item => {
+                summaryHtml += `${item.code} : ${item.reason}<br>`;
+              });
+            }
+            summaryHtml += '</div>';
+            Swal.fire({
+              title: 'แจ้งเตือน',
+              html: summaryHtml,
+              icon: 'warning',
+              confirmButtonText: 'OK'
+            });
+          }
+        } catch (err) {
+          console.error('Delete error:', err);
+          api.hideLoading();
+          Alert.error({ 
+            title: 'แจ้งเตือน',
+            text: err.message || 'Unknown error'
+          });
+        }
+      });
+    });
+
+    $('.table-action').on('click', '#cancel', async (e) => {
+      e.preventDefault();
+      
+      const selectedRows = myTable.getSelectedRowData(); 
+      if (!selectedRows || selectedRows.length === 0) {
+        Notification.error('กรุณาเลือกอย่างน้อย 1 แถว');
+        return;
+      }
+
+      const confirmModal = new ConfirmModal({
+        confirmHeader: 'CONFIRM CANCEL',
+        confirmMessage: 'Are you sure you want to cancel?',
+      });
+      const confirmModalEl = new bootstrap.Modal(document.getElementById('confirmModal'));
+      confirmModalEl.show();
+
+      confirmModal.onConfirm(async (isConfirm) => {
+        if (!isConfirm) return;
+        const controller = new AbortController();
+        const api = new Axios({ controller });
+        const successCodes = [];
+        const errorItems = [];
+        const updatedIds = [];
+        let isCanceled = false;
+
+        
+        try {
+          api.showLoadingModal();    
+          await new Promise(resolve => setTimeout(resolve, 200));
+
+          for (let i = 0; i < selectedRows.length; i++) {
+            if (api.controller?.signal.aborted) {
+              isCanceled = true;
+              break;
+            }
+            
+            const row = selectedRows[i];
+            api.modalContent = `
+              <h5>Cancel : ${row.pallet_code}</h5>
+            `;
+
+            const response = await PlPalletInstance.cancelPallet({ pallet_code: row.pallet_code }, api);
+
+            if (response === 'canceled') {
+              isCanceled = true;
+              break;
+            }
+            
+            if (response.success === 0) {
+              errorItems.push({ code: row.pallet_code, reason: response.data });
+              break;
+            }
+            
+            if (response.success) {
+              successCodes.push(row.pallet_code);
+              updatedIds.push(row.id);
+              
+              api.modalContent = `
+                <h5>Cancel : ${row.pallet_code}</h5>
+              `;
+              await new Promise(resolve => setTimeout(resolve, 300));
+              
+            } else {
+              const reason = response.data || response.message || 'Unknown reason';
+              errorItems.push({ code: row.pallet_code, reason: reason });
+              break;
+            }
+          }
+
+          api.hideLoading();
+          
+          if (isCanceled) {
+            if (updatedIds.length > 0) {
+              updatedIds.forEach(id => {
+                const index = myTable.currentPageData.findIndex(r => r.id === id);
+                if (index > -1) {
+                  myTable.currentPageData[index].status = 'CANCELLED';
+                }
+                const $row = $(`.row-checkbox[data-row-id="${id}"]`).closest('div[role="row"]');
+                const $statusBadge = $row.find('.status-badge');
+                $statusBadge.removeClass('received pending success bg-secondary');
+                $statusBadge.addClass('error').text('CANCELLED');
+                myTable.selectedRowIds.delete(id);
+                $(`.row-checkbox[data-row-id="${id}"]`).prop('checked', false);
+              });
+            }
+            
+            if (successCodes.length > 0) {
+              Notification.success(`Cancel สำเร็จ ${successCodes.length} รายการ`);   
+            } else {
+              Notification.warning('การ Cancel ถูกยกเลิก');
+            }
+            return;
+          }
+            
+          if (successCodes.length > 0 && errorItems.length === 0) {
+            updatedIds.forEach(id => {
+              const index = myTable.currentPageData.findIndex(r => r.id === id);
+              if (index > -1) {
+                myTable.currentPageData[index].status = 'CANCELLED';
+              }
+              const $row = $(`.row-checkbox[data-row-id="${id}"]`).closest('div[role="row"]');
+              const $statusBadge = $row.find('.status-badge');
+              $statusBadge.removeClass('received pending success bg-secondary');
+              $statusBadge.addClass('error').text('CANCELLED');
+              myTable.selectedRowIds.delete(id);
+              $(`.row-checkbox[data-row-id="${id}"]`).prop('checked', false);
+            });
+            
+            myTable.clearSelection();
+            if (successCodes.length === 1) {
+              Notification.success(`${successCodes[0]} Cancel สำเร็จ`);
+            } else {
+              Notification.success(`Cancel สำเร็จทั้งหมด ${successCodes.length} รายการ`);
+            }
+          } else if (successCodes.length > 0 || errorItems.length > 0) {
+            if (updatedIds.length > 0) {
+              updatedIds.forEach(id => {
+                const index = myTable.currentPageData.findIndex(r => r.id === id);
+                if (index > -1) {
+                  myTable.currentPageData[index].status = 'CANCELLED';
+                }
+                const $row = $(`.row-checkbox[data-row-id="${id}"]`).closest('div[role="row"]');
+                const $statusBadge = $row.find('.status-badge');
+                $statusBadge.removeClass('received pending success bg-secondary');
+                $statusBadge.addClass('error').text('CANCELLED');
+                myTable.selectedRowIds.delete(id);
+                $(`.row-checkbox[data-row-id="${id}"]`).prop('checked', false);
+              });
+            }
+
+            let summaryHtml = '<div style="text-align: left;">';
+            if (errorItems.length > 0) {
+              summaryHtml += '<strong>Cancel ไม่สำเร็จ:</strong><br>';
+              errorItems.forEach(item => {
+                summaryHtml += `${item.code} : ${item.reason}<br>`;
+              });
+            }
+            summaryHtml += '</div>';
+            Swal.fire({
+              title: 'แจ้งเตือน',
+              html: summaryHtml,
+              icon: 'warning',
+              confirmButtonText: 'OK'
+            });
+          }
+        } catch (err) {
+          console.error('Cancel error:', err);
+          api.hideLoading();
+          Alert.error({ 
+            title: 'แจ้งเตือน',
+            text: err.message || 'Unknown error'
+          });
+        }
+      });
+    });
+
+    const plans = await PlPalletInstance.getDataPlan({});
+    const selectPlan = plans.data.map(p => ({
+      text: p.plan_id,
+      value: p.plan_id
+    }));
+    $('.planId').dropdownSelect2({
+      options: selectPlan,
+      placeholder: 'เลือก Plan ID',
+      allowClear: true,
+      selectedValue: '',
+      allowSearch: true,
+      onSelect: (selected) => {
+        const selectedItem = Array.isArray(selected) ? selected[0] : selected;
+        if (!selectedItem || !selectedItem.value) {
+          updatePlanForm(null);
+          return;
+        }
+        const planInfo = plans.data.find(p => p.plan_id == selectedItem.value);
+        updatePlanForm(planInfo);
+      },
+    });
+
+    const machines = await PlMachineInstance.getSelectMachine();
+    const sortedMachines = machines.data.data.filter((obj, index, self) => index === self.findIndex(o => o.machine_id === obj.machine_id)).sort((a, b) => a.machine_id.localeCompare(b.machine_id)); 
+    const selectMachine = sortedMachines.map(p => ({
+      text: p.machine_id + ' : ' + p.machine_name,
+      value: p.machine_id
+    }));
+    $('.machineId').dropdownSelect2({
+      options: selectMachine,
+      placeholder: 'เลือก Machine',
+      allowClear: true,
+      selectedValue: '',
+      allowSearch: true,
+      onSelect: (selected) => {
+        console.log(selected);
+      },
+    });
+
+
+
+    const pallets = await PlPalletInstance.getSelectPallet();
+    const sortedPallets = pallets.data.data.sort((a, b) => b.pallet_code.localeCompare(a.pallet_code));
+    const selectPallet = sortedPallets.map(p => ({
+      text: p.pallet_code,
+      value: p.pallet_code
+    }));
+    $('.searchPallet').dropdownSelect2({
+      options: selectPallet,
+      placeholder: 'เลือก Pallet Code',
+      allowClear: true,
+      selectedValue: '',
+      allowSearch: true
+    });
+
+    const sortedJobs = pallets.data.data.filter((obj, index, self) => index === self.findIndex(o => o.job_id === obj.job_id)).sort((a, b) => b.job_id.localeCompare(a.job_id));
+    const selectJob = sortedJobs.map(p => {
+      const jobInfo = JOBS?.data?.find(j => j.job_id === p.job_id);
+      const jobName = jobInfo ? jobInfo.job_name : '';
+      const jobDisplay = jobName ? `${p.job_id} : ${jobName}` : p.job_id;
+      return {
+        text: jobDisplay,
+        value: p.job_id
+      };
+    });
+    $('.searchJob').dropdownSelect2({
+      options: selectJob,
+      placeholder: 'เลือก Job',
+      allowClear: true,
+      selectedValue: '',
+      allowSearch: true,
+    });
+
+    const sortedPlans = pallets.data.data.filter((obj, index, self) => index === self.findIndex(o => o.plan_id === obj.plan_id)).sort((a, b) => Number(b.plan_id) - Number(a.plan_id));
+    const selectPlans = sortedPlans.map(p => ({
+      text: p.plan_id,
+      value: p.plan_id
+    }));
+    $('.searchPlan').dropdownSelect2({
+      options: selectPlans,
+      placeholder: 'เลือก Plan ID',
+      allowClear: true,
+      selectedValue: '',
+      allowSearch: true,
+      onSelect: (selected) => {
+        console.log(selected);
+      },
+    });
+
+    const sortedPartName = pallets.data.data.filter((obj, index, self) => index === self.findIndex(o => o.part_name === obj.part_name)).sort((a, b) => a.part_name.localeCompare(b.part_name)); 
+    const selectPartName = sortedPartName.map(p => ({
+      text: p.part_name,
+      value: p.part_name
+    }));
+    $('.searchPartName').dropdownSelect2({
+      options: selectPartName,
+      placeholder: 'เลือกชิ้นส่วน',
+      allowClear: true,
+      selectedValue: '',
+      allowSearch: true,
+      onSelect: (selected) => {
+        console.log(selected);
+      },
+    });
+    const sortedProcess = pallets.data.data.filter((obj, index, self) => index === self.findIndex(o => o.process_name === obj.process_name)).sort((a, b) => a.process_name.localeCompare(b.process_name)); 
+    const selectProcess = sortedProcess.map(p => ({
+      text: p.process_name,
+      value: p.process_name
+    }));
+    $('.searchProcess').dropdownSelect2({
+      options: selectProcess,
+      placeholder: 'เลือกขั้นตอน',
+      allowClear: true,
+      selectedValue: '',
+      allowSearch: true,
+      onSelect: (selected) => {
+        console.log(selected);
+      },
+    });
+
+    const zones = await PlZoneInstance.getSelectZone();
+    const sortedOutbound = zones.data.data.filter((obj, index, self) => index === self.findIndex(o => o.zone_code === obj.zone_code)).sort((a, b) => a.zone_code.localeCompare(b.zone_code)); 
+    const selectOutbound = sortedOutbound.map(p => ({
+      text: p.zone_code + ' : ' + p.zone_name,
+      value: p.zone_code
+    }));
+    $('.searchOutbound').dropdownSelect2({
+      options: selectOutbound,
+      placeholder: 'เลือก ZONE',
+      allowClear: true,
+      selectedValue: '',
+      allowSearch: true,
+      onSelect: (selected) => {
+        console.log(selected);
+      },
+    });
+
+    const sortedInbound = zones.data.data.filter((obj, index, self) => index === self.findIndex(o => o.zone_code === obj.zone_code)).sort((a, b) => a.zone_code.localeCompare(b.zone_code)); 
+    const selectInbound = sortedInbound.map(p => ({
+      text: p.zone_code + ' : ' + p.zone_name,
+      value: p.zone_code
+    }));
+    $('.searchInbound').dropdownSelect2({
+      options: selectInbound,
+      placeholder: 'เลือก ZONE',
+      allowClear: true,
+      selectedValue: '',
+      allowSearch: true,
+      onSelect: (selected) => {
+        console.log(selected);
+      },
+    });
+
+    const technicianIdData = [
+      { text: 'Test1', value: '2660031' },
+      { text: 'Test2', value: '2660032' },
+    ];
+    const technicianId = technicianIdData.map(m => ({
+      text: `${m.value} : ${m.text}`,
+      value: m.value,
+    }));
+    $('.technicianId').dropdownSelect2({
+      options: technicianId,
+      placeholder: 'เลือก ช่างพิมพ์',
+      allowClear: true,
+      selectedValue: '',
+      allowSearch: true,
+      onSelect: (selected) => {
+        console.log(selected);
+      },
+    });
+
+    const statusData = [
+      { text: 'WAIT DRY', value: 'WAIT_DRY' },
+      { text: 'PENDING QC', value: 'PENDING_QC' },
+      { text: 'REJECT', value: 'REJECT' },
+      { text: 'OUTBOUND', value: 'OUTBOUND' },
+      { text: 'INBOUND', value: 'INBOUND' },
+      { text: 'CANCELLED', value: 'CANCELLED' },
+    ];            
+    const status = statusData.map(m => ({
+      text: `${m.text}`,
+      value: m.value,
+    }));
+    $('.palletStatusSearch').dropdownSelect2({
+      options: status,
+      placeholder: 'เลือก สถานะ',
+      allowClear: true,
+      selectedValue: '',
+      allowSearch: true,
+      onSelect: (selected) => {
+        console.log(selected);
+      },
+    });
+
+    const palletTypeData = [
+      { text: 'พาเลททั่วไป', value: 'พาเลททั่วไป' },
+      { text: 'พาเลทตัวอย่าง', value: 'พาเลทตัวอย่าง' },
+      { text: 'พาเลท NCR', value: 'พาเลท NCR' },
+      { text: 'Limit สีลูกค้า', value: 'Limit สีลูกค้า' },
+      { text: 'พาเลท Quarantine', value: 'พาเลท Quarantine' },
+    ];            
+    const palletType = palletTypeData.map(m => ({
+      text: `${m.text}`,
+      value: m.value,
+    }));
+    $('.palletType').dropdownSelect2({
+      options: palletType,
+      placeholder: 'เลือก ประเภทพาเลท',
+      allowClear: true,
+      selectedValue: '',
+      allowSearch: true,
+      onSelect: (selected) => {
+        console.log(selected);
+      },
+    });
+
+
+    function search() {
+      const chipContainer = $('.table-search-value');
+      $('#searchButton').on('click', () => {
+        $('.search-list-expand').toggleClass('show');
+      });
+      $('#applySearchButton').on('click', () => {
+        const palletCode = $('#searchPallet').val();
+        const jobID = $('#searchJob').val();
+        const planID = $('#searchPlan').val();
+        const sig = $('#searchSig').val();
+        const qty = $('#searchQty').val();
+        const partName = $('#searchPartName').val();
+        const process = $('#searchProcess').val();
+        const outbound = $('#searchOutbound').val();
+        const inbound = $('#searchInbound').val();
+        const status = $('#palletStatusSearch').val();
+
+        PlSearchInstance.setSearch('pl', {
+          pallet_code: palletCode,
+          job_id: jobID,
+          plan_id: planID,
+          sig,
+          qty,
+          part_name: partName,
+          process_name: process,
+          zone_code: outbound,
+          next_zone_code: inbound,
+          status,
+        });
+
+        chipContainer.empty();
+        const addChip = (label, value) => {
+          if (value) chipContainer.append(`<div class="chip"><span class="filter-chip-text">${label}: ${value}</span></div>`);
+        };
+
+        addChip('PALLET CODE', palletCode);
+        addChip('JOB', jobID);
+        addChip('PLAN', planID);
+        addChip('ยก', sig);
+        addChip('จำนวน', qty);
+        addChip('ชิ้นส่วน', partName);
+        addChip('ขั้นตอน', process);
+        addChip('OUTBOUND', outbound);
+        addChip('INBOUND', inbound);
+        addChip('STATUS', status);
+
+        myTable.loadTable(1);
+        $('.search-list-expand').removeClass('show');
+      });
+
+      $('#clearSearchButton').on('click', () => {
+        chipContainer.empty();
+
+        $('#searchPallet').val(null).trigger('change');
+        $('#searchJob').val(null).trigger('change');
+        $('#searchPlan').val(null).trigger('change');
+        $('#searchSig').val("");
+        $('#searchQty').val("");
+        $('#searchPartName').val(null).trigger('change');
+        $('#searchProcess').val(null).trigger('change');
+        $('#searchOutbound').val(null).trigger('change');
+        $('#searchInbound').val(null).trigger('change');
+        $('#palletStatusSearch').val(null).trigger('change');
+
+        PlSearchInstance.setSearch('pl',{
+          pallet_code: null,
+          job_id: null,
+          plan_id: null,
+          sig: null,
+          qty: null,
+          part_name: null,
+          process_name: null,
+          zone_code: null,
+          next_zone_code: null,
+          status: null,
+        });
+        //myTable.loadTable(1);
+        //$('.search-list-expand').removeClass('show');
+      });
+
+      $(document).on('click', (e) => {
+        if (!$(e.target).closest('.search-list-container').length) {
+          $('.search-list-expand').removeClass('show');
+        }
+      });
+      const savedPallet = PlSearchInstance.getSearch('pl');
+      loadSearchChips(savedPallet, {
+        fieldMap: {
+          pallet_code: '#searchPallet',
+          job_id: '#searchJob',
+          plan_id: '#searchPlan',
+          sig: '#searchSig',
+          qty: '#searchQty',
+          part_name: '#searchPartName',
+          process_name: '#searchProcess',
+          zone_code: '#searchOutbound',
+          next_zone_code: '#searchInbound',
+          status: '#palletStatusSearch',
+        },
+        labelMap: {
+          pallet_code: 'PALLET CODE',
+          job_id: 'JOB',
+          plan_id: 'PLAN',
+          sig: 'ยก',
+          qty: 'จำนวน',
+          part_name: 'ชิ้นส่วน',
+          process_name: 'ขั้นตอน',
+          zone_code: 'OUTBOUND',
+          next_zone_code: 'INBOUND',
+          status: 'STATUS',
+        },
+        displayFn: {
+        },
+        displayOrder: ['pallet_code','job_id','plan_id','sig','qty','part_name','process_name','zone_code','next_zone_code','status'],
+      });
+    }
+
+
+    setApproveButton();
+    finishDry();
+    search();
+
+  });
+
+  function loadSearchChips(saved, config) {
+    const chipContainer = $('.table-search-value');
+    chipContainer.empty();
+    config.displayOrder.forEach(key => {
+      const value = saved[key];
+      if (value === null || value === undefined || value === '' || value === 0) return;
+
+      const label = config.labelMap[key] || key;
+      const displayValue = config.displayFn?.[key] ? config.displayFn[key](value) : value;
+
+      chipContainer.append(
+        `<div class="chip"><span class="filter-chip-text">${label}: ${displayValue}</span></div>`
+      );
+
+      if (config.fieldMap?.[key]) {
+        const $input = $(config.fieldMap[key]);
+        const inputVal = value === null || value === undefined || value === 0 ? '' : value;
+
+        if ($input.hasClass('dropdown-select2')) {
+          if ($input.find(`option[value="${inputVal}"]`).length === 0) {
+            $input.append(new Option(inputVal, inputVal, true, true));
+          }
+          $input.val(inputVal).trigger('change.select2');
+        } else {
+          $input.val(inputVal);
+        }
+      }
+    });
+  }
+
+  function updatePlanForm(planInfo) {
+    if (!planInfo) {
+      clearPlanForm();
+      return;
+    }
+
+    const jobInfo = JOBS?.data?.find(j => j.job_id === planInfo.job_id);
+    const jobName = jobInfo ? jobInfo.job_name : '';
+    const jobDisplay = jobName ? `${planInfo.job_id} : ${jobName}` : planInfo.job_id;
+
+    $('#jobId').val(jobDisplay);
+    $('#jobId').attr('data-job-id', planInfo.job_id);
+    $('#jobQty').val(planInfo.job_qty);
+    $('#planDate').text(planInfo.plan_date);
+    $('.machineId').val(planInfo.machine_id).trigger('change');
+    $('#machineId').attr('data-machine-id', planInfo.machine_id);
+
+    $('#nextMachineId').val(planInfo.next_machine_id + ' : ' + planInfo.next_machine_name);
+    $('#nextMachineId').attr('data-next-machine-id', planInfo.next_machine_id);
+
+    $('#processId').val(planInfo.process_name);
+    $('#processId').attr('data-process-id', planInfo.process_id);
+
+    $('#nextProcessId').val(planInfo.next_process_name);
+    $('#nextProcessId').attr('data-next-process-id', planInfo.next_process_id);
+
+    $('#zoneCode').val(planInfo.zone_code + ' : ' + planInfo.zone_name);
+    $('#zoneCode').attr('data-zone-code', planInfo.zone_code);
+
+    $('#nextZoneCode').val(planInfo.next_zone_code + ' : ' + planInfo.next_zone_name);
+    $('#nextZoneCode').attr('data-next-zone-code', planInfo.next_zone_code);
+
+    $('#sig').val(planInfo.sig);
+    $('#sigFolding').val(planInfo.sig_folding);
+    $('#partName').val(planInfo.part_name);
+    $('#qty').val(planInfo.qty);
+    $('.technicianId').val(planInfo.technician_id).trigger('change');
+    $('.palletType').val(planInfo.pallet_type).trigger('change');
+    $('#timesheetRemark').val(planInfo.timesheet_remark);
+
+    const isWaitDry = planInfo.is_wait_dry == 1;
+    $('#dryFinishTime').prop('checked', isWaitDry);
+    $('#waitDryHr').prop('readonly', !isWaitDry).val(planInfo.wait_dry_hr);
+    $('#isLastPallet').prop('checked', planInfo.is_last_pallet === 'YES');
+    $('#isSendOut').prop('checked', planInfo.is_send_out === 'YES');
+    $('#editDate').text(planInfo.plan_date);
+  }
+
+  function setPlanInfo(pallet) {
+    if (!pallet) return;
+
+    $('#jobId').val(pallet.job_id);
+    $('#jobQty').val(pallet.job_qty);
+    $('#planDate').text(pallet.plan_date);
+
+    $('.machineId').val(pallet.machine_id).trigger('change');
+    $('#machineId').attr('data-machine-id', pallet.machine_id);
+
+    $('#nextMachineId').val(pallet.next_machine_id + ' : ' + pallet.next_machine_name);
+    $('#nextMachineId').attr('data-next-machine-id', pallet.next_machine_id);
+
+    $('#processId').val(pallet.process_name);
+    $('#processId').attr('data-process-id', pallet.process_id);
+
+    $('#nextProcessId').val(pallet.next_process_name);
+    $('#nextProcessId').attr('data-next-process-id', pallet.next_process_id);
+
+    $('#zoneCode').val(pallet.zone_code + ' : ' + pallet.zone_name);
+    $('#zoneCode').attr('data-zone-code', pallet.zone_code);
+
+    $('#nextZoneCode').val(pallet.next_zone_code + ' : ' + pallet.next_zone_name);
+    $('#nextZoneCode').attr('data-next-zone-code', pallet.next_zone_code);
+
+    $('#sig').val(pallet.sig);
+    $('#sigFolding').val(pallet.sig_folding);
+    $('#partName').val(pallet.part_name);
+    $('#qty').val(pallet.qty);
+    $('.technicianId').val(pallet.technician_id).trigger('change');
+    
+    $('.palletType').val(pallet.pallet_type).trigger('change');
+    $('#timesheetRemark').val(pallet.timesheet_remark);
+
+    const isWaitDry = pallet.is_wait_dry == 1;
+    $('#dryFinishTime').prop('checked', isWaitDry);
+    $('#waitDryHr').prop('readonly', !isWaitDry).val(pallet.wait_dry_hr);
+
+    $('#isLastPallet').prop('checked', pallet.is_last_pallet === 'YES');
+    $('#isSendOut').prop('checked', pallet.is_send_out === 'YES');
+
+    $('#editDate').text(pallet.plan_date);
+  }
+
+  function clearPlanForm() {
+    $('.planId').val(null).trigger('change.select2');
+    $('.machineId').val(null).trigger('change.select2');
+    $('.technicianId').val(null).trigger('change.select2');
+    $('.palletType').val(null).trigger('change.select2');
+
+    $('#jobId').val('');
+    $('#jobQty').val('');
+    $('#planDate').text('');
+    $('#machineId').val('');
+    $('#nextMachineId').val('');
+    $('#processId').val('');
+    $('#nextProcessId').val('');
+    $('#zoneCode').val('');
+    $('#nextZoneCode').val('');
+    $('#sig').val('');
+    $('#sigFolding').val('');
+    $('#partName').val('');
+    $('#qty').val('');
+    $('#dryFinishTime').prop('checked', false);
+    $('#waitDryHr').val('').prop('readonly', true);
+    $('#isLastPallet').prop('checked', false);
+    $('#isSendOut').prop('checked', false);
+    $('#editDate').text('');
+    $('#timesheetRemark').val('');
+  }
+
+  function setApproveButton() {
+    const hasAccess = elementAccess('template', '4', 'APPROVE_LIST');
+    if (!hasAccess) {
+      $('.APPROVE_LIST').text('ACTION');
+      $('.table-action-button button').removeClass('btn-success');
+      $('.table-action-button button').addClass('btn-primary');
+    }
+  }
+
+  async function finishDry() {
+    try {
+      const api = new Axios();
+      await api.post(URL + '/api/v1/pl/finish_dry');
+    } catch (err) {
+      console.error('API Error:', err);
+      Notification.error();
+    }
+  }
+
+</script>
+ -->
