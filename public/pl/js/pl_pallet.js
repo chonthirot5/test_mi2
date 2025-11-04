@@ -628,7 +628,44 @@
     });
 
     $('#exportExcel').on('click', () => {
-      console.log('Export as Excel');
+      // Get all data from table
+      const allData = myTable.getAllData ? myTable.getAllData() : myTable.getData();
+
+      if (!allData || allData.length === 0) {
+        Notification.warning('ไม่มีข้อมูลสำหรับ Export');
+        return;
+      }
+
+      // Define columns for export (only visible columns)
+      const exportColumns = [
+        { header: 'Pallet Code', dataField: 'pallet_code', width: 15 },
+        { header: 'ลำดับพาเลท', dataField: 'pallet_number', width: 12 },
+        {
+          header: 'Job',
+          dataField: 'job_id',
+          width: 25,
+          formatter: (value, row) => {
+            return row.job_name ? `${value} : ${row.job_name}` : value;
+          }
+        },
+        { header: 'Plan', dataField: 'plan_id', width: 12 },
+        { header: 'ชิ้นส่วน', dataField: 'part_name', width: 20 },
+        { header: 'ยก', dataField: 'sig', width: 10 },
+        { header: 'จำนวน', dataField: 'qty', width: 12 },
+        { header: 'สะสม', dataField: 'accumulate_qty', width: 12 },
+        { header: 'ขั้นตอน', dataField: 'process_name', width: 15 },
+        { header: 'Outbound', dataField: 'zone_code', width: 12 },
+        { header: 'Inbound', dataField: 'next_zone_code', width: 12 },
+        { header: 'สถานะ', dataField: 'status', width: 15 },
+      ];
+
+      // Export to Excel
+      ExcelExport.exportToExcel({
+        data: allData,
+        columns: exportColumns,
+        filename: 'PL_Pallet_Report',
+        sheetName: 'Pallet Data'
+      });
     });
 
     Input.splitButtonDropdown({
