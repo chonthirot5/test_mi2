@@ -490,6 +490,19 @@ class Table {
     return selectedData;
   }
 
+  getAllData() {
+    // Get all rows from jqxGrid (includes filtered data)
+    if (this.grid) {
+      return $(this.gridSelector).jqxGrid('getrows');
+    }
+    return this.currentPageData || [];
+  }
+
+  getData() {
+    // Alias for getAllData
+    return this.getAllData();
+  }
+
   clearSelectionAfterApprove() {
     this.clearSelection();
   }
